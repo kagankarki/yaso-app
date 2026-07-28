@@ -4,11 +4,6 @@ import { resolve } from 'path';
 export default defineConfig({
   build: {
     rollupOptions: {
-      // Keep Firebase CDN imports as external - don't try to bundle them
-      external: [
-        /^https:\/\/www\.gstatic\.com\/.*/,
-        /^https:\/\/unpkg\.com\/.*/
-      ],
       input: {
         main: resolve(__dirname, 'index.html'),
         business: resolve(__dirname, 'business.html'),
