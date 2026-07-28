@@ -151,4 +151,36 @@ document.addEventListener('DOMContentLoaded', () => {
     searchBox.style.borderColor = 'var(--glass-border)';
     searchBox.style.boxShadow = 'none';
   });
+
+  // Search Logic
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const val = searchInput.value.trim();
+      if (val) {
+        alert(`"${val}" için panelde arama yapılıyor... (Bu özellik yakında aktif olacak!)`);
+        searchInput.value = '';
+      }
+    }
+  });
+
+  // --- Notifications Modal ---
+  const notifBtn = document.getElementById('notif-btn');
+  const notifModal = document.getElementById('notif-modal');
+  const closeNotifBtn = document.getElementById('close-notif-btn');
+
+  if (notifBtn && notifModal) {
+    notifBtn.addEventListener('click', () => {
+      notifModal.classList.add('active');
+    });
+    
+    closeNotifBtn.addEventListener('click', () => {
+      notifModal.classList.remove('active');
+    });
+
+    notifModal.addEventListener('click', (e) => {
+      if (e.target === notifModal) {
+        notifModal.classList.remove('active');
+      }
+    });
+  }
 });

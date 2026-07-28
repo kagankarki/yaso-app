@@ -323,3 +323,36 @@ body:not(.dark-mode) .price-box {
   border-color: #ef4444;
   color: #ef4444;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+
+  .wishlist-add-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0;
+    background: transparent;
+  }
+  
+  .wishlist-input-wrapper {
+    width: 100%;
+  }
+
+  .wishlist-add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .w-card-content {
+    padding: 16px;
+  }
+
+  .w-card-prices {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

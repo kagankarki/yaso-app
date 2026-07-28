@@ -145,3 +145,38 @@
   background: var(--primary);
   border-radius: 10px;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+  }
+
+  .movie-poster {
+    height: 180px;
+  }
+
+  .movie-info {
+    padding: 12px;
+  }
+
+  .movie-info h3 {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .movie-genre {
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+  }
+
+  .movie-plot {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

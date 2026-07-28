@@ -1,112 +1,152 @@
-          <section id="genel-bakis" class="page-section active">
-            
-            <!-- Love Banner -->
-            <div class="love-banner" style="background: linear-gradient(135deg, #ff758c, #ff7eb3); border-radius: 24px; padding: 40px 30px; text-align: center; color: white; margin-bottom: 30px; box-shadow: 0 15px 30px rgba(255, 117, 140, 0.3); position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2);">
-              <div style="position: absolute; top: -30px; left: -20px; font-size: 120px; opacity: 0.15; transform: rotate(-15deg);">❤️</div>
-              <div style="position: absolute; bottom: -40px; right: -20px; font-size: 140px; opacity: 0.15; transform: rotate(15deg);">💖</div>
-              <div style="position: absolute; top: 20px; right: 40px; font-size: 40px; opacity: 0.2; animation: float 3s ease-in-out infinite;">✨</div>
-              
-              <div style="margin-bottom: 20px;">
-                <img src="./assets/icon.png" alt="SmartYasemin" style="width: 80px; height: 80px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 2px solid rgba(255,255,255,0.5); animation: float 4s ease-in-out infinite;">
-              </div>
-              
-              <h1 style="font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.2); letter-spacing: -0.5px;">Kağan Yasemini çook seviyor! 🥰</h1>
-              <p style="font-size: 1.2rem; opacity: 0.95; font-weight: 500;">Günün harika geçsin biriciğim, seni çok seviyorum...</p>
-            </div>
+<section id="genel-bakis" class="page-section active">
 
-            <div class="content-grid" style="grid-template-columns: 1fr; margin-bottom: 30px;">
-              <!-- Mood Section -->
-              <div class="glass-panel mood-panel" style="text-align: center; padding: 40px 20px; border-radius: 24px;">
-                <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 25px;">
-                  <h2 style="font-size: 1.8rem; margin: 0; background: -webkit-linear-gradient(45deg, #f59e0b, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Kanka Modum</h2>
-                  <span style="font-size: 1.8rem;">🌟</span>
-                </div>
-                <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">Bugün kendini nasıl hissediyorsun?</p>
-                
-                <div class="mood-container" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                  
-                  <button class="mood-btn" data-mood="asik" style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
-                    <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">😍</span>
-                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Aşık</span>
-                  </button>
-                  
-                  <button class="mood-btn" data-mood="mutlu" style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
-                    <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">😊</span>
-                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Mutlu</span>
-                  </button>
-                  
-                  <button class="mood-btn" data-mood="enerjik" style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
-                    <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">🤩</span>
-                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Enerjik</span>
-                  </button>
+  <!-- Love Banner -->
+  <style>
+    .banner-title { font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.2); letter-spacing: -0.5px; }
+    .banner-subtitle { font-size: 1.2rem; opacity: 0.95; font-weight: 500; }
+    @media (max-width: 768px) {
+      .banner-title { font-size: 1.8rem; }
+      .banner-subtitle { font-size: 1rem; }
+    }
+  </style>
+  <div class="love-banner"
+    style="background: linear-gradient(135deg, #ff758c, #ff7eb3); border-radius: 24px; padding: 40px 30px; text-align: center; color: white; margin-bottom: 30px; box-shadow: 0 15px 30px rgba(255, 117, 140, 0.3); position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2);">
+    <div
+      style="position: absolute; top: -30px; left: -20px; font-size: 120px; opacity: 0.15; transform: rotate(-15deg);">
+      ❤️</div>
+    <div
+      style="position: absolute; bottom: -40px; right: -20px; font-size: 140px; opacity: 0.15; transform: rotate(15deg);">
+      💖</div>
+    <div
+      style="position: absolute; top: 20px; right: 40px; font-size: 40px; opacity: 0.2; animation: float 3s ease-in-out infinite;">
+      ✨</div>
 
-                  <button class="mood-btn" data-mood="yorgun" style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
-                    <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">😮‍💨</span>
-                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Yorgun</span>
-                  </button>
+    <h1 class="banner-title">
+      Kağan Yasemini çook seviyor! 🥰</h1>
+    <p class="banner-subtitle">Günün harika geçsin biriciğim, ne olursa olsun seni
+      çok seviyorum...</p>
+  </div>
 
-                  <button class="mood-btn" data-mood="uzgun" style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
-                    <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">🥺</span>
-                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Üzgün</span>
-                  </button>
+  <div class="content-grid" style="grid-template-columns: 1fr; margin-bottom: 30px;">
+    <!-- Mood Section -->
+    <div class="glass-panel mood-panel" style="text-align: center; padding: 40px 20px; border-radius: 24px;">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 25px;">
+        <h2
+          style="font-size: 1.8rem; margin: 0; background: -webkit-linear-gradient(45deg, #f59e0b, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          Yasokuş'un Modu</h2>
+        <span style="font-size: 1.8rem;">🌟</span>
+      </div>
+      <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">Bugün kendini nasıl hissediyorsun?
+      </p>
 
-                </div>
-                
-                <div class="mood-status" style="margin-top: 35px; min-height: 28px; font-weight: 500; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;"></div>
-              </div>
-            </div>
+      <div class="mood-container" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
 
-            <style>
-              @keyframes float {
-                0% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
-                100% { transform: translateY(0px); }
-              }
-              .mood-btn:hover {
-                transform: translateY(-8px);
-                background: rgba(255, 255, 255, 0.1);
-                border-color: var(--primary-light);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-              }
-              .mood-btn.selected {
-                background: rgba(99, 102, 241, 0.15);
-                border-color: var(--primary);
-                box-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
-                transform: scale(1.05) translateY(-5px);
-              }
-              .dark-mode .mood-btn.selected {
-                background: rgba(99, 102, 241, 0.25);
-              }
-              
-              /* Mobile Responsiveness */
-              @media (max-width: 768px) {
-                .love-banner {
-                  padding: 25px 15px !important;
-                  border-radius: 16px !important;
-                }
-                .love-banner h1 {
-                  font-size: 1.8rem !important;
-                }
-                .love-banner p {
-                  font-size: 1rem !important;
-                }
-                .mood-panel {
-                  padding: 25px 15px !important;
-                  border-radius: 16px !important;
-                }
-                .mood-btn {
-                  padding: 12px 15px !important;
-                  min-width: 80px !important;
-                  gap: 8px !important;
-                  border-radius: 16px !important;
-                }
-                .mood-btn span:first-child {
-                  font-size: 2.5rem !important;
-                }
-                .mood-btn span:last-child {
-                  font-size: 0.9rem !important;
-                }
-              }
-            </style>
+        <button class="mood-btn" data-mood="asik"
+          style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
+          <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">😍</span>
+          <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Aşık</span>
+        </button>
 
-          </section>
+        <button class="mood-btn" data-mood="mutlu"
+          style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
+          <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">😊</span>
+          <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Mutlu</span>
+        </button>
+
+        <button class="mood-btn" data-mood="enerjik"
+          style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
+          <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">🤩</span>
+          <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Enerjik</span>
+        </button>
+
+        <button class="mood-btn" data-mood="yorgun"
+          style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
+          <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">😮‍💨</span>
+          <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Yorgun</span>
+        </button>
+
+        <button class="mood-btn" data-mood="uzgun"
+          style="background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: 24px; padding: 20px 25px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 110px;">
+          <span style="font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">🥺</span>
+          <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-color);">Üzgün</span>
+        </button>
+
+      </div>
+
+      <div class="mood-status"
+        style="margin-top: 35px; min-height: 28px; font-weight: 500; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .mood-btn:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--primary-light);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .mood-btn.selected {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--primary);
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
+      transform: scale(1.05) translateY(-5px);
+    }
+
+    .dark-mode .mood-btn.selected {
+      background: rgba(99, 102, 241, 0.25);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .love-banner {
+        padding: 25px 15px !important;
+        border-radius: 16px !important;
+      }
+
+      .love-banner h1 {
+        font-size: 1.8rem !important;
+      }
+
+      .love-banner p {
+        font-size: 1rem !important;
+      }
+
+      .mood-panel {
+        padding: 25px 15px !important;
+        border-radius: 16px !important;
+      }
+
+      .mood-btn {
+        padding: 12px 15px !important;
+        min-width: 80px !important;
+        gap: 8px !important;
+        border-radius: 16px !important;
+      }
+
+      .mood-btn span:first-child {
+        font-size: 2.5rem !important;
+      }
+
+      .mood-btn span:last-child {
+        font-size: 0.9rem !important;
+      }
+    }
+  </style>
+
+</section>

@@ -1,6 +1,63 @@
           <section id="ayarlar" class="page-section active">
-             <div class="glass-panel">
-              <h2>Ayarlar Yapım Aşamasında</h2>
-              <p>Hesap, tema ve bildirim ayarlarını buradan yönetebileceksin.</p>
+             <div class="glass-panel" style="max-width: 800px; margin: 0 auto; border-radius: 24px; padding: 40px;">
+              <h2 style="font-size: 2rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;">
+                <ion-icon name="settings" style="color: var(--primary);"></ion-icon> Uygulama Ayarları
+              </h2>
+              
+              <div style="display: grid; gap: 30px;">
+                
+                <!-- Profil Ayarları -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
+                  <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                    <ion-icon name="person-circle-outline"></ion-icon> Profil Ayarları
+                  </h3>
+                  <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div>
+                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">Görünen İsim</label>
+                      <input type="text" class="glass-input" value="Yasemin" style="background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color);">
+                    </div>
+                    <div>
+                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">E-Posta</label>
+                      <input type="email" class="glass-input" value="yasemin@smartyasemin.com" style="background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color);">
+                    </div>
+                    <button class="btn-primary" style="align-self: flex-start; margin-top: 10px;">Değişiklikleri Kaydet</button>
+                  </div>
+                </div>
+
+                <!-- Bildirim Tercihleri -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
+                  <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                    <ion-icon name="notifications-outline"></ion-icon> Bildirim Tercihleri
+                  </h3>
+                  <div style="display: flex; flex-direction: column; gap: 15px;">
+                    
+                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.3s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
+                      <div>
+                        <strong style="display: block;">Hatırlatıcı Bildirimleri</strong>
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Su içme, spor ve günlük alışkanlıklar.</span>
+                      </div>
+                      <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer;">
+                    </label>
+
+                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.3s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
+                      <div>
+                        <strong style="display: block;">Aşk Bildirimleri 🥰</strong>
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Özel mesajlar ve tatlı sürprizler.</span>
+                      </div>
+                      <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer;">
+                    </label>
+
+                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.3s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
+                      <div>
+                        <strong style="display: block;">Business Bildirimleri</strong>
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">İş mailleri, toplantılar ve projeler.</span>
+                      </div>
+                      <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer;">
+                    </label>
+
+                  </div>
+                </div>
+
+              </div>
             </div>
           </section>

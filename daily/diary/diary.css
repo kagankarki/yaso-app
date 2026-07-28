@@ -611,3 +611,44 @@
   background: var(--primary-light);
   color: var(--text-color);
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .diary-lock-card {
+    padding: 32px 24px;
+    width: 95%;
+  }
+
+  .diary-entry-card {
+    padding: 20px;
+  }
+
+  .diary-write-modal-content {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    transform: translateY(100%);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-overlay.active .diary-write-modal-content {
+    transform: translateY(0);
+  }
+
+  .diary-write-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .diary-write-textarea {
+    flex: 1;
+    min-height: unset;
+  }
+
+  .diary-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

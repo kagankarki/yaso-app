@@ -1206,13 +1206,16 @@ body.dark-mode .mail-list {
 
   .header-right {
     width: 100%;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 12px;
   }
 
   .search-box {
-    flex: 1;
-    margin-right: 12px;
-    padding: 8px 12px;
+    width: 100%;
+    flex: none;
+    margin-right: 0;
+    padding: 10px 14px;
   }
 
   .page-content {

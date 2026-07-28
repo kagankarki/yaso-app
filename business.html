@@ -71,15 +71,18 @@
           <div class="header-right">
             <div class="search-box">
               <ion-icon name="search-outline"></ion-icon>
-              <input type="text" placeholder="İş maillerinde ara...">
+              <input type="text" id="global-search" placeholder="İş maillerinde ara...">
             </div>
+            <a href="index.html" class="icon-btn mobile-switch" title="Daily Moduna Geç">
+              <ion-icon name="sparkles-outline"></ion-icon>
+            </a>
             <button class="icon-btn" title="Ayarlar" data-goto="ayarlar">
               <ion-icon name="settings-outline"></ion-icon>
             </button>
             <button class="icon-btn theme-toggle" title="Temayı Değiştir">
               <ion-icon name="sunny-outline"></ion-icon>
             </button>
-            <button class="icon-btn" title="İş Bildirimleri">
+            <button class="icon-btn" title="İş Bildirimleri" id="notif-btn">
               <ion-icon name="notifications-outline"></ion-icon>
               <span class="badge">1</span>
             </button>
@@ -91,6 +94,22 @@
           <!-- İçerik JavaScript ile dinamik olarak yüklenecek -->
           <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: var(--text-muted);">
             <ion-icon name="reload-outline" class="spin" style="font-size: 2.5rem;"></ion-icon>
+          </div>
+        </div>
+
+        <!-- Bildirimler Modal -->
+        <div class="modal-overlay" id="notif-modal">
+          <div class="modal-content" style="max-width: 450px; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px;">
+            <div class="modal-header">
+              <h3 style="display: flex; align-items: center; gap: 8px;"><ion-icon name="notifications" style="color: var(--primary);"></ion-icon> İş Bildirimleri</h3>
+              <button id="close-notif-btn" style="background:none; border:none; color:var(--text-color); font-size: 1.5rem; cursor:pointer;"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="notif-list" style="display: flex; flex-direction: column; gap: 15px;">
+              <div style="padding: 15px; border-radius: 16px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6;">
+                <strong style="display: block; margin-bottom: 5px;">Yeni İş Maili 💼</strong>
+                <span style="font-size: 0.9rem; color: var(--text-muted);">Gelen kutunuzda okunmamış 1 yeni mesaj var.</span>
+              </div>
+            </div>
           </div>
         </div>
       </main>
