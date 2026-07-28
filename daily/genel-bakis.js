@@ -1,10 +1,29 @@
-import { db, collection, addDoc, serverTimestamp } from '../firebase-config.js';
+import { db, collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs } from '../firebase-config.js';
 
-export function initializeGenelBakisLogic() {
+export async function initializeGenelBakisLogic() {
   const moodBtns = document.querySelectorAll('.mood-btn');
   const moodStatus = document.querySelector('.mood-status');
 
   if (moodBtns.length === 0) return;
+
+  // Load the latest mood
+  try {
+    const q = query(collection(db, 'myMode'), orderBy('timestamp', 'desc'), limit(1));
+    const querySnapshot = await getDocs(q);
+    
+    if (!querySnapshot.empty) {
+      const latestMoodData = querySnapshot.docs[0].data();
+      const latestMood = latestMoodData.mood;
+      
+      moodBtns.forEach(b => {
+        if (b.dataset.mood === latestMood) {
+          b.classList.add('selected');
+        }
+      });
+    }
+  } catch (error) {
+    console.error('Mood yüklenirken hata:', error);
+  }
 
   moodBtns.forEach(btn => {
     btn.addEventListener('click', async () => {
