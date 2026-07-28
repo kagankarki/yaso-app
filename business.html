@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartYasemin | Business</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons for beautiful icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body class="dark-mode business-mode">
+    <div class="app-container">
+      
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <ion-icon name="briefcase"></ion-icon>
+            <div class="logo-text">
+              <span>SmartYasemin</span>
+              <span class="logo-badge">Business</span>
+            </div>
+          </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">İŞ ARAÇLARI</div>
+          <a href="#" class="nav-item active" data-page="business/gelen-kutusu">
+            <ion-icon name="mail-unread-outline"></ion-icon>
+            <span>Gelen Kutusu</span>
+          </a>
+          <!-- İleride buraya Proje Yönetimi, Finans vb. sekmeler eklenebilir -->
+        </nav>
+        
+        <div class="sidebar-footer">
+          <div class="user-card">
+            <div class="avatar">Y</div>
+            <div class="user-info">
+              <span class="user-name">Yasemin</span>
+              <span class="user-role">Business Yönetici</span>
+            </div>
+          </div>
+          
+          <a href="index.html" class="workspace-switcher personal-ws">
+            <div class="ws-icon">
+              <ion-icon name="person"></ion-icon>
+            </div>
+            <div class="ws-info">
+              <span class="ws-title">Kişisel Mod</span>
+              <span class="ws-subtitle">Daily alanına dön</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="ws-arrow"></ion-icon>
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        
+        <!-- HEADER -->
+        <header class="top-header">
+          <div class="header-left">
+            <h1 id="page-title">Gelen Kutusu</h1>
+            <p id="current-date" class="date-text">12 Temmuz, Cuma</p>
+          </div>
+          <div class="header-right">
+            <div class="search-box">
+              <ion-icon name="search-outline"></ion-icon>
+              <input type="text" placeholder="İş maillerinde ara...">
+            </div>
+            <button class="icon-btn" title="Ayarlar" data-goto="ayarlar">
+              <ion-icon name="settings-outline"></ion-icon>
+            </button>
+            <button class="icon-btn theme-toggle" title="Temayı Değiştir">
+              <ion-icon name="sunny-outline"></ion-icon>
+            </button>
+            <button class="icon-btn" title="İş Bildirimleri">
+              <ion-icon name="notifications-outline"></ion-icon>
+              <span class="badge">1</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- PAGE CONTENT CONTAINER -->
+        <div class="page-content" id="dynamic-content">
+          <!-- İçerik JavaScript ile dinamik olarak yüklenecek -->
+          <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: var(--text-muted);">
+            <ion-icon name="reload-outline" class="spin" style="font-size: 2.5rem;"></ion-icon>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="./business-main.js"></script>
+  </body>
+</html>

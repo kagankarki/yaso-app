@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartYasemin | Yönetim Paneli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons for beautiful icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./daily/film/film.css">
+    <link rel="stylesheet" href="./daily/diary/diary.css">
+    <link rel="stylesheet" href="./daily/wishList/wishlist.css">
+  </head>
+  <body class="dark-mode">
+    <div class="app-container">
+      
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <ion-icon name="sparkles"></ion-icon>
+            <div class="logo-text">
+              <span>SmartYasemin</span>
+              <span class="logo-badge">Daily</span>
+            </div>
+          </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">DAILY</div>
+          <a href="#" class="nav-item active" data-page="daily/genel-bakis">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Genel Bakış</span>
+          </a>
+          <a href="#" class="nav-item" data-page="daily/film/film-oner">
+            <ion-icon name="film-outline"></ion-icon>
+            <span>Film Önerileri</span>
+          </a>
+          <a href="#" class="nav-item" data-page="daily/wishList/wishlist">
+            <ion-icon name="cart-outline"></ion-icon>
+            <span>Alışveriş Takipçim</span>
+          </a>
+          <a href="#" class="nav-item" data-page="daily/diary/diary">
+            <ion-icon name="book-outline"></ion-icon>
+            <span>Günlüğüm</span>
+          </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+          <div class="user-card">
+            <div class="avatar">Y</div>
+            <div class="user-info">
+              <span class="user-name">Yasemin</span>
+              <span class="user-role">Süper Yönetici</span>
+            </div>
+          </div>
+          
+          <a href="business.html" class="workspace-switcher">
+            <div class="ws-icon">
+              <ion-icon name="briefcase"></ion-icon>
+            </div>
+            <div class="ws-info">
+              <span class="ws-title">Business Modu</span>
+              <span class="ws-subtitle">İş alanına geçiş yap</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="ws-arrow"></ion-icon>
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        
+        <!-- HEADER -->
+        <header class="top-header">
+          <div class="header-left">
+            <h1 id="page-title">Genel Bakış</h1>
+            <p id="current-date" class="date-text">12 Temmuz, Cuma</p>
+          </div>
+          <div class="header-right">
+            <div class="search-box">
+              <ion-icon name="search-outline"></ion-icon>
+              <input type="text" placeholder="Panelde ara...">
+            </div>
+            <!-- Ayarlar İkonu eklendi -->
+            <button class="icon-btn" title="Ayarlar" data-goto="ayarlar">
+              <ion-icon name="settings-outline"></ion-icon>
+            </button>
+            <button class="icon-btn theme-toggle" title="Temayı Değiştir">
+              <ion-icon name="sunny-outline"></ion-icon>
+            </button>
+            <button class="icon-btn" title="Bildirimler">
+              <ion-icon name="notifications-outline"></ion-icon>
+              <span class="badge">3</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- PAGE CONTENT CONTAINER -->
+        <div class="page-content" id="dynamic-content">
+          <!-- İçerik JavaScript ile dinamik olarak yüklenecek -->
+          <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: var(--text-muted);">
+            <ion-icon name="reload-outline" class="spin" style="font-size: 2rem;"></ion-icon>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

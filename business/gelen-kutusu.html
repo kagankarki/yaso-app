@@ -1,0 +1,68 @@
+          <section id="gelen-kutusu" class="page-section active">
+            <!-- Güvenlik & Bağlantı Banner'ı -->
+            <div class="security-banner glass-panel" style="margin-bottom: 24px; border-left: 4px solid var(--primary);">
+              <div style="display: flex; align-items: flex-start; gap: 16px;">
+                <ion-icon name="shield-checkmark" style="font-size: 2rem; color: var(--primary);"></ion-icon>
+                <div>
+                  <h3 style="margin-bottom: 8px;">Uçtan Uca Şifreli E-Posta Entegrasyonu (Opsiyonel)</h3>
+                  <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 16px;">
+                    Hesabınızı bağlayarak e-postalarınızı buradan yönetebilirsiniz. Bağlantı işlemi <strong>OAuth 2.0</strong> protokolü ile sağlanır ve şifreleriniz asla sistemimizde saklanmaz. Mailleriniz anlık ve şifreli olarak getirilir.
+                  </p>
+                  <button class="btn-primary"><ion-icon name="logo-google"></ion-icon> Güvenli Olarak Bağlan</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mail Arayüzü (Mockup) -->
+            <div class="mail-container glass-panel">
+              <!-- Sol Taraf: Mail Listesi -->
+              <div class="mail-list">
+                <div class="mail-list-header">
+                  <h3>Gelen Kutusu</h3>
+                  <button class="icon-btn-small"><ion-icon name="sync-outline"></ion-icon></button>
+                </div>
+                <div class="mail-items">
+                  <!-- Mail 1 -->
+                  <div class="mail-item unread active">
+                    <div class="mail-avatar">A</div>
+                    <div class="mail-preview">
+                      <div class="mail-sender">Ahmet Yılmaz <span class="mail-time">10:24</span></div>
+                      <div class="mail-subject">Proje Toplantısı Hakkında</div>
+                      <div class="mail-snippet">Merhaba Yasemin, yarınki toplantı için...</div>
+                    </div>
+                  </div>
+                  <!-- Mail 2 -->
+                  <div class="mail-item">
+                    <div class="mail-avatar" style="background: var(--primary-light); color: var(--primary);">G</div>
+                    <div class="mail-preview">
+                      <div class="mail-sender">Google Security <span class="mail-time">Dün</span></div>
+                      <div class="mail-subject">Yeni cihazdan giriş yapıldı</div>
+                      <div class="mail-snippet">Hesabınıza yeni bir Windows cihazından...</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sağ Taraf: Mail İçeriği -->
+              <div class="mail-content">
+                <div class="mail-content-header">
+                  <div class="mail-sender-info">
+                    <div class="mail-avatar">A</div>
+                    <div>
+                      <h3 style="font-size: 1.1rem;">Proje Toplantısı Hakkında</h3>
+                      <p style="color: var(--text-muted); font-size: 0.85rem;">Ahmet Yılmaz &lt;ahmet@sirket.com&gt; gönderdi</p>
+                    </div>
+                  </div>
+                  <div class="mail-actions">
+                    <button class="icon-btn-small"><ion-icon name="arrow-undo-outline"></ion-icon></button>
+                    <button class="icon-btn-small delete"><ion-icon name="trash-outline"></ion-icon></button>
+                  </div>
+                </div>
+                <div class="mail-body">
+                  <p>Merhaba Yasemin,</p><br>
+                  <p>Yarınki tasarım değerlendirme toplantısını saat 14:00'e alabilir miyiz? Ekteki sunumu inceleyip geri dönüş yaparsan çok sevinirim.</p><br>
+                  <p>İyi çalışmalar.</p>
+                </div>
+              </div>
+            </div>
+          </section>

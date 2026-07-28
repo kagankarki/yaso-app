@@ -1,0 +1,325 @@
+/* ============================
+   WISHLIST - Alışveriş Takipçim
+   ============================ */
+
+/* Header Area */
+.wishlist-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.wishlist-intro h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  background: linear-gradient(to right, var(--primary), #10b981);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.wishlist-intro p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.wishlist-stats {
+  display: flex;
+  gap: 24px;
+}
+
+.w-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.w-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+.w-stat-value.text-green {
+  color: #10b981;
+}
+
+.w-stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* Add Box (Link Input) */
+.wishlist-add-box {
+  margin-bottom: 40px;
+  padding: 16px;
+  border-radius: 24px;
+}
+
+.wishlist-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 8px 8px 8px 20px;
+  transition: var(--transition);
+}
+
+body:not(.dark-mode) .wishlist-input-wrapper {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.wishlist-input-wrapper:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.wishlist-input-wrapper > ion-icon {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+.wishlist-input-wrapper input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  padding: 12px 16px;
+  font-family: inherit;
+}
+
+.wishlist-input-wrapper input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.wishlist-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wishlist-add-btn ion-icon {
+  font-size: 1.3rem;
+}
+
+.wishlist-add-btn:hover {
+  background: var(--primary-hover);
+  transform: scale(1.02);
+}
+
+/* Grid Layout */
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+/* Product Card */
+.wishlist-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+}
+
+.wishlist-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary-light);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.w-card-image {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #fff; /* Always white bg for product images to look clean */
+}
+
+.w-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 20px;
+  transition: transform 0.5s ease;
+}
+
+.wishlist-card:hover .w-card-image img {
+  transform: scale(1.08);
+}
+
+.w-card-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7); /* Default background for unknown stores */
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.w-card-badge.trendyol { background: #f27a1a; }
+.w-card-badge.hepsiburada { background: #ff6000; }
+.w-card-badge.amazon { background: #ff9900; color: #000; }
+
+.w-card-discount {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #ef4444;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+  animation: pulseDiscount 2s infinite;
+}
+
+@keyframes pulseDiscount {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.w-card-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.w-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.4;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.w-card-prices {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  margin-top: auto;
+}
+
+.price-box {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+body:not(.dark-mode) .price-box {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.price-box.current {
+  border-left: 3px solid var(--primary);
+}
+
+.price-box.target {
+  border-left: 3px solid #10b981;
+}
+
+.price-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.price-amount {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+.w-card-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.w-btn-outline {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-color);
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.w-btn-outline:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.w-btn-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.w-btn-icon:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
+}
