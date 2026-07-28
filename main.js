@@ -125,8 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Bind sidebar nav clicks
   navItems.forEach(item => {
     item.addEventListener('click', (e) => {
+      if (item.classList.contains('trigger-workspace-modal')) return; // Mod Seç menüsüne tıklayınca hata vermemesi için
+      
       e.preventDefault();
       const pageId = item.dataset.page;
+      if (!pageId) return; // pageId yoksa (örneğin sadece ikon olan bir butonse) hiçbir şey yapma
+      
       const title = item.querySelector('span').textContent;
       navigateTo(pageId, title);
     });
