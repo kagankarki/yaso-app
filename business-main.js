@@ -1,4 +1,9 @@
+import { initializeYasoAILogic } from './yaso-ai.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize YasoAI Assistant Widget
+  initializeYasoAILogic();
+
   // --- Navigation & Page Routing (SPA Dynamic Load for Business Mode) ---
   const navItems = document.querySelectorAll('.nav-item');
   const pageTitle = document.getElementById('page-title');

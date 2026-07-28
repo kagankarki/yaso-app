@@ -677,3 +677,55 @@
     border-radius: 20px;
   }
 }
+
+/* AI Reply Box in Diary Card */
+.diary-ai-reply {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(236, 72, 153, 0.12));
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 14px;
+}
+
+.diary-ai-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #8b5cf6;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.diary-ai-text {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
+}
+
+.diary-generate-ai-btn {
+  margin-top: 14px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: #8b5cf6;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.diary-generate-ai-btn:hover {
+  background: #8b5cf6;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}

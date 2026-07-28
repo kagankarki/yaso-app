@@ -1,0 +1,112 @@
+<section id="zaman-tuneli-page" class="page-section active">
+  <div class="love-page-container">
+
+    <!-- Hero Banner -->
+    <div class="love-hero-banner" style="background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #ff4b72 100%); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.35); border-radius: 28px; padding: 30px; margin-bottom: 25px; position: relative; overflow: hidden; color: white;">
+      <div class="bg-floating-heart heart-top-left" style="position: absolute; top: 15px; left: 20px; font-size: 2rem; opacity: 0.3;">📸</div>
+      <div class="bg-floating-heart heart-bottom-right" style="position: absolute; bottom: 15px; right: 20px; font-size: 2rem; opacity: 0.3;">✨</div>
+      <h1 class="love-hero-title" style="margin: 0 0 8px 0; font-size: 2rem; font-weight: 800;">Bizim Zaman Tünelimiz ⏳</h1>
+      <p class="love-hero-subtitle" style="margin: 0; font-size: 1.05rem; opacity: 0.95;">Birlikte yazdığımız hikayemiz, unutulmaz anlarımız ve hatıra albümümüz...</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="glass-panel" style="border-radius: 28px; padding: 30px;">
+      
+      <!-- Top Action Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+        <div class="love-card-title" style="font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--text-color);">
+          <ion-icon name="journal" style="color: #ff4b72; font-size: 1.8rem;"></ion-icon>
+          <span>Anı Akışı & Hikayelerimiz</span>
+        </div>
+        
+        <button class="add-milestone-btn" id="open-add-milestone-btn" style="padding: 12px 24px; font-size: 1rem; border-radius: 16px; background: linear-gradient(135deg, #ff4b72, #ec4899); color: white; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(255, 75, 114, 0.35); transition: transform 0.2s;">
+          <ion-icon name="add-circle" style="font-size: 1.3rem;"></ion-icon>
+          <span>Yeni Anı & Fotoğraf Ekle</span>
+        </button>
+      </div>
+
+      <!-- Timeline Feed Container -->
+      <div class="milestone-timeline" id="milestones-container" style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Milestones rendered via JavaScript -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Add Milestone Modal -->
+  <div class="modal-overlay" id="add-milestone-modal">
+    <div class="love-modal-content" style="max-width: 550px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="margin: 0; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; color: var(--text-color);">
+          <ion-icon name="camera" style="color: #ff4b72;"></ion-icon> Yeni Anı & Fotoğraf Ekle
+        </h3>
+        <button id="close-milestone-modal-btn" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;">&times;</button>
+      </div>
+      
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Anı Başlığı</label>
+            <input type="text" id="ms-title-input" class="glass-input" placeholder="Örn: İlk Tatilimiz 🌊" style="width: 100%; padding: 12px; border-radius: 10px;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Kategori</label>
+            <select id="ms-category-input" class="glass-input" style="width: 100%; padding: 12px; border-radius: 10px; color: var(--text-color); background: rgba(0,0,0,0.2);">
+              <option value="Aşk">❤️ Aşk</option>
+              <option value="Özel Gün">🎉 Özel Gün</option>
+              <option value="Gezi">✈️ Gezi</option>
+              <option value="Mimari">📐 Mimari</option>
+              <option value="Sürpriz">🎁 Sürpriz</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Tarih</label>
+            <input type="date" id="ms-date-input" class="glass-input" style="width: 100%; padding: 12px; border-radius: 10px;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Ruh Hali / Emoji</label>
+            <input type="text" id="ms-emoji-input" class="glass-input" placeholder="🥰 / ☕ / 🍕 / 🥂" style="width: 100%; padding: 12px; border-radius: 10px;">
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Hikaye / Detaylı Not</label>
+          <textarea id="ms-desc-input" class="glass-input" rows="4" placeholder="O gün tam olarak neler yaşandı? Hikayeyi detaylıca yaz..." style="width: 100%; padding: 12px; border-radius: 10px; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Photo Upload Box (File or URL) -->
+        <div style="background: rgba(255, 75, 114, 0.05); border: 2px dashed rgba(255, 75, 114, 0.3); border-radius: 16px; padding: 16px; text-align: center;">
+          <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-color); margin-bottom: 8px;">Fotoğraf Yükle (İsteğe Bağlı) 📸</label>
+          
+          <input type="file" id="ms-file-input" accept="image/*" style="display: none;">
+          <button id="trigger-ms-file-btn" type="button" class="btn-primary" style="margin: 0 auto 10px; padding: 8px 18px; font-size: 0.9rem; border-radius: 12px; background: linear-gradient(135deg, #ff4b72, #ec4899);">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <span>Cihazdan Fotoğraf Seç</span>
+          </button>
+
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 6px 0;">veya Fotoğraf Bağlantısı (URL) Yapıştır:</p>
+          <input type="text" id="ms-photo-input" class="glass-input" placeholder="https://..." style="width: 100%; padding: 10px; border-radius: 8px; font-size: 0.85rem;">
+
+          <div id="ms-photo-preview-box" style="display: none; margin-top: 12px; position: relative;">
+            <img id="ms-photo-preview-img" src="" style="width: 100%; max-height: 160px; object-fit: cover; border-radius: 12px; border: 1px solid var(--glass-border);">
+            <button id="remove-ms-photo-btn" type="button" style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer;">&times;</button>
+          </div>
+        </div>
+
+        <button id="save-milestone-btn" class="surprise-btn" style="width: 100%; margin-top: 10px; justify-content: center; font-size: 1.05rem;">Anıyı Zaman Tüneline Kaydet ❤️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Photo Lightbox Modal -->
+  <div class="modal-overlay" id="photo-lightbox-modal">
+    <div style="position: relative; max-width: 90vw; max-height: 90vh;">
+      <button id="close-lightbox-btn" style="position: absolute; top: -40px; right: 0; background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">&times;</button>
+      <img id="lightbox-img" src="" style="max-width: 100%; max-height: 85vh; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); object-fit: contain;">
+    </div>
+  </div>
+
+</section>

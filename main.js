@@ -2,6 +2,9 @@ import { initializeFilmOnerLogic } from './daily/film/film-oner.js';
 import { initializeDiaryLogic } from './daily/diary/diary.js';
 import { initializeWishlistLogic } from './daily/wishList/wishlist.js';
 import { initializeGenelBakisLogic } from './daily/genel-bakis.js';
+import { initializeLoveLogic } from './daily/love/love.js';
+import { initializeWardrobeLogic } from './daily/wardrobe/wardrobe.js';
+import { initializeYasoAILogic } from './yaso-ai.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- Navigation & Page Routing (SPA Dynamic Load) ---
@@ -19,36 +22,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Update title
-    if (title) {
+    if (title && pageTitle) {
       pageTitle.textContent = title;
     }
 
-    // Show loading state
-    dynamicContent.innerHTML = `
-      <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: var(--text-muted);">
-        <ion-icon name="reload-outline" class="spin" style="font-size: 2.5rem;"></ion-icon>
-      </div>
-    `;
-
     try {
-      // Fetch the HTML content dynamically
-      const response = await fetch(`/${pageId}.html`);
-      if (!response.ok) throw new Error('Sayfa bulunamadı');
+      const cleanPath = pageId.replace(/^\//, '');
+      const response = await fetch(`/${cleanPath}.html`);
+      if (!response.ok) throw new Error(`Sayfa bulunamadı (${response.status})`);
       
       const html = await response.text();
+      dynamicContent.innerHTML = html;
       
-      // Add slight delay for visual smoothness of loading
-      setTimeout(() => {
-        dynamicContent.innerHTML = html;
+      try {
         initializeDynamicContent(pageId);
-      }, 300);
+      } catch (initErr) {
+        console.warn("Sayfa mantık başlatma uyarısı:", initErr);
+      }
 
     } catch (error) {
+      console.error("Sayfa yükleme hatası:", error);
       dynamicContent.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; padding: 40px; text-align: center;">
           <ion-icon name="warning-outline" style="font-size: 3rem; margin-bottom: 16px;"></ion-icon>
           <h2>Sayfa Yüklenemedi</h2>
-          <p>${error.message}</p>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">${error.message}</p>
         </div>
       `;
     }
@@ -103,6 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
       initializeGenelBakisLogic();
     }
 
+    // Initialize Love Page Logic if present
+    const loveSection = document.getElementById('love-page');
+    if (loveSection) {
+      initializeLoveLogic();
+    }
+
+    // Initialize Wardrobe Logic if present
+    const wardrobeSection = document.getElementById('wardrobe-page');
+    if (wardrobeSection) {
+      initializeWardrobeLogic();
+    }
+
     // Initialize Ayarlar Logic if present
     const ayarlarSection = document.getElementById('ayarlar');
     if (ayarlarSection) {
@@ -148,26 +158,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.search-box input');
   const searchBox = document.querySelector('.search-box');
   
-  searchInput.addEventListener('focus', () => {
-    searchBox.style.borderColor = 'var(--primary)';
-    searchBox.style.boxShadow = '0 0 0 2px var(--primary-light)';
+  if (searchInput && searchBox) {
+    searchInput.addEventListener('focus', () => {
+      searchBox.style.borderColor = 'var(--primary)';
+      searchBox.style.boxShadow = '0 0 0 2px var(--primary-light)';
+    });
+
+    searchInput.addEventListener('blur', () => {
+      searchBox.style.borderColor = 'var(--glass-border)';
+      searchBox.style.boxShadow = 'none';
+    });
+  }
+
+  // --- Mobile Workspace Switcher Modal Logic ---
+  const workspaceModal = document.getElementById('mobile-workspace-modal');
+  const closeWorkspaceBtn = document.getElementById('close-workspace-modal-btn');
+  const triggerWorkspaceBtns = document.querySelectorAll('.trigger-workspace-modal, .logo-text');
+
+  triggerWorkspaceBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (workspaceModal) workspaceModal.classList.add('active');
+    });
   });
 
-  searchInput.addEventListener('blur', () => {
-    searchBox.style.borderColor = 'var(--glass-border)';
-    searchBox.style.boxShadow = 'none';
-  });
+  if (closeWorkspaceBtn && workspaceModal) {
+    closeWorkspaceBtn.addEventListener('click', () => workspaceModal.classList.remove('active'));
+    workspaceModal.addEventListener('click', (e) => {
+      if (e.target === workspaceModal) workspaceModal.classList.remove('active');
+    });
+  }
 
-  // Search Logic
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      const val = searchInput.value.trim();
-      if (val) {
-        alert(`"${val}" için panelde arama yapılıyor... (Bu özellik yakında aktif olacak!)`);
-        searchInput.value = '';
-      }
-    }
-  });
+  // Initialize YasoAI Assistant Widget
+  initializeYasoAILogic();
 
   // --- Notifications Modal ---
   const notifBtn = document.getElementById('notif-btn');

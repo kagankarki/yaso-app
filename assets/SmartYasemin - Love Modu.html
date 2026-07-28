@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/assets/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartYasemin - Love Modu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons for beautiful icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./love/love.css">
+  </head>
+  <body class="dark-mode love-mode">
+    <div class="app-container">
+      
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <img src="./assets/icon.png" alt="Logo" class="app-logo" style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover;">
+            <div class="logo-text">
+              <span>SmartYasemin</span>
+              <span class="logo-badge" style="color: #ff4b72;">Love</span>
+            </div>
+          </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">AŞK ARAÇLARI</div>
+          <a href="#" class="nav-item active" id="nav-bizim-kosemiz" data-page="love/love">
+            <ion-icon name="heart" style="color: #ff4b72;"></ion-icon>
+            <span>Bizim Köşemiz ❤️</span>
+          </a>
+          <a href="#" class="nav-item" id="nav-zaman-tuneli" data-page="love/zaman-tuneli">
+            <ion-icon name="time-outline" style="color: #ff4b72;"></ion-icon>
+            <span>Zaman Tüneli</span>
+          </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+          <div class="user-card">
+            <div class="avatar" style="background: linear-gradient(135deg, #ff4b72, #ec4899);">Y</div>
+            <div class="user-info">
+              <span class="user-name">Yasemin</span>
+              <span class="user-role">Kağan'ın Biriciği 🥰</span>
+            </div>
+          </div>
+          
+          <!-- Workspace Switchers -->
+          <div class="ws-switcher-grid">
+            <a href="index.html" class="ws-btn-compact daily-ws" title="Daily Modu">
+              <ion-icon name="sparkles" style="color: #a855f7;"></ion-icon>
+              <span>Daily</span>
+            </a>
+            <a href="business.html" class="ws-btn-compact business-ws" title="Business Modu">
+              <ion-icon name="briefcase" style="color: #0ea5e9;"></ion-icon>
+              <span>Business</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        
+        <!-- HEADER -->
+        <header class="top-header">
+          <div class="header-left" style="width: 100%;">
+            <div>
+              <h1 id="page-title" style="margin: 0;">Bizim Köşemiz ❤️</h1>
+              <p id="current-date" class="date-text" style="margin: 4px 0 0 0;">12 Temmuz, Cuma</p>
+            </div>
+          </div>
+          <div class="header-right">
+            <div class="search-box">
+              <ion-icon name="search-outline"></ion-icon>
+              <input type="text" id="global-search" placeholder="Aşk notlarında ara...">
+            </div>
+
+            <button class="icon-btn theme-toggle" title="Temayı Değiştir">
+              <ion-icon name="sunny-outline"></ion-icon>
+            </button>
+            <button class="icon-btn" title="Aşk Bildirimleri" id="notif-btn">
+              <ion-icon name="heart-outline" style="color: #ff4b72;"></ion-icon>
+              <span class="badge" style="background: #ff4b72;">1</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- PAGE CONTENT CONTAINER -->
+        <div class="page-content" id="dynamic-content">
+          <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: var(--text-muted);">
+            <ion-icon name="reload-outline" class="spin" style="font-size: 2.5rem;"></ion-icon>
+          </div>
+        </div>
+
+        <!-- Bildirimler Modal -->
+        <div class="modal-overlay" id="notif-modal">
+          <div class="modal-content" style="max-width: 450px; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px;">
+            <div class="modal-header">
+              <h3 style="display: flex; align-items: center; gap: 8px;"><ion-icon name="heart" style="color: #ff4b72;"></ion-icon> Aşk Bildirimleri</h3>
+              <button id="close-notif-btn" style="background:none; border:none; color:var(--text-color); font-size: 1.5rem; cursor:pointer;"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="notif-list" style="display: flex; flex-direction: column; gap: 15px;">
+              <div style="padding: 15px; border-radius: 16px; background: rgba(255, 75, 114, 0.1); border-left: 4px solid #ff4b72;">
+                <strong style="display: block; margin-bottom: 5px;">Kağan'dan Mesaj Var 🥰</strong>
+                <span style="font-size: 0.9rem; color: var(--text-muted);">"Seni çook seviyorum biriciğim, günün harika geçsin!"</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- YasoAI Floating Button & Chat Modal -->
+    <button id="yaso-ai-trigger-btn" class="yaso-ai-float-btn" title="YasoAI Asistanı">
+      <ion-icon name="sparkles"></ion-icon>
+    </button>
+
+    <div id="yaso-ai-chat-modal" class="yaso-ai-modal">
+      <div class="yaso-ai-header">
+        <h3><ion-icon name="sparkles" style="color: #a855f7;"></ion-icon> YasoAI Asistanı ✨</h3>
+        <button id="close-yaso-ai-btn" style="background:none; border:none; color:var(--text-color); font-size: 1.4rem; cursor:pointer;"><ion-icon name="close-outline"></ion-icon></button>
+      </div>
+
+      <div id="yaso-ai-messages" class="yaso-ai-messages">
+        <div class="ai-msg-bubble ai-bubble">
+          Hoş geldin aşkım! 🥰 YasoAI olarak emrindeyim birtanem, bugün ne yapıyoruz? ✨
+        </div>
+      </div>
+
+      <div id="yaso-ai-file-preview" class="file-preview-bar" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <img src="" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover;">
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Görsel eklendi (Sıkıştırıldı)</span>
+        </div>
+        <button class="remove-file-btn" style="background:none; border:none; color:#ef4444; font-weight:bold; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="yaso-ai-input-area">
+        <input type="file" id="yaso-ai-file-input" accept="image/*" style="display: none;">
+        <button id="yaso-ai-file-btn" class="icon-btn" style="width: 36px; height: 36px; font-size: 1.1rem;" title="Fotoğraf Ekle">
+          <ion-icon name="image-outline"></ion-icon>
+        </button>
+        <input type="text" id="yaso-ai-input" class="glass-input" placeholder="Bir şeyler yaz..." style="flex: 1; padding: 10px; border-radius: 12px; font-size: 0.9rem;">
+        <button id="yaso-ai-send-btn" class="btn-primary" style="padding: 10px 14px; border-radius: 12px;">
+          <ion-icon name="send-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="./love-main.js"></script>
+  </body>
+</html>

@@ -1,4 +1,40 @@
-import { db, collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc, getDoc, setDoc } from '../../firebase-config.js';
+import { db, collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc, getDoc, setDoc, updateDoc } from '../../firebase-config.js';
+
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+async function fetchGeminiDiaryComment(title, body, mood) {
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`;
+    const prompt = `Sen sevecen, tatlı, içten ve motive edici bir günlük dostusun. Kullanıcı günlüğüne şunu yazdı:
+Başlık: "${title}"
+İçerik: "${body}"
+Hisse/Mod: "${mood}"
+
+Lütfen bu yazılanlara karşılık çok kısa (en fazla 1 veya 2 cümle, 25 kelimeyi geçmeyecek şekilde), samimi, tatlı ve içten bir cevap yaz. Cevabına uygun şirin bir emoji de ekle.`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-goog-api-key': GEMINI_API_KEY
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      })
+    });
+
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    if (data.candidates && data.candidates.length > 0) {
+      return data.candidates[0].content.parts[0].text.trim();
+    }
+    return null;
+  } catch (err) {
+    console.error("Gemini günlük yorum hatası:", err);
+    return null;
+  }
+}
 
 export function initializeDiaryLogic() {
   let DIARY_PASSWORD = localStorage.getItem('diary_password') || '12345'; // Default fallback
@@ -158,7 +194,7 @@ export function initializeDiaryLogic() {
       saveNewPasswordBtn.disabled = true;
     }
 
-    // Immediately update local password & localStorage so unlocking always works!
+    // Immediately update local password & localStorage
     DIARY_PASSWORD = newPass;
     localStorage.setItem('diary_password', newPass);
 
@@ -224,7 +260,7 @@ export function initializeDiaryLogic() {
     });
   }
 
-  // --- Save Entry ---
+  // --- Save Entry with Gemini AI Reply ---
   if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
       if (!titleInput || !bodyInput) return;
@@ -238,14 +274,18 @@ export function initializeDiaryLogic() {
         return;
       }
 
-      saveBtn.innerHTML = '<ion-icon name="hourglass-outline" class="spin"></ion-icon> Kaydediliyor...';
+      saveBtn.innerHTML = '<ion-icon name="sparkles-outline" class="spin"></ion-icon> Yapay zeka yanıtlıyor...';
       saveBtn.disabled = true;
+
+      // Generate Gemini AI Reply
+      const aiResponse = await fetchGeminiDiaryComment(title, body, mood);
 
       try {
         await addDoc(collection(db, "Daily", "Diary", "entries"), {
           title,
           body,
           mood,
+          aiResponse: aiResponse || '',
           createdAt: serverTimestamp()
         });
 
@@ -309,6 +349,10 @@ async function loadDiaryEntries(grid) {
         }
       }
 
+      const safeTitle = (data.title || '').replace(/"/g, '&quot;');
+      const safeBody = (data.body || '').replace(/"/g, '&quot;');
+      const safeMood = (data.mood || '').replace(/"/g, '&quot;');
+
       html += `
       <article class="diary-entry-card" id="diary-entry-${docId}">
         <div class="diary-entry-meta">
@@ -324,11 +368,65 @@ async function loadDiaryEntries(grid) {
         </div>
         <h3 class="diary-entry-title">${data.title}</h3>
         <p class="diary-entry-body">${data.body}</p>
+
+        ${data.aiResponse ? `
+          <div class="diary-ai-reply">
+            <div class="diary-ai-header">
+              <ion-icon name="sparkles"></ion-icon>
+              <span>Canım Günlük'ten Yorum 💖</span>
+            </div>
+            <p class="diary-ai-text">${data.aiResponse}</p>
+          </div>
+        ` : `
+          <div class="diary-ai-reply-placeholder" id="ai-box-${docId}">
+            <button class="diary-generate-ai-btn generate-ai-reply-btn" data-id="${docId}" data-title="${safeTitle}" data-body="${safeBody}" data-mood="${safeMood}">
+              <ion-icon name="sparkles-outline"></ion-icon> Canım Günlük'ten Yorum Al
+            </button>
+          </div>
+        `}
       </article>
       `;
     });
     
     grid.innerHTML = html;
+
+    // Bind AI comment generator buttons for existing entries
+    grid.querySelectorAll('.generate-ai-reply-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const targetBtn = e.target.closest('.generate-ai-reply-btn');
+        if (!targetBtn) return;
+
+        const id = targetBtn.dataset.id;
+        const title = targetBtn.dataset.title || '';
+        const body = targetBtn.dataset.body || '';
+        const mood = targetBtn.dataset.mood || '';
+
+        targetBtn.innerHTML = '<ion-icon name="sparkles-outline" class="spin"></ion-icon> Düşünülüyor...';
+        targetBtn.disabled = true;
+
+        const aiReply = await fetchGeminiDiaryComment(title, body, mood);
+        const box = document.getElementById(`ai-box-${id}`);
+
+        if (aiReply && box) {
+          try {
+            await updateDoc(doc(db, "Daily", "Diary", "entries", id), { aiResponse: aiReply });
+          } catch (err) {
+            console.error("Firebase aiResponse güncelleme hatası:", err);
+          }
+          box.innerHTML = `
+            <div class="diary-ai-reply">
+              <div class="diary-ai-header">
+                <ion-icon name="sparkles"></ion-icon>
+                <span>Canım Günlük'ten Yorum 💖</span>
+              </div>
+              <p class="diary-ai-text">${aiReply}</p>
+            </div>`;
+        } else if (box) {
+          targetBtn.innerHTML = '<ion-icon name="warning-outline"></ion-icon> Yanıt alınamadı, tekrar dene';
+          targetBtn.disabled = false;
+        }
+      });
+    });
 
     // Bind delete buttons
     grid.querySelectorAll('.remove-diary-btn').forEach(btn => {

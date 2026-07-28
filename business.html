@@ -46,16 +46,17 @@
             </div>
           </div>
           
-          <a href="index.html" class="workspace-switcher personal-ws">
-            <div class="ws-icon">
-              <ion-icon name="person"></ion-icon>
-            </div>
-            <div class="ws-info">
-              <span class="ws-title">Kişisel Mod</span>
-              <span class="ws-subtitle">Daily alanına dön</span>
-            </div>
-            <ion-icon name="chevron-forward-outline" class="ws-arrow"></ion-icon>
-          </a>
+          <!-- Workspace Switchers -->
+          <div class="ws-switcher-grid">
+            <a href="index.html" class="ws-btn-compact daily-ws" title="Daily Modu">
+              <ion-icon name="sparkles" style="color: #a855f7;"></ion-icon>
+              <span>Daily</span>
+            </a>
+            <a href="love.html" class="ws-btn-compact love-ws" title="Love Modu">
+              <ion-icon name="heart" style="color: #ff4b72;"></ion-icon>
+              <span>Love</span>
+            </a>
+          </div>
         </div>
       </aside>
 
@@ -124,6 +125,46 @@
         </div>
       </main>
     </div>
+    <!-- YasoAI Floating Button & Chat Modal -->
+    <button id="yaso-ai-trigger-btn" class="yaso-ai-float-btn" title="Kağan'dan Yardım Al">
+      <img src="./assets/aiPic.png" alt="Kağan AI" class="yaso-ai-avatar-btn">
+    </button>
+
+    <div id="yaso-ai-chat-modal" class="yaso-ai-modal">
+      <div class="yaso-ai-header">
+        <h3>
+          <img src="./assets/aiPic.png" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.4);">
+          Kağan'dan Yardım Al 💡
+        </h3>
+        <button id="close-yaso-ai-btn" style="background:none; border:none; color:var(--text-color); font-size: 1.4rem; cursor:pointer;"><ion-icon name="close-outline"></ion-icon></button>
+      </div>
+
+      <div id="yaso-ai-messages" class="yaso-ai-messages">
+        <div class="ai-msg-bubble ai-bubble">
+          Hoş geldin aşkım! 🥰 YasoAI olarak emrindeyim birtanem, bugün ne yapıyoruz? ✨
+        </div>
+      </div>
+
+      <div id="yaso-ai-file-preview" class="file-preview-bar" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <img src="" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover;">
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Görsel eklendi (Sıkıştırıldı)</span>
+        </div>
+        <button class="remove-file-btn" style="background:none; border:none; color:#ef4444; font-weight:bold; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="yaso-ai-input-area">
+        <input type="file" id="yaso-ai-file-input" accept="image/*" style="display: none;">
+        <button id="yaso-ai-file-btn" class="icon-btn" style="width: 36px; height: 36px; font-size: 1.1rem;" title="Fotoğraf Ekle">
+          <ion-icon name="image-outline"></ion-icon>
+        </button>
+        <input type="text" id="yaso-ai-input" class="glass-input" placeholder="Bir şeyler yaz..." style="flex: 1; padding: 10px; border-radius: 12px; font-size: 0.9rem;">
+        <button id="yaso-ai-send-btn" class="btn-primary" style="padding: 10px 14px; border-radius: 12px;">
+          <ion-icon name="send-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+
     <script type="module" src="./business-main.js"></script>
   </body>
 </html>

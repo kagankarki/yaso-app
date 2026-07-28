@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="./daily/film/film.css">
     <link rel="stylesheet" href="./daily/diary/diary.css">
     <link rel="stylesheet" href="./daily/wishList/wishlist.css">
+    <link rel="stylesheet" href="./daily/love/love.css">
   </head>
-  <body class="dark-mode">
+  <body class="dark-mode daily-mode">
     <div class="app-container">
       
       <!-- SIDEBAR -->
@@ -49,6 +50,14 @@
             <ion-icon name="book-outline"></ion-icon>
             <span>Günlüğüm</span>
           </a>
+          <a href="#" class="nav-item" data-page="daily/wardrobe/wardrobe">
+            <ion-icon name="woman-outline"></ion-icon>
+            <span>Akıllı Gardırop</span>
+          </a>
+          <a href="#" class="nav-item trigger-workspace-modal mobile-only-nav" style="cursor: pointer;">
+            <ion-icon name="planet-outline"></ion-icon>
+            <span>Mod Seç 🌐</span>
+          </a>
         </nav>
         
         <div class="sidebar-footer">
@@ -60,16 +69,17 @@
             </div>
           </div>
           
-          <a href="business.html" class="workspace-switcher">
-            <div class="ws-icon">
-              <ion-icon name="briefcase"></ion-icon>
-            </div>
-            <div class="ws-info">
-              <span class="ws-title">Business Modu</span>
-              <span class="ws-subtitle">İş alanına geçiş yap</span>
-            </div>
-            <ion-icon name="chevron-forward-outline" class="ws-arrow"></ion-icon>
-          </a>
+          <!-- Workspace Switchers -->
+          <div class="ws-switcher-grid">
+            <a href="love.html" class="ws-btn-compact love-ws" title="Love Modu">
+              <ion-icon name="heart" style="color: #ff4b72;"></ion-icon>
+              <span>Love</span>
+            </a>
+            <a href="business.html" class="ws-btn-compact business-ws" title="Business Modu">
+              <ion-icon name="briefcase" style="color: #0ea5e9;"></ion-icon>
+              <span>Business</span>
+            </a>
+          </div>
         </div>
       </aside>
 
@@ -146,6 +156,87 @@
         </div>
       </main>
     </div>
+    <!-- YasoAI Floating Button & Chat Modal -->
+    <button id="yaso-ai-trigger-btn" class="yaso-ai-float-btn" title="Kağan'dan Yardım Al">
+      <img src="./assets/aiPic.png" alt="Kağan AI" class="yaso-ai-avatar-btn">
+    </button>
+
+    <div id="yaso-ai-chat-modal" class="yaso-ai-modal">
+      <div class="yaso-ai-header">
+        <h3>
+          <img src="./assets/aiPic.png" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.4);">
+          Kağan'dan Yardım Al 💡
+        </h3>
+        <button id="close-yaso-ai-btn" style="background:none; border:none; color:var(--text-color); font-size: 1.4rem; cursor:pointer;"><ion-icon name="close-outline"></ion-icon></button>
+      </div>
+
+      <div id="yaso-ai-messages" class="yaso-ai-messages">
+        <div class="ai-msg-bubble ai-bubble">
+          Hoş geldin aşkım! 🥰 YasoAI olarak emrindeyim birtanem, bugün ne yapıyoruz? ✨
+        </div>
+      </div>
+
+      <div id="yaso-ai-file-preview" class="file-preview-bar" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <img src="" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover;">
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Görsel eklendi (Sıkıştırıldı)</span>
+        </div>
+        <button class="remove-file-btn" style="background:none; border:none; color:#ef4444; font-weight:bold; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="yaso-ai-input-area">
+        <input type="file" id="yaso-ai-file-input" accept="image/*" style="display: none;">
+        <button id="yaso-ai-file-btn" class="icon-btn" style="width: 36px; height: 36px; font-size: 1.1rem;" title="Fotoğraf Ekle">
+          <ion-icon name="image-outline"></ion-icon>
+        </button>
+        <input type="text" id="yaso-ai-input" class="glass-input" placeholder="Bir şeyler yaz..." style="flex: 1; padding: 10px; border-radius: 12px; font-size: 0.9rem;">
+        <button id="yaso-ai-send-btn" class="btn-primary" style="padding: 10px 14px; border-radius: 12px;">
+          <ion-icon name="send-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Workspace Switcher Modal -->
+    <div class="modal-overlay" id="mobile-workspace-modal">
+      <div class="modal-content" style="max-width: 420px; text-align: center; padding: 28px 22px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h3 style="margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px; color: var(--text-color);">
+            <ion-icon name="planet-outline" style="color: #a855f7;"></ion-icon> Mod Seçiniz 🌐
+          </h3>
+          <button id="close-workspace-modal-btn" style="background:none; border:none; color:var(--text-color); font-size: 1.5rem; cursor:pointer;">&times;</button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="/index.html" class="mobile-workspace-option" style="border-color: rgba(168, 85, 247, 0.4); background: rgba(168, 85, 247, 0.1);">
+            <span style="font-size: 1.5rem;">🌸</span>
+            <div style="text-align: left; flex: 1;">
+              <div style="color: #a855f7; font-weight: 800;">Daily Modu (Günlük)</div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 400;">Film, Günlük, Gardırop, Alışveriş</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" style="color: #a855f7;"></ion-icon>
+          </a>
+
+          <a href="/business.html" class="mobile-workspace-option" style="border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.1);">
+            <span style="font-size: 1.5rem;">💼</span>
+            <div style="text-align: left; flex: 1;">
+              <div style="color: #38bdf8; font-weight: 800;">Business Modu (İş)</div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 400;">Gelen Kutusu, Projeler, Finans</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" style="color: #38bdf8;"></ion-icon>
+          </a>
+
+          <a href="/love.html" class="mobile-workspace-option" style="border-color: rgba(255, 75, 114, 0.4); background: rgba(255, 75, 114, 0.1);">
+            <span style="font-size: 1.5rem;">❤️</span>
+            <div style="text-align: left; flex: 1;">
+              <div style="color: #ff4b72; font-weight: 800;">Love Modu (Bizim Köşemiz)</div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 400;">Zaman Tüneli, Dilek Merkezi, Aşk Sayacı</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" style="color: #ff4b72;"></ion-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>
