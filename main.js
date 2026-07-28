@@ -1,6 +1,7 @@
 import { initializeFilmOnerLogic } from './daily/film/film-oner.js';
 import { initializeDiaryLogic } from './daily/diary/diary.js';
 import { initializeWishlistLogic } from './daily/wishList/wishlist.js';
+import { initializeGenelBakisLogic } from './daily/genel-bakis.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- Navigation & Page Routing (SPA Dynamic Load) ---
@@ -94,6 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const wishlistSection = document.getElementById('wishlist');
     if (wishlistSection) {
       initializeWishlistLogic();
+    }
+
+    // Initialize Genel Bakis Logic if present
+    const genelBakisSection = document.getElementById('genel-bakis');
+    if (genelBakisSection) {
+      initializeGenelBakisLogic();
     }
   }
 
