@@ -78,18 +78,22 @@
         
         <!-- HEADER -->
         <header class="top-header">
-          <div class="header-left">
-            <h1 id="page-title">Genel Bakış</h1>
-            <p id="current-date" class="date-text">12 Temmuz, Cuma</p>
+          <div class="header-left" style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+              <h1 id="page-title" style="margin: 0;">Genel Bakış</h1>
+              <a href="business.html" class="mobile-switch" style="align-items: center; gap: 6px; padding: 6px 14px; background: rgba(59, 130, 246, 0.15); color: #3b82f6; border-radius: 20px; font-size: 0.85rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
+                <ion-icon name="briefcase-outline" style="font-size: 1.1rem;"></ion-icon>
+                Business'a Geç
+              </a>
+            </div>
+            <p id="current-date" class="date-text" style="margin: 0;">12 Temmuz, Cuma</p>
           </div>
           <div class="header-right">
             <div class="search-box">
               <ion-icon name="search-outline"></ion-icon>
               <input type="text" id="global-search" placeholder="Panelde ara...">
             </div>
-            <a href="business.html" class="icon-btn mobile-switch" title="Business Moduna Geç">
-              <ion-icon name="briefcase-outline"></ion-icon>
-            </a>
+
             <button class="icon-btn" title="Ayarlar" data-goto="ayarlar">
               <ion-icon name="settings-outline"></ion-icon>
             </button>
