@@ -1,0 +1,23 @@
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        business: resolve(__dirname, 'business.html'),
+        ayarlar: resolve(__dirname, 'ayarlar.html'),
+        genelBakis: resolve(__dirname, 'daily/genel-bakis.html'),
+        istatistikler: resolve(__dirname, 'daily/istatistikler.html'),
+        wishlist: resolve(__dirname, 'daily/wishList/wishlist.html'),
+        hatirlaticilar: resolve(__dirname, 'daily/wishList/hatirlaticilar.html'),
+        izlediklerim: resolve(__dirname, 'daily/film/izlediklerim.html'),
+        filmOner: resolve(__dirname, 'daily/film/film-oner.html'),
+        gunlugum: resolve(__dirname, 'daily/diary/gunlugum.html'),
+        diary: resolve(__dirname, 'daily/diary/diary.html'),
+        gelenKutusu: resolve(__dirname, 'business/gelen-kutusu.html')
+      }
+    }
+  }
+});
