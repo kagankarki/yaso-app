@@ -4,8 +4,26 @@
                 <ion-icon name="settings" style="color: var(--primary);"></ion-icon> Uygulama Ayarları
               </h2>
               
-              <div style="display: grid; gap: 30px;">
+              <div style="display: grid; gap: 24px;">
                 
+                <!-- Günlük Şifre Ayarları (En Üstte) -->
+                <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15)); border: 2px solid var(--primary); border-radius: 20px; padding: 25px; box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);">
+                  <h3 style="margin-bottom: 15px; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; color: var(--text-color);">
+                    <ion-icon name="key-outline" style="color: var(--primary); font-size: 1.5rem;"></ion-icon> Günlük Şifresini Değiştir
+                  </h3>
+                  <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Günlüğüne girişte kullanacağın yeni şifreyi buradan anında güncelleyebilirsin.</p>
+                  <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div>
+                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">Yeni Şifreniz</label>
+                      <input type="password" id="settings-diary-password" class="glass-input" placeholder="● ● ● ● ●" style="background: rgba(0,0,0,0.2); padding: 14px; border-radius: 12px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color); font-size: 1.1rem; letter-spacing: 4px;">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                      <button id="settings-save-password-btn" class="btn-primary" style="padding: 12px 24px; font-size: 1rem; border-radius: 12px; width: 100%;">Şifreyi Değiştir</button>
+                      <span id="settings-password-status" style="font-size: 0.95rem; font-weight: 600; width: 100%; text-align: center; display: block; margin-top: 5px;"></span>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Profil Ayarları -->
                 <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
                   <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
@@ -21,23 +39,6 @@
                       <input type="email" class="glass-input" value="yasemin@smartyasemin.com" style="background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color);">
                     </div>
                     <button class="btn-primary" style="align-self: flex-start; margin-top: 10px;">Değişiklikleri Kaydet</button>
-                  </div>
-                </div>
-
-                <!-- Günlük Şifre Ayarları -->
-                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
-                  <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
-                    <ion-icon name="key-outline" style="color: var(--primary);"></ion-icon> Günlük Şifresi Ayarları
-                  </h3>
-                  <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <div>
-                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">Yeni Günlük Şifresi</label>
-                      <input type="password" id="settings-diary-password" class="glass-input" placeholder="Yeni şifreni gir..." style="background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color);">
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                      <button id="settings-save-password-btn" class="btn-primary" style="align-self: flex-start;">Şifreyi Güncelle</button>
-                      <span id="settings-password-status" style="font-size: 0.9rem; font-weight: 500;"></span>
-                    </div>
                   </div>
                 </div>
 

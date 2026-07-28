@@ -671,7 +671,9 @@
   }
 
   .diary-password-modal-content {
-    padding: 32px 20px;
-    width: 92%;
+    padding: 28px 20px;
+    width: 90%;
+    max-width: 360px;
+    border-radius: 20px;
   }
 }
