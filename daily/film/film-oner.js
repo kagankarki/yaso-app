@@ -1,5 +1,5 @@
 const TMDB_API_KEY = 'fe3936da79d2f983d2d8238bf61bb29b';
-import { GEMINI_API_KEY } from '../../keys.js';
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 import { db, collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc } from '../../firebase-config.js';
 

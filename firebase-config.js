@@ -1,9 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc, serverTimestamp, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { FIREBASE_API_KEY } from "./keys.js";
 
 const firebaseConfig = {
-  apiKey: FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "smartyasemin-e1b59.firebaseapp.com",
   projectId: "smartyasemin-e1b59",
   storageBucket: "smartyasemin-e1b59.firebasestorage.app",
