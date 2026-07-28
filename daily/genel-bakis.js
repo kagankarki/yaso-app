@@ -1,4 +1,4 @@
-import { db, collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs } from '../firebase-config.js';
+import { db, collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs, doc, getDoc, setDoc } from '../firebase-config.js';
 
 export async function initializeGenelBakisLogic() {
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -38,6 +38,33 @@ export async function initializeGenelBakisLogic() {
       moodStatus.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon> Kaydediliyor...';
       
       try {
+        if (selectedMood === "uzgun") {
+          const popupDocRef = doc(db, 'settings', 'uzgunPopup');
+          const popupDocSnap = await getDoc(popupDocRef);
+          
+          let showPopup = false;
+          if (!popupDocSnap.exists()) {
+              showPopup = true;
+          } else {
+              const data = popupDocSnap.data();
+              if (data.shown === 0) {
+                  showPopup = true;
+              }
+          }
+
+          if (showPopup) {
+              const modal = document.getElementById('uzgun-modal');
+              if (modal) {
+                  modal.style.display = 'flex';
+                  const closeBtn = document.getElementById('uzgun-modal-close');
+                  closeBtn.onclick = () => {
+                      modal.style.display = 'none';
+                  };
+              }
+              await setDoc(popupDocRef, { shown: 1 });
+          }
+        }
+
         await addDoc(collection(db, 'myMode'), {
           mood: selectedMood,
           moodText: moodText,
@@ -45,11 +72,6 @@ export async function initializeGenelBakisLogic() {
         });
         
         moodStatus.innerHTML = `<span style="color: #10b981;"><ion-icon name="checkmark-circle-outline"></ion-icon> Harika! Bugünkü modun <b>"${moodText}"</b> olarak kaydedildi.</span>`;
-        
-        // Optionally remove success message after a while
-        // setTimeout(() => {
-        //   moodStatus.innerHTML = '';
-        // }, 5000);
         
       } catch (error) {
         console.error('Mood kaydedilirken hata:', error);
