@@ -30,14 +30,24 @@
   <div class="content-grid" style="grid-template-columns: 1fr; margin-bottom: 30px;">
     <!-- Mood Section -->
     <div class="glass-panel mood-panel" style="text-align: center; padding: 40px 20px; border-radius: 24px;">
+      
+      <!-- Person Switcher Tabs -->
+      <div class="person-tab-container" style="display: flex; justify-content: center; gap: 12px; margin-bottom: 25px;">
+        <button class="person-tab-btn active" data-person="yasemin" style="display: flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 20px; border: 2px solid var(--primary); background: var(--primary-light); color: var(--primary); font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px var(--primary-light);">
+          <span>🌸</span> Yasemin
+        </button>
+        <button class="person-tab-btn" data-person="kagan" style="display: flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 20px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--text-muted); font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+          <span>👑</span> Kağan
+        </button>
+      </div>
+
       <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 25px;">
-        <h2
+        <h2 id="mood-title"
           style="font-size: 1.8rem; margin: 0; background: -webkit-linear-gradient(45deg, #f59e0b, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-          Yasokuş'un Modu</h2>
+          Yasemin'in Modu</h2>
         <span style="font-size: 1.8rem;">🌟</span>
       </div>
-      <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">Bugün kendini nasıl hissediyorsun?
-      </p>
+      <p id="mood-subtitle" style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">Bugün kendini nasıl hissediyorsun?</p>
 
       <div class="mood-container" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
 

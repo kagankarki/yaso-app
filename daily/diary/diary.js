@@ -1,17 +1,19 @@
 import { db, collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc, getDoc, setDoc } from '../../firebase-config.js';
 
-export async function initializeDiaryLogic() {
-  let DIARY_PASSWORD = '12345'; // Default
+export function initializeDiaryLogic() {
+  let DIARY_PASSWORD = localStorage.getItem('diary_password') || '12345'; // Default fallback
   
-  // Try to load password from Firebase
-  try {
-    const passSnap = await getDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"));
-    if (passSnap.exists()) {
-      DIARY_PASSWORD = passSnap.data().value;
-    }
-  } catch(e) {
-    console.error("Şifre çekilemedi, varsayılan şifre devrede.", e);
-  }
+  // Asynchronously load password from Firebase (non-blocking)
+  getDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"))
+    .then(passSnap => {
+      if (passSnap.exists() && passSnap.data().value) {
+        DIARY_PASSWORD = passSnap.data().value;
+        localStorage.setItem('diary_password', DIARY_PASSWORD);
+      }
+    })
+    .catch(e => {
+      console.error("Firebase şifre çekilemedi, varsayılan/yerel şifre devrede.", e);
+    });
 
   const lockScreen = document.getElementById('diary-lock-screen');
   const mainContent = document.getElementById('diary-main-content');
@@ -63,12 +65,15 @@ export async function initializeDiaryLogic() {
 
   // --- Lock / Unlock ---
   function attemptUnlock() {
+    if (!passwordInput) return;
     const val = passwordInput.value.trim();
     if (val === DIARY_PASSWORD) {
-      lockIcon.classList.remove('error');
-      lockIcon.classList.add('success');
-      lockIcon.innerHTML = '<ion-icon name="lock-open"></ion-icon>';
-      errorMsg.style.opacity = '0';
+      if (lockIcon) {
+        lockIcon.classList.remove('error');
+        lockIcon.classList.add('success');
+        lockIcon.innerHTML = '<ion-icon name="lock-open"></ion-icon>';
+      }
+      if (errorMsg) errorMsg.style.opacity = '0';
       
       setTimeout(() => {
         lockScreen.classList.add('unlocked');
@@ -78,15 +83,19 @@ export async function initializeDiaryLogic() {
           void mainContent.offsetWidth;
           mainContent.classList.add('visible');
           loadDiaryEntries(entriesGrid);
-        }, 500);
-      }, 600);
+        }, 400);
+      }, 500);
     } else {
-      lockIcon.classList.remove('success');
-      lockIcon.classList.remove('error');
-      void lockIcon.offsetWidth; 
-      lockIcon.classList.add('error');
-      errorMsg.textContent = 'Yanlış Şifre!';
-      errorMsg.style.opacity = '1';
+      if (lockIcon) {
+        lockIcon.classList.remove('success');
+        lockIcon.classList.remove('error');
+        void lockIcon.offsetWidth; 
+        lockIcon.classList.add('error');
+      }
+      if (errorMsg) {
+        errorMsg.textContent = 'Yanlış Şifre!';
+        errorMsg.style.opacity = '1';
+      }
       passwordInput.value = '';
     }
   }
@@ -102,21 +111,36 @@ export async function initializeDiaryLogic() {
   if (changePasswordBtn && passwordModal) {
     changePasswordBtn.addEventListener('click', () => passwordModal.classList.add('active'));
     
-    closePasswordModal.addEventListener('click', () => {
-      passwordModal.classList.remove('active');
-      newPasswordInput.value = '';
+    if (closePasswordModal) {
+      closePasswordModal.addEventListener('click', () => {
+        passwordModal.classList.remove('active');
+        if (newPasswordInput) newPasswordInput.value = '';
+      });
+    }
+
+    // Backdrop click close for password modal
+    passwordModal.addEventListener('click', (e) => {
+      if (e.target === passwordModal) {
+        passwordModal.classList.remove('active');
+        if (newPasswordInput) newPasswordInput.value = '';
+      }
     });
 
-    saveNewPasswordBtn.addEventListener('click', async () => {
+    const handleSavePassword = async () => {
+      if (!newPasswordInput) return;
       const newPass = newPasswordInput.value.trim();
-      if (!newPass) return;
+      if (!newPass) {
+        alert("Lütfen yeni şifrenizi girin!");
+        return;
+      }
       
-      saveNewPasswordBtn.textContent = '...';
+      saveNewPasswordBtn.textContent = 'Kaydediliyor...';
       saveNewPasswordBtn.disabled = true;
 
       try {
         await setDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"), { value: newPass });
         DIARY_PASSWORD = newPass;
+        localStorage.setItem('diary_password', newPass);
         
         saveNewPasswordBtn.textContent = 'Kaydedildi ✓';
         saveNewPasswordBtn.style.background = '#10b981';
@@ -130,21 +154,53 @@ export async function initializeDiaryLogic() {
         }, 1000);
       } catch (err) {
         console.error("Şifre kaydedilemedi", err);
-        saveNewPasswordBtn.textContent = 'Hata!';
-        saveNewPasswordBtn.disabled = false;
+        // Fallback to local storage even if network error occurs
+        DIARY_PASSWORD = newPass;
+        localStorage.setItem('diary_password', newPass);
+        
+        saveNewPasswordBtn.textContent = 'Kaydedildi (Yerel) ✓';
+        saveNewPasswordBtn.style.background = '#10b981';
+        
+        setTimeout(() => {
+          passwordModal.classList.remove('active');
+          saveNewPasswordBtn.textContent = 'Kaydet';
+          saveNewPasswordBtn.style.background = '';
+          saveNewPasswordBtn.disabled = false;
+          newPasswordInput.value = '';
+        }, 1000);
       }
-    });
+    };
+
+    if (saveNewPasswordBtn) {
+      saveNewPasswordBtn.addEventListener('click', handleSavePassword);
+    }
+    if (newPasswordInput) {
+      newPasswordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSavePassword();
+      });
+    }
   }
 
   // --- Write Modal ---
   if (writeModalBtn && writeModal) {
     writeModalBtn.addEventListener('click', () => writeModal.classList.add('active'));
-    closeWriteModal.addEventListener('click', () => writeModal.classList.remove('active'));
+    if (closeWriteModal) {
+      closeWriteModal.addEventListener('click', () => writeModal.classList.remove('active'));
+    }
+    
+    // Backdrop click close for write modal
+    writeModal.addEventListener('click', (e) => {
+      if (e.target === writeModal) {
+        writeModal.classList.remove('active');
+      }
+    });
   }
 
   // --- Save Entry ---
   if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
+      if (!titleInput || !bodyInput) return;
+
       const title = titleInput.value.trim();
       const body = bodyInput.value.trim();
       const mood = selectedMood;
@@ -167,7 +223,7 @@ export async function initializeDiaryLogic() {
 
         titleInput.value = '';
         bodyInput.value = '';
-        saveBtn.innerHTML = '<ion-icon name="checkmark-outline"></ion-icon> Kaydedildi';
+        saveBtn.innerHTML = '<ion-icon name="checkmark-outline"></ion-icon> Kaydedildi ✓';
         saveBtn.style.background = '#10b981';
         
         setTimeout(() => {
@@ -175,12 +231,13 @@ export async function initializeDiaryLogic() {
           saveBtn.style.background = '';
           saveBtn.disabled = false;
           if (writeModal) writeModal.classList.remove('active');
-        }, 1200);
+        }, 1000);
 
         loadDiaryEntries(entriesGrid);
       } catch (err) {
         console.error("Günlük kayıt hatası:", err);
-        saveBtn.innerHTML = 'Hata!';
+        alert("Günlük kaydedilirken bir hata oluştu: " + (err.message || err));
+        saveBtn.innerHTML = '<ion-icon name="checkmark-outline"></ion-icon> Kaydet';
         saveBtn.disabled = false;
       }
     });
@@ -214,15 +271,21 @@ async function loadDiaryEntries(grid) {
       const data = docSnap.data();
       const docId = docSnap.id;
       
-      const dateStr = data.createdAt 
-        ? new Date(data.createdAt.toDate()).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit' }) 
-        : 'Az önce';
+      let dateStr = 'Az önce';
+      if (data.createdAt) {
+        try {
+          const d = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+          dateStr = d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit' });
+        } catch (e) {
+          dateStr = 'Az önce';
+        }
+      }
 
       html += `
       <article class="diary-entry-card" id="diary-entry-${docId}">
         <div class="diary-entry-meta">
           <div class="diary-entry-meta-left">
-            <span class="diary-entry-mood">${data.mood}</span>
+            <span class="diary-entry-mood">${data.mood || '😊 Mutlu'}</span>
             <span class="diary-entry-date">
               <ion-icon name="time-outline"></ion-icon> ${dateStr}
             </span>
@@ -239,40 +302,50 @@ async function loadDiaryEntries(grid) {
     
     grid.innerHTML = html;
 
-    // Bind delete
+    // Bind delete buttons
     grid.querySelectorAll('.remove-diary-btn').forEach(btn => {
       btn.addEventListener('click', async (e) => {
-        if(!confirm("Bu günlüğü silmek istediğine emin misin?")) return;
+        if (!confirm("Bu günlüğü silmek istediğine emin misin?")) return;
         
-        const id = e.target.closest('.remove-diary-btn').dataset.id;
+        const removeBtn = e.target.closest('.remove-diary-btn');
+        if (!removeBtn) return;
+
+        const id = removeBtn.dataset.id;
         const card = document.getElementById(`diary-entry-${id}`);
-        card.style.opacity = '0.5';
-        card.style.transform = 'scale(0.98)';
+        if (card) {
+          card.style.opacity = '0.5';
+          card.style.transform = 'scale(0.98)';
+        }
+
         try {
           await deleteDoc(doc(db, "Daily", "Diary", "entries", id));
-          card.style.transition = 'all 0.4s ease';
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.95) translateY(-10px)';
-          setTimeout(() => {
-            card.remove();
-            if(grid.children.length === 0) {
-              grid.innerHTML = `
-                <div class="diary-empty-state">
-                  <div class="diary-empty-icon">
-                    <ion-icon name="book-outline"></ion-icon>
-                  </div>
-                  <h3 class="diary-empty-title">Henüz sayfalar bomboş</h3>
-                  <p class="diary-empty-subtitle">İlk günlüğünü yazarak anılarını ölümsüzleştir.</p>
-                  <button class="diary-empty-btn" onclick="document.getElementById('diary-open-write-modal-btn').click()">
-                    <ion-icon name="add-outline"></ion-icon> İlk Anını Yaz
-                  </button>
-                </div>`;
-            }
-          }, 400);
+          if (card) {
+            card.style.transition = 'all 0.4s ease';
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95) translateY(-10px)';
+            setTimeout(() => {
+              card.remove();
+              if (grid.children.length === 0) {
+                grid.innerHTML = `
+                  <div class="diary-empty-state">
+                    <div class="diary-empty-icon">
+                      <ion-icon name="book-outline"></ion-icon>
+                    </div>
+                    <h3 class="diary-empty-title">Henüz sayfalar bomboş</h3>
+                    <p class="diary-empty-subtitle">İlk günlüğünü yazarak anılarını ölümsüzleştir.</p>
+                    <button class="diary-empty-btn" onclick="document.getElementById('diary-open-write-modal-btn').click()">
+                      <ion-icon name="add-outline"></ion-icon> İlk Anını Yaz
+                    </button>
+                  </div>`;
+              }
+            }, 400);
+          }
         } catch (error) {
           console.error("Silme hatası:", error);
-          card.style.opacity = '1';
-          card.style.transform = '';
+          if (card) {
+            card.style.opacity = '1';
+            card.style.transform = '';
+          }
         }
       });
     });
