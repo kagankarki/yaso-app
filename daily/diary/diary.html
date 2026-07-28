@@ -14,6 +14,9 @@
         <button id="diary-unlock-btn" class="diary-lock-btn">
           <ion-icon name="lock-open-outline"></ion-icon> Kilidi Aç
         </button>
+        <button type="button" id="diary-lock-change-password-btn" style="background: none; border: none; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; text-decoration: underline; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 4px; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+          <ion-icon name="key-outline"></ion-icon> Şifremi Değiştir
+        </button>
         <p id="diary-error-msg" class="diary-lock-error"></p>
       </div>
     </div>
@@ -91,6 +94,7 @@
       <h2 class="diary-lock-title">Şifreni Değiştir</h2>
       <p class="diary-lock-subtitle">Günlüğüne girişte kullanacağın yeni şifreyi belirle.</p>
       <input type="password" id="diary-new-password-input" class="diary-lock-input" placeholder="● ● ● ● ●">
+      <p id="diary-password-status-msg" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500; min-height: 20px; color: #10b981;"></p>
       <div class="diary-password-actions">
         <button id="close-password-modal" class="diary-cancel-btn">İptal</button>
         <button id="save-new-password-btn" class="diary-save-btn">Kaydet</button>

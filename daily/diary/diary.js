@@ -12,7 +12,7 @@ export function initializeDiaryLogic() {
       }
     })
     .catch(e => {
-      console.error("Firebase şifre çekilemedi, varsayılan/yerel şifre devrede.", e);
+      console.error("Firebase şifre çekilemedi:", e);
     });
 
   const lockScreen = document.getElementById('diary-lock-screen');
@@ -30,14 +30,16 @@ export function initializeDiaryLogic() {
   const entriesGrid = document.getElementById('diary-entries-grid');
   let selectedMood = '😊 Mutlu';
 
-  // Password UI
+  // Password UI Elements
   const changePasswordBtn = document.getElementById('diary-change-password-btn');
+  const lockChangePasswordBtn = document.getElementById('diary-lock-change-password-btn');
   const passwordModal = document.getElementById('diary-password-modal');
   const closePasswordModal = document.getElementById('close-password-modal');
   const saveNewPasswordBtn = document.getElementById('save-new-password-btn');
   const newPasswordInput = document.getElementById('diary-new-password-input');
+  const passStatusMsg = document.getElementById('diary-password-status-msg');
   
-  // Write Modal UI
+  // Write Modal UI Elements
   const writeModalBtn = document.getElementById('diary-open-write-modal-btn');
   const writeModal = document.getElementById('diary-write-modal');
   const closeWriteModal = document.getElementById('close-diary-write-modal');
@@ -107,78 +109,104 @@ export function initializeDiaryLogic() {
     });
   }
 
-  // --- Change Password ---
-  if (changePasswordBtn && passwordModal) {
-    changePasswordBtn.addEventListener('click', () => passwordModal.classList.add('active'));
-    
-    if (closePasswordModal) {
-      closePasswordModal.addEventListener('click', () => {
-        passwordModal.classList.remove('active');
-        if (newPasswordInput) newPasswordInput.value = '';
-      });
+  // --- Open Change Password Modal ---
+  const openPasswordModal = () => {
+    if (passwordModal) {
+      passwordModal.classList.add('active');
+      if (newPasswordInput) {
+        newPasswordInput.value = '';
+        newPasswordInput.focus();
+      }
+      if (passStatusMsg) passStatusMsg.textContent = '';
     }
+  };
 
-    // Backdrop click close for password modal
+  if (changePasswordBtn) changePasswordBtn.addEventListener('click', openPasswordModal);
+  if (lockChangePasswordBtn) lockChangePasswordBtn.addEventListener('click', openPasswordModal);
+
+  // Close Password Modal
+  if (closePasswordModal && passwordModal) {
+    closePasswordModal.addEventListener('click', () => {
+      passwordModal.classList.remove('active');
+      if (newPasswordInput) newPasswordInput.value = '';
+      if (passStatusMsg) passStatusMsg.textContent = '';
+    });
+  }
+
+  // Backdrop click close for password modal
+  if (passwordModal) {
     passwordModal.addEventListener('click', (e) => {
       if (e.target === passwordModal) {
         passwordModal.classList.remove('active');
         if (newPasswordInput) newPasswordInput.value = '';
+        if (passStatusMsg) passStatusMsg.textContent = '';
       }
     });
+  }
 
-    const handleSavePassword = async () => {
-      if (!newPasswordInput) return;
-      const newPass = newPasswordInput.value.trim();
-      if (!newPass) {
-        alert("Lütfen yeni şifrenizi girin!");
-        return;
-      }
-      
+  // --- Save New Password ---
+  const handleSavePassword = async () => {
+    if (!newPasswordInput) return;
+    const newPass = newPasswordInput.value.trim();
+    if (!newPass) {
+      alert("Lütfen yeni şifrenizi girin!");
+      return;
+    }
+    
+    if (saveNewPasswordBtn) {
       saveNewPasswordBtn.textContent = 'Kaydediliyor...';
       saveNewPasswordBtn.disabled = true;
+    }
 
-      try {
-        await setDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"), { value: newPass });
-        DIARY_PASSWORD = newPass;
-        localStorage.setItem('diary_password', newPass);
-        
+    // Immediately update local password & localStorage so unlocking always works!
+    DIARY_PASSWORD = newPass;
+    localStorage.setItem('diary_password', newPass);
+
+    try {
+      await Promise.all([
+        setDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"), { value: newPass }),
+        setDoc(doc(db, "settings", "diaryPassword"), { value: newPass })
+      ]);
+      
+      if (passStatusMsg) {
+        passStatusMsg.style.color = '#10b981';
+        passStatusMsg.textContent = 'Şifreniz başarıyla değiştirildi! ✓';
+      }
+      if (saveNewPasswordBtn) {
         saveNewPasswordBtn.textContent = 'Kaydedildi ✓';
         saveNewPasswordBtn.style.background = '#10b981';
-        
-        setTimeout(() => {
-          passwordModal.classList.remove('active');
-          saveNewPasswordBtn.textContent = 'Kaydet';
-          saveNewPasswordBtn.style.background = '';
-          saveNewPasswordBtn.disabled = false;
-          newPasswordInput.value = '';
-        }, 1000);
-      } catch (err) {
-        console.error("Şifre kaydedilemedi", err);
-        // Fallback to local storage even if network error occurs
-        DIARY_PASSWORD = newPass;
-        localStorage.setItem('diary_password', newPass);
-        
-        saveNewPasswordBtn.textContent = 'Kaydedildi (Yerel) ✓';
-        saveNewPasswordBtn.style.background = '#10b981';
-        
-        setTimeout(() => {
-          passwordModal.classList.remove('active');
-          saveNewPasswordBtn.textContent = 'Kaydet';
-          saveNewPasswordBtn.style.background = '';
-          saveNewPasswordBtn.disabled = false;
-          newPasswordInput.value = '';
-        }, 1000);
       }
-    };
+    } catch (err) {
+      console.error("Şifre kaydedilirken Firebase hatası oluştu, yerel kayıt yapıldı:", err);
+      if (passStatusMsg) {
+        passStatusMsg.style.color = '#10b981';
+        passStatusMsg.textContent = 'Şifre güncellendi (Yerel) ✓';
+      }
+      if (saveNewPasswordBtn) {
+        saveNewPasswordBtn.textContent = 'Kaydedildi ✓';
+        saveNewPasswordBtn.style.background = '#10b981';
+      }
+    }
 
-    if (saveNewPasswordBtn) {
-      saveNewPasswordBtn.addEventListener('click', handleSavePassword);
-    }
-    if (newPasswordInput) {
-      newPasswordInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleSavePassword();
-      });
-    }
+    setTimeout(() => {
+      if (passwordModal) passwordModal.classList.remove('active');
+      if (saveNewPasswordBtn) {
+        saveNewPasswordBtn.textContent = 'Kaydet';
+        saveNewPasswordBtn.style.background = '';
+        saveNewPasswordBtn.disabled = false;
+      }
+      if (newPasswordInput) newPasswordInput.value = '';
+      if (passStatusMsg) passStatusMsg.textContent = '';
+    }, 1200);
+  };
+
+  if (saveNewPasswordBtn) {
+    saveNewPasswordBtn.addEventListener('click', handleSavePassword);
+  }
+  if (newPasswordInput) {
+    newPasswordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSavePassword();
+    });
   }
 
   // --- Write Modal ---

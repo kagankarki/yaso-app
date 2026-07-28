@@ -24,6 +24,23 @@
                   </div>
                 </div>
 
+                <!-- Günlük Şifre Ayarları -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
+                  <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                    <ion-icon name="key-outline" style="color: var(--primary);"></ion-icon> Günlük Şifresi Ayarları
+                  </h3>
+                  <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div>
+                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">Yeni Günlük Şifresi</label>
+                      <input type="password" id="settings-diary-password" class="glass-input" placeholder="Yeni şifreni gir..." style="background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color);">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                      <button id="settings-save-password-btn" class="btn-primary" style="align-self: flex-start;">Şifreyi Güncelle</button>
+                      <span id="settings-password-status" style="font-size: 0.9rem; font-weight: 500;"></span>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Bildirim Tercihleri -->
                 <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
                   <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">

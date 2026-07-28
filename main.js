@@ -102,6 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (genelBakisSection) {
       initializeGenelBakisLogic();
     }
+
+    // Initialize Ayarlar Logic if present
+    const ayarlarSection = document.getElementById('ayarlar');
+    if (ayarlarSection) {
+      initializeAyarlarLogic();
+    }
   }
 
   // Film recommendation logic has been moved to daily/film/film-oner.js
@@ -181,6 +187,54 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === notifModal) {
         notifModal.classList.remove('active');
       }
+    });
+  }
+
+  // --- Ayarlar Page Logic ---
+  function initializeAyarlarLogic() {
+    const passInput = document.getElementById('settings-diary-password');
+    const savePassBtn = document.getElementById('settings-save-password-btn');
+    const passStatus = document.getElementById('settings-password-status');
+
+    if (!savePassBtn || !passInput) return;
+
+    savePassBtn.addEventListener('click', async () => {
+      const newPass = passInput.value.trim();
+      if (!newPass) {
+        alert("Lütfen yeni şifrenizi girin!");
+        return;
+      }
+
+      savePassBtn.textContent = 'Kaydediliyor...';
+      savePassBtn.disabled = true;
+
+      localStorage.setItem('diary_password', newPass);
+
+      try {
+        const { db, doc, setDoc } = await import('./firebase-config.js');
+        await Promise.all([
+          setDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"), { value: newPass }),
+          setDoc(doc(db, "settings", "diaryPassword"), { value: newPass })
+        ]);
+        if (passStatus) {
+          passStatus.style.color = '#10b981';
+          passStatus.textContent = 'Şifre başarıyla güncellendi! ✓';
+        }
+      } catch (e) {
+        console.error("Şifre güncelleme hatası:", e);
+        if (passStatus) {
+          passStatus.style.color = '#10b981';
+          passStatus.textContent = 'Şifre güncellendi (Yerel) ✓';
+        }
+      }
+
+      savePassBtn.textContent = 'Şifreyi Güncelle';
+      savePassBtn.disabled = false;
+      passInput.value = '';
+
+      setTimeout(() => {
+        if (passStatus) passStatus.textContent = '';
+      }, 3000);
     });
   }
 });
