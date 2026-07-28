@@ -1,5 +1,5 @@
 // YasoAI - Personal AI Assistant for Yasemin
-import { GEMINI_API_KEY } from './keys.js';
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
 
 let conversationHistory = [];
 

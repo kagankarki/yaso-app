@@ -1,3 +1,4 @@
 // Stub file for production builds where keys.js is gitignored
-// The real API key should be set via Vercel environment variables
-export const GEMINI_API_KEY = '';
+// Reads API keys from Vite environment variables (set in Vercel dashboard)
+export const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY || '';
+export const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
