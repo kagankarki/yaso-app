@@ -37,7 +37,7 @@ Lütfen bu yazılanlara karşılık çok kısa (en fazla 1 veya 2 cümle, 25 kel
 }
 
 export function initializeDiaryLogic(owner = 'Diary') {
-  let DIARY_PASSWORD = localStorage.getItem(`diary_password_${owner}`) || '12345'; // Default fallback
+  let DIARY_PASSWORD = localStorage.getItem(`diary_password_${owner}`) || (owner === 'Kagan_Diary' ? 'YASEMİN' : '12345'); // Default fallback
   
   // Asynchronously load password from Firebase (non-blocking)
   getDoc(doc(db, "Daily", owner, "settings", "passwordDoc"))
