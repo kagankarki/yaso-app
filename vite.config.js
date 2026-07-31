@@ -16,6 +16,8 @@ export default defineConfig({
         filmOner: resolve(__dirname, 'daily/film/film-oner.html'),
         gunlugum: resolve(__dirname, 'daily/diary/gunlugum.html'),
         diary: resolve(__dirname, 'daily/diary/diary.html'),
+        yaseminDiary: resolve(__dirname, 'daily/diary/yasemin.html'),
+        kaganDiary: resolve(__dirname, 'daily/diary/kagan.html'),
         gelenKutusu: resolve(__dirname, 'business/gelen-kutusu.html'),
         love: resolve(__dirname, 'love.html'),
         lovePage: resolve(__dirname, 'love/love.html'),
