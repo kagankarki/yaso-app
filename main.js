@@ -86,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Diary Logic if present
     const diarySection = document.getElementById('diary');
     if (diarySection) {
-      initializeDiaryLogic();
+      const owner = diarySection.dataset.owner || 'Diary';
+      initializeDiaryLogic(owner);
     }
 
     // Initialize Wishlist Logic if present

@@ -36,15 +36,15 @@ Lütfen bu yazılanlara karşılık çok kısa (en fazla 1 veya 2 cümle, 25 kel
   }
 }
 
-export function initializeDiaryLogic() {
-  let DIARY_PASSWORD = localStorage.getItem('diary_password') || '12345'; // Default fallback
+export function initializeDiaryLogic(owner = 'Diary') {
+  let DIARY_PASSWORD = localStorage.getItem(`diary_password_${owner}`) || '12345'; // Default fallback
   
   // Asynchronously load password from Firebase (non-blocking)
-  getDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"))
+  getDoc(doc(db, "Daily", owner, "settings", "passwordDoc"))
     .then(passSnap => {
       if (passSnap.exists() && passSnap.data().value) {
         DIARY_PASSWORD = passSnap.data().value;
-        localStorage.setItem('diary_password', DIARY_PASSWORD);
+        localStorage.setItem(`diary_password_${owner}`, DIARY_PASSWORD);
       }
     })
     .catch(e => {
@@ -120,7 +120,7 @@ export function initializeDiaryLogic() {
           mainContent.style.display = 'block';
           void mainContent.offsetWidth;
           mainContent.classList.add('visible');
-          loadDiaryEntries(entriesGrid);
+          loadDiaryEntries(entriesGrid, owner);
         }, 400);
       }, 500);
     } else {
@@ -196,12 +196,12 @@ export function initializeDiaryLogic() {
 
     // Immediately update local password & localStorage
     DIARY_PASSWORD = newPass;
-    localStorage.setItem('diary_password', newPass);
+    localStorage.setItem(`diary_password_${owner}`, newPass);
 
     try {
       await Promise.all([
-        setDoc(doc(db, "Daily", "Diary", "settings", "passwordDoc"), { value: newPass }),
-        setDoc(doc(db, "settings", "diaryPassword"), { value: newPass })
+        setDoc(doc(db, "Daily", owner, "settings", "passwordDoc"), { value: newPass }),
+        setDoc(doc(db, "settings", `diaryPassword_${owner}`), { value: newPass })
       ]);
       
       if (passStatusMsg) {
@@ -281,7 +281,7 @@ export function initializeDiaryLogic() {
       const aiResponse = await fetchGeminiDiaryComment(title, body, mood);
 
       try {
-        await addDoc(collection(db, "Daily", "Diary", "entries"), {
+        await addDoc(collection(db, "Daily", owner, "entries"), {
           title,
           body,
           mood,
@@ -301,7 +301,7 @@ export function initializeDiaryLogic() {
           if (writeModal) writeModal.classList.remove('active');
         }, 1000);
 
-        loadDiaryEntries(entriesGrid);
+        loadDiaryEntries(entriesGrid, owner);
       } catch (err) {
         console.error("Günlük kayıt hatası:", err);
         alert("Günlük kaydedilirken bir hata oluştu: " + (err.message || err));
@@ -312,11 +312,11 @@ export function initializeDiaryLogic() {
   }
 }
 
-async function loadDiaryEntries(grid) {
+async function loadDiaryEntries(grid, owner) {
   if (!grid) return;
   
   try {
-    const q = query(collection(db, "Daily", "Diary", "entries"), orderBy("createdAt", "desc"));
+    const q = query(collection(db, "Daily", owner, "entries"), orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q);
     
     if (querySnapshot.empty) {
@@ -409,7 +409,7 @@ async function loadDiaryEntries(grid) {
 
         if (aiReply && box) {
           try {
-            await updateDoc(doc(db, "Daily", "Diary", "entries", id), { aiResponse: aiReply });
+            await updateDoc(doc(db, "Daily", owner, "entries", id), { aiResponse: aiReply });
           } catch (err) {
             console.error("Firebase aiResponse güncelleme hatası:", err);
           }
@@ -444,7 +444,7 @@ async function loadDiaryEntries(grid) {
         }
 
         try {
-          await deleteDoc(doc(db, "Daily", "Diary", "entries", id));
+          await deleteDoc(doc(db, "Daily", owner, "entries", id));
           if (card) {
             card.style.transition = 'all 0.4s ease';
             card.style.opacity = '0';

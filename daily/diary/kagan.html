@@ -1,0 +1,102 @@
+<section id="diary" data-owner="Kagan_Diary" class="page-section active">
+  
+  <!-- LOCK SCREEN -->
+  <div id="diary-lock-screen" class="diary-lock-container">
+    <div class="diary-lock-card">
+      <div class="diary-lock-glow"></div>
+      <div id="lock-icon" class="lock-icon-wrapper">
+        <ion-icon name="lock-closed"></ion-icon>
+      </div>
+      <h2 class="diary-lock-title">Kağan'ın Gizli Günlüğü</h2>
+      <p class="diary-lock-subtitle">Lütfen giriş yapmak için şifreni gir.</p>
+      <div class="diary-lock-form">
+        <input type="password" id="diary-password-input" class="diary-lock-input" placeholder="● ● ● ● ●">
+        <button id="diary-unlock-btn" class="diary-lock-btn">
+          <ion-icon name="lock-open-outline"></ion-icon> Kilidi Aç
+        </button>
+        <p id="diary-error-msg" class="diary-lock-error"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIARY CONTENT (Hidden initially) -->
+  <div id="diary-main-content" class="diary-content-container">
+    
+    <!-- Header -->
+    <div class="diary-header">
+      <div>
+        <h2 class="diary-main-title">Sevgili Günlük (Kağan)...</h2>
+        <p class="diary-main-subtitle">Düşüncelerini, hayallerini ve anılarını burada özgürce paylaş.</p>
+      </div>
+      <div class="diary-header-actions">
+        <button id="diary-open-write-modal-btn" class="diary-write-btn">
+          <ion-icon name="add-outline"></ion-icon> Yeni Yazı
+        </button>
+        <button id="diary-change-password-btn" class="diary-settings-btn" title="Şifreyi Değiştir">
+          <ion-icon name="settings-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Entries Container -->
+    <div id="diary-entries-grid" class="diary-entries">
+      <div class="diary-loading">
+        <ion-icon name="reload-outline" class="spin"></ion-icon>
+        <p>Geçmiş anıların yükleniyor...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Write Diary Modal -->
+  <div class="modal-overlay" id="diary-write-modal">
+    <div class="diary-write-modal-content">
+      <div class="diary-write-header">
+        <div class="diary-write-header-left">
+          <ion-icon name="pencil-outline"></ion-icon>
+          <span>Yeni Bir Anı Yaz</span>
+        </div>
+        <div class="diary-write-header-right">
+          <span id="diary-current-date" class="diary-write-date">Bugün</span>
+          <button id="close-diary-write-modal" class="diary-close-btn">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+      <div class="diary-write-body">
+        <input type="text" id="diary-title-input" class="diary-write-title" placeholder="Bugüne bir başlık ver...">
+        <textarea id="diary-body-input" class="diary-write-textarea" placeholder="Bugün neler oldu? Neler hissettin?"></textarea>
+        <div class="diary-write-footer">
+          <div class="diary-mood-pills" id="diary-mood-pills">
+            <button class="diary-mood-pill active" data-mood="😊 Mutlu" title="Mutlu">😊</button>
+            <button class="diary-mood-pill" data-mood="🤔 Düşünceli" title="Düşünceli">🤔</button>
+            <button class="diary-mood-pill" data-mood="🤩 Heyecanlı" title="Heyecanlı">🤩</button>
+            <button class="diary-mood-pill" data-mood="😔 Hüzünlü" title="Hüzünlü">😔</button>
+            <button class="diary-mood-pill" data-mood="😌 Sakin" title="Sakin">😌</button>
+          </div>
+          <button id="diary-save-btn" class="diary-save-btn">
+            <ion-icon name="checkmark-outline"></ion-icon> Kaydet
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div class="modal-overlay" id="diary-password-modal">
+    <div class="diary-password-modal-content">
+      <div class="diary-lock-glow"></div>
+      <div class="diary-password-icon">
+        <ion-icon name="key-outline"></ion-icon>
+      </div>
+      <h2 class="diary-lock-title">Şifreni Değiştir</h2>
+      <p class="diary-lock-subtitle">Günlüğüne girişte kullanacağın yeni şifreyi belirle.</p>
+      <input type="password" id="diary-new-password-input" class="diary-lock-input" placeholder="● ● ● ● ●">
+      <p id="diary-password-status-msg" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500; min-height: 20px; color: #10b981;"></p>
+      <div class="diary-password-actions">
+        <button id="close-password-modal" class="diary-cancel-btn">İptal</button>
+        <button id="save-new-password-btn" class="diary-save-btn">Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+</section>
