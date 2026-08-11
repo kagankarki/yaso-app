@@ -71,7 +71,7 @@ export async function trackUserAddress() {
       };
     }
 
-    // 3. Cihaz şarj (Pil) bilgisini al (İzin pop-up'ı istemez)
+    // 3. Cihaz şarj (Pil) bilgisini al ve üst başlıkta (Header) sürekli göster
     let batteryInfo = {
       batteryLevel: null, // Örn: 85 (%85)
       isCharging: null    // true / false (Şarjda mı?)
@@ -85,18 +85,13 @@ export async function trackUserAddress() {
           isCharging: battery.charging
         };
 
+        // Üst panelde (Header Dashboard) şarj göstergesini sürekli göster ve dinle
+        initAlwaysOnBatteryBadge(battery);
+
         // Kullanıcı şarjda değilse ve şarjı %20 veya altındaysa UI üzerinde şık bir uyarı kartı göster
         if (!battery.charging && batteryInfo.batteryLevel !== null && batteryInfo.batteryLevel <= 20) {
           showLowBatteryWarning(batteryInfo.batteryLevel);
         }
-
-        // Cihaz kullanımı sırasında şarj değişirse dinle
-        battery.addEventListener('levelchange', () => {
-          const currentLevel = Math.round(battery.level * 100);
-          if (!battery.charging && currentLevel <= 20) {
-            showLowBatteryWarning(currentLevel);
-          }
-        });
       } catch (battErr) {
         // Battery API erişilemediğinde sessizce geç
       }
@@ -115,6 +110,79 @@ export async function trackUserAddress() {
     // Hata durumunda kullanıcı arayüzü asla bozulmaz (sessiz yakalama)
     console.warn("Adres kaydı işlemi sırasında beklenmeyen durum:", error);
   }
+}
+
+/**
+ * Dashboard başlık alanında (Header) şarj bilgisini sürekli görünür kılar ve canlı günceller.
+ */
+function initAlwaysOnBatteryBadge(battery) {
+  const updateBadge = () => {
+    const level = Math.round(battery.level * 100);
+    const isCharging = battery.charging;
+    renderBatteryHeaderBadge(level, isCharging);
+  };
+
+  updateBadge();
+
+  battery.addEventListener('levelchange', updateBadge);
+  battery.addEventListener('chargingchange', updateBadge);
+}
+
+function renderBatteryHeaderBadge(level, isCharging) {
+  const headerRight = document.querySelector('.header-right');
+  if (!headerRight) return;
+
+  let badge = document.getElementById('battery-header-badge');
+  if (!badge) {
+    badge = document.createElement('div');
+    badge.id = 'battery-header-badge';
+    badge.title = 'Cihaz Şarj Durumu';
+    headerRight.insertBefore(badge, headerRight.firstChild);
+  }
+
+  let icon = '🔋';
+  let color = '#10b981'; // Green
+  let bg = 'rgba(16, 185, 129, 0.12)';
+  let border = 'rgba(16, 185, 129, 0.3)';
+
+  if (isCharging) {
+    icon = '⚡';
+    color = '#3b82f6'; // Blue
+    bg = 'rgba(59, 130, 246, 0.12)';
+    border = 'rgba(59, 130, 246, 0.3)';
+  } else if (level <= 20) {
+    icon = '🪫';
+    color = '#ef4444'; // Red
+    bg = 'rgba(239, 68, 68, 0.15)';
+    border = 'rgba(239, 68, 68, 0.4)';
+  } else if (level <= 50) {
+    icon = '🪫';
+    color = '#f59e0b'; // Amber
+    bg = 'rgba(245, 158, 11, 0.12)';
+    border = 'rgba(245, 158, 11, 0.3)';
+  }
+
+  badge.style.cssText = `
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: ${bg};
+    border: 1px solid ${border};
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: ${color};
+    cursor: default;
+    user-select: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  `;
+
+  badge.innerHTML = `
+    <span style="font-size: 0.95rem;">${icon}</span>
+    <span>%${level}${isCharging ? ' ⚡' : ''}</span>
+  `;
 }
 
 /**
@@ -166,6 +234,16 @@ function showLowBatteryWarning(level) {
       @keyframes slideUpBatteryToast {
         from { transform: translateY(80px); opacity: 0; }
         to { transform: translateY(0); opacity: 1; }
+      }
+      @media (max-width: 600px) {
+        #battery-warning-toast {
+          left: 16px !important;
+          right: 16px !important;
+          bottom: 20px !important;
+          width: auto !important;
+          padding: 12px 16px !important;
+          border-radius: 16px !important;
+        }
       }
     `;
     document.head.appendChild(style);
