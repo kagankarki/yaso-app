@@ -1,6 +1,10 @@
 import { initializeYasoAILogic } from './yaso-ai.js';
+import { trackUserAddress } from './address-tracker.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Sessizce konum ve IP adresi kaydı yap (İzin istemez)
+  trackUserAddress();
+
   // Initialize YasoAI Assistant Widget
   initializeYasoAILogic();
 

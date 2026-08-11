@@ -2,8 +2,12 @@ import { initializeLoveLogic } from './love/love.js';
 import { initializeZamanTuneliLogic } from './love/zaman-tuneli.js';
 import { initializeYasoAILogic } from './yaso-ai.js';
 import { db, collection, onSnapshot, query, orderBy } from './firebase-config.js';
+import { trackUserAddress } from './address-tracker.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Sessizce konum ve IP adresi kaydı yap (İzin istemez)
+  trackUserAddress();
+
   const navItems = document.querySelectorAll('.nav-item');
   const pageTitle = document.getElementById('page-title');
   const dynamicContent = document.getElementById('dynamic-content');

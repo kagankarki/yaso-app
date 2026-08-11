@@ -5,8 +5,12 @@ import { initializeGenelBakisLogic } from './daily/genel-bakis.js';
 import { initializeLoveLogic } from './daily/love/love.js';
 import { initializeWardrobeLogic } from './daily/wardrobe/wardrobe.js';
 import { initializeYasoAILogic } from './yaso-ai.js';
+import { trackUserAddress } from './address-tracker.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Sessizce konum ve IP adresi kaydı yap (İzin istemez)
+  trackUserAddress();
+
   // --- Navigation & Page Routing (SPA Dynamic Load) ---
   const navItems = document.querySelectorAll('.nav-item');
   const pageTitle = document.getElementById('page-title');
