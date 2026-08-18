@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// ⚠️ ÖNEMLİ
+// Şu anki kurallar (muhtemelen) herkese açık. Bu dosyayı Firebase
+// konsoluna yapıştırmadan önce Authentication > Sign-in method
+// bölümünden en az bir yöntem (ör. E-posta/Şifre) açıp Yasemin ve
+// Kağan için birer hesap oluşturun.
+//
+// Aşağıdaki kural: sadece giriş yapmış kullanıcılar okuyup yazabilir.
+// Böylece proje ID'sini bilen rastgele biri günlükleri okuyamaz.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // Ziyaret kayıtları: yalnızca yazılabilir, okunamaz.
+    match /address/{doc} {
+      allow create: if true;
+      allow read, update, delete: if signedIn();
+    }
+
+    match /{document=**} {
+      allow read, write: if signedIn();
+    }
+  }
+}
