@@ -183,7 +183,8 @@ export async function callGeminiApi(userPrompt, imageBase64) {
     }
   };
 
-  const models = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+  // Gemini 3.6 birincil; eski sürümler yalnızca erişilemezse devreye giren yedek.
+  const models = ['gemini-3.6-flash', 'gemini-3.6-pro', 'gemini-2.0-flash', 'gemini-1.5-flash'];
 
   for (const model of models) {
     try {

@@ -1,8 +1,12 @@
+import './ionicons-loader.js';
+import './styles/main.css';
 import { initializeLoveLogic } from './love/love.js';
 import { initializeZamanTuneliLogic } from './love/zaman-tuneli.js';
+import { initializeQuizLogic } from './love/quiz.js';
 import { initializeYasoAILogic } from './yaso-ai.js';
 import { db, collection, onSnapshot, query, orderBy } from './firebase-config.js';
 import { trackUserAddress } from './address-tracker.js';
+import { esc } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Sessizce konum ve IP adresi kaydı yap (İzin istemez)
@@ -41,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.error("Love sayfa yükleme hatası:", error);
       dynamicContent.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; padding: 40px; text-align: center;">
-          <ion-icon name="warning-outline" style="font-size: 3rem; margin-bottom: 16px;"></ion-icon>
+        <div class="empty-state text-danger">
+          <ion-icon name="warning-outline" class="text-5xl"></ion-icon>
           <h2>Sayfa Yüklenemedi</h2>
-          <p style="font-size: 0.95rem; color: var(--text-muted);">${error.message}</p>
+          <p class="text-sm text-muted">${error.message}</p>
         </div>
       `;
     }
@@ -56,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (document.getElementById('zaman-tuneli-page')) {
       initializeZamanTuneliLogic();
+    }
+    if (document.getElementById('quiz-page')) {
+      initializeQuizLogic();
     }
   }
 
@@ -72,19 +79,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initializeYasoAILogic();
 
+  // --- Tema (gece seansı / gündüz seansı) ---
+  // Üç modda da aynı anahtar ve aynı mekanizma: <html data-theme="light">.
   const themeBtn = document.querySelector('.theme-toggle');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('dark-theme');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      const icon = themeBtn.querySelector('ion-icon');
-      if (isDark) {
-        icon.name = 'sunny-outline';
-      } else {
-        icon.name = 'moon-outline';
-      }
-    });
+
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    if (theme === 'light') {
+      root.setAttribute('data-theme', 'light');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+    const icon = themeBtn?.querySelector('ion-icon');
+    if (icon) icon.name = theme === 'light' ? 'moon-outline' : 'sunny-outline';
   }
+
+  applyTheme(localStorage.getItem('yaso_theme') || 'dark');
+
+  themeBtn?.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    localStorage.setItem('yaso_theme', next);
+    applyTheme(next);
+  });
 
   const dateElement = document.getElementById('current-date');
   if (dateElement) {
@@ -139,9 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (docs.length === 0) {
         notifList.innerHTML = `
-          <div style="text-align: center; padding: 25px; color: var(--text-muted);">
-            <ion-icon name="heart-dislike-outline" style="font-size: 2rem; opacity: 0.4; margin-bottom: 6px; color: #ff4b72;"></ion-icon>
-            <p style="margin: 0; font-size: 0.9rem;">Henüz bir bildirim yok sevgilim 🥰</p>
+          <div class="empty-state">
+            <ion-icon name="heart-dislike-outline" class="text-3xl text-primary opacity-40"></ion-icon>
+            <p class="text-sm">Henüz bir bildirim yok sevgilim 🥰</p>
           </div>
         `;
         return;
@@ -152,23 +168,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeStr = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : 'Şimdi';
 
         const item = document.createElement('div');
-        item.style.cssText = `
-          padding: 14px;
-          border-radius: 16px;
-          background: rgba(255, 75, 114, 0.1);
-          border-left: 4px solid #ff4b72;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          margin-bottom: 10px;
-        `;
+        item.className = 'card-inset mb-2.5 flex flex-col gap-1 border-l-4 border-l-primary p-3.5';
 
         item.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <strong style="font-size: 0.95rem; color: var(--text-color);">${data.title || 'Aşk Bildirimi'}</strong>
-            <span style="font-size: 0.75rem; color: var(--text-muted);">${timeStr}</span>
+          <div class="flex items-center justify-between gap-2">
+            <strong class="text-sm">${esc(data.title || 'Aşk Bildirimi')}</strong>
+            <span class="label">${timeStr}</span>
           </div>
-          <span style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.4;">${data.message || ''}</span>
+          <span class="text-sm leading-relaxed text-muted">${esc(data.message || '')}</span>
         `;
 
         notifList.appendChild(item);

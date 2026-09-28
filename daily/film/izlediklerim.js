@@ -36,7 +36,7 @@ export async function initializeIzlediklerimLogic() {
             <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(data.title + ' trailer')}" target="_blank" class="btn-primary" style="flex: 1; justify-content: center; text-decoration: none; padding: 8px;">
               <ion-icon name="play-circle-outline"></ion-icon> Fragman
             </a>
-            <button class="icon-btn remove-movie-btn" data-id="${docId}" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">
+            <button class="icon-btn remove-movie-btn" data-id="${docId}" style="background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.4);">
               <ion-icon name="trash-outline"></ion-icon>
             </button>
           </div>
@@ -73,7 +73,7 @@ export async function initializeIzlediklerimLogic() {
   } catch (error) {
     console.error("Veriler çekilemedi:", error);
     grid.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--danger);">
         <ion-icon name="warning-outline" style="font-size: 3rem; margin-bottom: 12px;"></ion-icon>
         <p>Hafızaya ulaşılamadı. İnternet bağlantınızı kontrol edin.</p>
       </div>`;

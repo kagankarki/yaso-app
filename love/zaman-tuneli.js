@@ -113,10 +113,10 @@ export function initializeZamanTuneliLogic() {
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
           <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <span class="milestone-date">${item.date}</span>
-            <span style="font-size: 0.8rem; padding: 3px 10px; border-radius: 10px; background: rgba(255, 75, 114, 0.15); color: #ff4b72; font-weight: 700;">${item.category || 'Aşk'}</span>
+            <span style="font-size: 0.8rem; padding: 3px 10px; border-radius: 10px; background: rgba(255, 75, 114, 0.15); color: var(--primary); font-weight: 700;">${item.category || 'Aşk'}</span>
           </div>
           ${item.id !== 'starter_31_mayis' ? `
-            <button class="delete-ms-btn" data-id="${item.id}" style="background: none; border: none; color: #ef4444; opacity: 0.6; cursor: pointer; font-size: 1.2rem; transition: opacity 0.2s;" title="Anıyı Sil">
+            <button class="delete-ms-btn" data-id="${item.id}" style="background: none; border: none; color: var(--danger); opacity: 0.6; cursor: pointer; font-size: 1.2rem; transition: opacity 0.2s;" title="Anıyı Sil">
               <ion-icon name="trash-outline"></ion-icon>
             </button>
           ` : ''}
@@ -136,7 +136,7 @@ export function initializeZamanTuneliLogic() {
         ` : ''}
 
         <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--glass-border);">
-          <button class="like-ms-btn" data-id="${item.id}" data-likes="${item.likes || 0}" style="background: rgba(255, 75, 114, 0.1); border: 1px solid rgba(255, 75, 114, 0.3); color: #ff4b72; padding: 6px 16px; border-radius: 12px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
+          <button class="like-ms-btn" data-id="${item.id}" data-likes="${item.likes || 0}" style="background: rgba(255, 75, 114, 0.1); border: 1px solid rgba(255, 75, 114, 0.3); color: var(--primary); padding: 6px 16px; border-radius: 12px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
             <ion-icon name="heart" style="font-size: 1rem;"></ion-icon>
             <span>${item.likes || 0} Beğeni</span>
           </button>

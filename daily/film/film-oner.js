@@ -149,7 +149,7 @@ async function loadWatchedMovies(grid) {
             <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(data.title + ' trailer')}" target="_blank" class="btn-primary" style="flex: 1; justify-content: center; text-decoration: none; padding: 8px;">
               <ion-icon name="play-circle-outline"></ion-icon> Fragman
             </a>
-            <button class="icon-btn remove-movie-btn" data-id="${docId}" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">
+            <button class="icon-btn remove-movie-btn" data-id="${docId}" style="background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.4);">
               <ion-icon name="trash-outline"></ion-icon>
             </button>
           </div>
@@ -186,7 +186,7 @@ async function loadWatchedMovies(grid) {
   } catch (error) {
     console.error("Veriler çekilemedi:", error);
     grid.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--danger);">
         <ion-icon name="warning-outline" style="font-size: 3rem; margin-bottom: 12px;"></ion-icon>
         <p>Hafızaya ulaşılamadı. İnternet bağlantınızı kontrol edin.</p>
       </div>`;
@@ -334,7 +334,7 @@ async function searchMovieWithAI(promptText, grid) {
   } catch (error) {
     console.error("Yapay Zeka veya TMDB Hatası:", error);
     grid.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--danger);">
         <ion-icon name="warning-outline" style="font-size: 3rem; margin-bottom: 12px;"></ion-icon>
         <p>Motorlara bağlanılamadı. Hata Detayı:</p>
         <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.8;">${error.message}</p>
@@ -387,7 +387,7 @@ async function fetchAndRenderMovies(genreId, minRating, year, sort, grid) {
   } catch (error) {
     console.error("TMDB Hatası:", error);
     grid.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--danger);">
         <ion-icon name="warning-outline" style="font-size: 3rem; margin-bottom: 12px;"></ion-icon>
         <p>Filmler yüklenirken bir hata oluştu.<br>Lütfen internet bağlantını kontrol et.</p>
       </div>`;
@@ -451,7 +451,7 @@ function renderMoviesToGrid(movies, grid) {
         });
         
         button.innerHTML = '<ion-icon name="checkmark-circle-outline"></ion-icon> Kaydedildi';
-        button.style.background = '#10b981'; // green
+        button.style.background = 'var(--ok)'; // green
       } catch (err) {
         console.error("Firebase kayıt hatası:", err);
         const button = e.target.closest('.save-movie-btn');

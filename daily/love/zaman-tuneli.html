@@ -2,7 +2,7 @@
   <div class="love-page-container">
 
     <!-- Hero Banner -->
-    <div class="love-hero-banner" style="background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #ff4b72 100%); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.35); border-radius: 28px; padding: 30px; margin-bottom: 25px; position: relative; overflow: hidden; color: white;">
+    <div class="love-hero-banner" style="background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 50%, var(--primary) 100%); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.35); border-radius: 28px; padding: 30px; margin-bottom: 25px; position: relative; overflow: hidden; color: white;">
       <div class="bg-floating-heart heart-top-left" style="position: absolute; top: 15px; left: 20px; font-size: 2rem; opacity: 0.3;">📸</div>
       <div class="bg-floating-heart heart-bottom-right" style="position: absolute; bottom: 15px; right: 20px; font-size: 2rem; opacity: 0.3;">✨</div>
       <h1 class="love-hero-title" style="margin: 0 0 8px 0; font-size: 2rem; font-weight: 800;">Bizim Zaman Tünelimiz ⏳</h1>
@@ -15,11 +15,11 @@
       <!-- Top Action Bar -->
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
         <div class="love-card-title" style="font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--text-color);">
-          <ion-icon name="journal" style="color: #ff4b72; font-size: 1.8rem;"></ion-icon>
+          <ion-icon name="journal" style="color: var(--primary); font-size: 1.8rem;"></ion-icon>
           <span>Anı Akışı & Hikayelerimiz</span>
         </div>
         
-        <button class="add-milestone-btn" id="open-add-milestone-btn" style="padding: 12px 24px; font-size: 1rem; border-radius: 16px; background: linear-gradient(135deg, #ff4b72, #ec4899); color: white; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(255, 75, 114, 0.35); transition: transform 0.2s;">
+        <button class="add-milestone-btn" id="open-add-milestone-btn" style="padding: 12px 24px; font-size: 1rem; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--primary)); color: white; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(255, 75, 114, 0.35); transition: transform 0.2s;">
           <ion-icon name="add-circle" style="font-size: 1.3rem;"></ion-icon>
           <span>Yeni Anı & Fotoğraf Ekle</span>
         </button>
@@ -38,7 +38,7 @@
     <div class="love-modal-content" style="max-width: 550px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h3 style="margin: 0; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; color: var(--text-color);">
-          <ion-icon name="camera" style="color: #ff4b72;"></ion-icon> Yeni Anı & Fotoğraf Ekle
+          <ion-icon name="camera" style="color: var(--primary);"></ion-icon> Yeni Anı & Fotoğraf Ekle
         </h3>
         <button id="close-milestone-modal-btn" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;">&times;</button>
       </div>
@@ -82,7 +82,7 @@
           <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-color); margin-bottom: 8px;">Fotoğraf Yükle (İsteğe Bağlı) 📸</label>
           
           <input type="file" id="ms-file-input" accept="image/*" style="display: none;">
-          <button id="trigger-ms-file-btn" type="button" class="btn-primary" style="margin: 0 auto 10px; padding: 8px 18px; font-size: 0.9rem; border-radius: 12px; background: linear-gradient(135deg, #ff4b72, #ec4899);">
+          <button id="trigger-ms-file-btn" type="button" class="btn-primary" style="margin: 0 auto 10px; padding: 8px 18px; font-size: 0.9rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--primary));">
             <ion-icon name="cloud-upload-outline"></ion-icon>
             <span>Cihazdan Fotoğraf Seç</span>
           </button>

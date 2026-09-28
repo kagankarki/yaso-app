@@ -1,81 +1,86 @@
-          <section id="ayarlar" class="page-section active">
-             <div class="glass-panel" style="max-width: 800px; margin: 0 auto; border-radius: 24px; padding: 40px;">
-              <h2 style="font-size: 2rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;">
-                <ion-icon name="settings" style="color: var(--primary);"></ion-icon> Uygulama Ayarları
-              </h2>
-              
-              <div style="display: grid; gap: 24px;">
-                
-                <!-- Günlük Şifre Ayarları (En Üstte) -->
-                <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15)); border: 2px solid var(--primary); border-radius: 20px; padding: 25px; box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);">
-                  <h3 style="margin-bottom: 15px; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; color: var(--text-color);">
-                    <ion-icon name="key-outline" style="color: var(--primary); font-size: 1.5rem;"></ion-icon> Günlük Şifresini Değiştir
-                  </h3>
-                  <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Günlüğüne girişte kullanacağın yeni şifreyi buradan anında güncelleyebilirsin.</p>
-                  <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <div>
-                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">Yeni Şifreniz</label>
-                      <input type="password" id="settings-diary-password" class="glass-input" placeholder="● ● ● ● ●" style="background: rgba(0,0,0,0.2); padding: 14px; border-radius: 12px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color); font-size: 1.1rem; letter-spacing: 4px;">
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                      <button id="settings-save-password-btn" class="btn-primary" style="padding: 12px 24px; font-size: 1rem; border-radius: 12px; width: 100%;">Şifreyi Değiştir</button>
-                      <span id="settings-password-status" style="font-size: 0.95rem; font-weight: 600; width: 100%; text-align: center; display: block; margin-top: 5px;"></span>
-                    </div>
-                  </div>
-                </div>
+<section id="ayarlar" class="page-section active mx-auto max-w-3xl">
+  <div class="card p-6 sm:p-10">
+    <div class="marquee"></div>
 
-                <!-- Profil Ayarları -->
-                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
-                  <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
-                    <ion-icon name="person-circle-outline"></ion-icon> Profil Ayarları
-                  </h3>
-                  <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <div>
-                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">Görünen İsim</label>
-                      <input type="text" class="glass-input" value="Yasemin" style="background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color);">
-                    </div>
-                    <div>
-                      <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">E-Posta</label>
-                      <input type="email" class="glass-input" value="yasemin@smartyasemin.com" style="background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); width: 100%; color: var(--text-color);">
-                    </div>
-                    <button class="btn-primary" style="align-self: flex-start; margin-top: 10px;">Değişiklikleri Kaydet</button>
-                  </div>
-                </div>
+    <h2 class="mb-8 flex items-center gap-3 pt-4 text-2xl sm:text-3xl">
+      <ion-icon name="settings" class="text-primary"></ion-icon> Uygulama Ayarları
+    </h2>
 
-                <!-- Bildirim Tercihleri -->
-                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;">
-                  <h3 style="margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
-                    <ion-icon name="notifications-outline"></ion-icon> Bildirim Tercihleri
-                  </h3>
-                  <div style="display: flex; flex-direction: column; gap: 15px;">
-                    
-                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.3s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
-                      <div>
-                        <strong style="display: block;">Hatırlatıcı Bildirimleri</strong>
-                        <span style="font-size: 0.85rem; color: var(--text-muted);">Su içme, spor ve günlük alışkanlıklar.</span>
-                      </div>
-                      <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer;">
-                    </label>
+    <div class="grid gap-6">
 
-                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.3s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
-                      <div>
-                        <strong style="display: block;">Aşk Bildirimleri 🥰</strong>
-                        <span style="font-size: 0.85rem; color: var(--text-muted);">Özel mesajlar ve tatlı sürprizler.</span>
-                      </div>
-                      <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer;">
-                    </label>
+      <!-- Günlük Şifre Ayarları (En Üstte) -->
+      <div class="card-inset border-primary p-6">
+        <h3 class="mb-4 flex items-center gap-2.5 text-lg">
+          <ion-icon name="key-outline" class="text-xl text-primary"></ion-icon> Günlük Şifresini Değiştir
+        </h3>
+        <p class="mb-5 text-sm text-muted">
+          Günlüğüne girişte kullanacağın yeni şifreyi buradan anında güncelleyebilirsin.
+        </p>
 
-                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.3s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
-                      <div>
-                        <strong style="display: block;">Business Bildirimleri</strong>
-                        <span style="font-size: 0.85rem; color: var(--text-muted);">İş mailleri, toplantılar ve projeler.</span>
-                      </div>
-                      <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer;">
-                    </label>
+        <div class="flex flex-col gap-4">
+          <div class="field">
+            <label class="field-label" for="settings-diary-password">Yeni Şifreniz</label>
+            <input type="password" id="settings-diary-password" class="input tracking-[4px]" placeholder="● ● ● ● ●">
+          </div>
+          <div class="flex flex-col items-stretch gap-3">
+            <button id="settings-save-password-btn" class="btn btn-primary w-full">Şifreyi Değiştir</button>
+            <span id="settings-password-status" class="block text-center text-sm font-semibold"></span>
+          </div>
+        </div>
+      </div>
 
-                  </div>
-                </div>
+      <!-- Profil Ayarları -->
+      <div class="card-inset p-6">
+        <h3 class="mb-5 flex items-center gap-2 text-lg">
+          <ion-icon name="person-circle-outline"></ion-icon> Profil Ayarları
+        </h3>
+        <div class="flex flex-col gap-4">
+          <div class="field">
+            <label class="field-label" for="settings-display-name">Görünen İsim</label>
+            <input type="text" id="settings-display-name" class="input" value="Yasemin">
+          </div>
+          <div class="field">
+            <label class="field-label" for="settings-email">E-Posta</label>
+            <input type="email" id="settings-email" class="input" value="yasemin@smartyasemin.com">
+          </div>
+          <button class="btn btn-primary self-start">Değişiklikleri Kaydet</button>
+        </div>
+      </div>
 
-              </div>
+      <!-- Bildirim Tercihleri -->
+      <div class="card-inset p-6">
+        <h3 class="mb-5 flex items-center gap-2 text-lg">
+          <ion-icon name="notifications-outline"></ion-icon> Bildirim Tercihleri
+        </h3>
+        <div class="flex flex-col gap-2">
+
+          <label class="flex cursor-pointer items-center justify-between gap-4 rounded-tile p-3 transition hover:bg-surface-2">
+            <div>
+              <strong class="block">Hatırlatıcı Bildirimleri</strong>
+              <span class="text-sm text-muted">Su içme, spor ve günlük alışkanlıklar.</span>
             </div>
-          </section>
+            <input type="checkbox" checked class="h-5 w-5 flex-none cursor-pointer accent-[var(--primary)]">
+          </label>
+
+          <label class="flex cursor-pointer items-center justify-between gap-4 rounded-tile p-3 transition hover:bg-surface-2">
+            <div>
+              <strong class="block">Aşk Bildirimleri 🥰</strong>
+              <span class="text-sm text-muted">Özel mesajlar ve tatlı sürprizler.</span>
+            </div>
+            <input type="checkbox" checked class="h-5 w-5 flex-none cursor-pointer accent-[var(--primary)]">
+          </label>
+
+          <label class="flex cursor-pointer items-center justify-between gap-4 rounded-tile p-3 transition hover:bg-surface-2">
+            <div>
+              <strong class="block">Business Bildirimleri</strong>
+              <span class="text-sm text-muted">İş mailleri, toplantılar ve projeler.</span>
+            </div>
+            <input type="checkbox" checked class="h-5 w-5 flex-none cursor-pointer accent-[var(--primary)]">
+          </label>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

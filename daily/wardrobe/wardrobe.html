@@ -2,7 +2,7 @@
   <div class="love-page-container" style="max-width: 1100px; margin: 0 auto;">
 
     <!-- Hero Header Banner -->
-    <div class="love-hero-banner" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%); box-shadow: 0 15px 35px rgba(236, 72, 153, 0.3); border-radius: 28px; padding: 30px; margin-bottom: 25px; color: white;">
+    <div class="love-hero-banner" style="background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--primary) 100%); box-shadow: 0 15px 35px rgba(236, 72, 153, 0.3); border-radius: 28px; padding: 30px; margin-bottom: 25px; color: white;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
         <div>
           <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.9; font-weight: 700;">Smart Fashion Assistant</span>
@@ -10,7 +10,7 @@
           <p style="margin: 0; font-size: 1rem; opacity: 0.95;">Gemini AI ile hava durumuna göre gardırobundan sana özel akıllı kombin tavsiyeleri...</p>
         </div>
 
-        <button id="open-add-cloth-modal-btn" style="padding: 12px 24px; font-size: 0.95rem; border-radius: 18px; background: white; color: #ec4899; border: none; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: transform 0.2s;">
+        <button id="open-add-cloth-modal-btn" style="padding: 12px 24px; font-size: 0.95rem; border-radius: 18px; background: white; color: var(--primary); border: none; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: transform 0.2s;">
           <ion-icon name="shirt-outline" style="font-size: 1.3rem;"></ion-icon>
           <span>Gardıroba Kıyafet Ekle</span>
         </button>
@@ -21,14 +21,14 @@
     <div class="glass-panel" style="border-radius: 24px; padding: 25px; margin-bottom: 25px; background: rgba(255, 255, 255, 0.04);">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 16px;">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <ion-icon name="partly-sunny" style="color: #f59e0b; font-size: 2rem;"></ion-icon>
+          <ion-icon name="partly-sunny" style="color: var(--warn); font-size: 2rem;"></ion-icon>
           <h3 style="margin: 0; font-size: 1.3rem; color: var(--text-color);">Hava Durumu & Gemini AI Kombin Tavsiyesi</h3>
         </div>
 
         <!-- City Selector -->
         <div style="display: flex; align-items: center; gap: 8px;">
           <label style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Şehir:</label>
-          <select id="weather-city-select" class="glass-input" style="padding: 8px 14px; border-radius: 12px; font-size: 0.9rem; color: var(--text-color); background: #181024;">
+          <select id="weather-city-select" class="glass-input" style="padding: 8px 14px; border-radius: 12px; font-size: 0.9rem; color: var(--text-color); background: var(--surface-2);">
             <option value="ankara">Ankara 🌸</option>
             <option value="istanbul">İstanbul 🌊</option>
             <option value="izmir">İzmir ☀️</option>
@@ -40,12 +40,12 @@
       <!-- Weather Info & AI Recommendation Banner -->
       <div id="weather-info-box" style="background: rgba(236, 72, 153, 0.08); border: 1.5px solid rgba(236, 72, 153, 0.25); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
         <div style="text-align: center; padding-right: 20px; border-right: 1px dashed var(--glass-border);" id="weather-temp-badge">
-          <div style="font-size: 2.8rem; font-weight: 900; color: #ec4899; line-height: 1;" id="weather-degree">22°C</div>
+          <div style="font-size: 2.8rem; font-weight: 900; color: var(--primary); line-height: 1;" id="weather-degree">22°C</div>
           <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700;" id="weather-condition">Parçalı Bulutlu</span>
         </div>
 
         <div style="flex: 1;">
-          <span style="font-size: 0.8rem; font-weight: 800; color: #ec4899; text-transform: uppercase; letter-spacing: 1px;">YasoAI Stil Önerisi</span>
+          <span style="font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1px;">YasoAI Stil Önerisi</span>
           <p id="weather-ai-advice" style="margin: 6px 0 0 0; font-size: 1rem; color: var(--text-color); line-height: 1.5;">
             "Bugün hava tatlı bir bahar havası! Gardırobuna kıyafetlerini ekle, Gemini sana en şık kombini hazırlasın mimarım ✨"
           </p>
@@ -77,9 +77,9 @@
       <div class="glass-panel" style="border-radius: 24px; padding: 24px; position: sticky; top: 20px; background: rgba(255, 255, 255, 0.04);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <h3 style="margin: 0; font-size: 1.15rem; color: var(--text-color); display: flex; align-items: center; gap: 8px;">
-            <ion-icon name="sparkles" style="color: #ec4899;"></ion-icon> Günün Kombini
+            <ion-icon name="sparkles" style="color: var(--primary);"></ion-icon> Günün Kombini
           </h3>
-          <button id="gemini-ai-outfit-btn" style="background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; border: none; padding: 7px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(236,72,153,0.3);">
+          <button id="gemini-ai-outfit-btn" style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; padding: 7px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(236,72,153,0.3);">
             🔮 Gemini ile Kombin Öner
           </button>
         </div>
@@ -116,7 +116,7 @@
     <div class="love-modal-content" style="max-width: 520px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h3 style="margin: 0; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; color: var(--text-color);">
-          <ion-icon name="shirt" style="color: #ec4899;"></ion-icon> Gardıroba Kıyafet Ekle
+          <ion-icon name="shirt" style="color: var(--primary);"></ion-icon> Gardıroba Kıyafet Ekle
         </h3>
         <button id="close-cloth-modal-btn" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;">&times;</button>
       </div>
@@ -136,7 +136,7 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
           <div>
             <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Kategori *</label>
-            <select id="cloth-cat-input" class="glass-input" style="width: 100%; padding: 10px; border-radius: 10px; color: var(--text-color); background: #181024;">
+            <select id="cloth-cat-input" class="glass-input" style="width: 100%; padding: 10px; border-radius: 10px; color: var(--text-color); background: var(--surface-2);">
               <option value="top">👚 Üst Giyim</option>
               <option value="bottom">👖 Alt Giyim</option>
               <option value="shoes">👠 Ayakkabı</option>
@@ -146,7 +146,7 @@
 
           <div>
             <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Mevsim *</label>
-            <select id="cloth-season-input" class="glass-input" style="width: 100%; padding: 10px; border-radius: 10px; color: var(--text-color); background: #181024;">
+            <select id="cloth-season-input" class="glass-input" style="width: 100%; padding: 10px; border-radius: 10px; color: var(--text-color); background: var(--surface-2);">
               <option value="Bahar">🌸 Bahar</option>
               <option value="Yaz">☀️ Yaz</option>
               <option value="Sonbahar">🍁 Sonbahar</option>
@@ -156,7 +156,7 @@
 
           <div>
             <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Stil *</label>
-            <select id="cloth-style-input" class="glass-input" style="width: 100%; padding: 10px; border-radius: 10px; color: var(--text-color); background: #181024;">
+            <select id="cloth-style-input" class="glass-input" style="width: 100%; padding: 10px; border-radius: 10px; color: var(--text-color); background: var(--surface-2);">
               <option value="Şık">✨ Şık / Elegan</option>
               <option value="Casual">☕ Casual / Günlük</option>
               <option value="Spor">👟 Spor</option>
@@ -167,7 +167,7 @@
 
         <!-- Mandatory Detailed Description -->
         <div>
-          <label style="display: block; font-size: 0.85rem; color: #ec4899; font-weight: 700; margin-bottom: 6px;">
+          <label style="display: block; font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 6px;">
             Kıyafet Açıklaması & Detayı (Gemini için Zorunlu!) *
           </label>
           <textarea id="cloth-desc-input" class="glass-input" rows="3" placeholder="Gemini'nin kıyafeti doğru kombinlemesi için kumaşını, yaka tarzını ve kesimini anlat mimarım (Örn: Uzun kollu, dik yaka, V-kesim ipek pembe gömlek)..." style="width: 100%; padding: 12px; border-radius: 10px; resize: vertical;"></textarea>
@@ -178,7 +178,7 @@
           <label style="display: block; font-size: 0.9rem; font-weight: 700; color: var(--text-color); margin-bottom: 8px;">Kıyafet Fotoğrafı Yükle *</label>
           
           <input type="file" id="cloth-file-input" accept="image/*" style="display: none;">
-          <button id="trigger-cloth-file-btn" type="button" class="btn-primary" style="margin: 0 auto 10px; padding: 8px 18px; font-size: 0.9rem; border-radius: 12px; background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+          <button id="trigger-cloth-file-btn" type="button" class="btn-primary" style="margin: 0 auto 10px; padding: 8px 18px; font-size: 0.9rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--accent));">
             <ion-icon name="cloud-upload-outline"></ion-icon>
             <span>Cihazdan Fotoğraf Seç</span>
           </button>

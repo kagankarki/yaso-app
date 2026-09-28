@@ -4,14 +4,19 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copy-ionicons.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/copy-ionicons.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "firebase": "^12.16.0"
+    "firebase": "^12.16.0",
+    "ionicons": "^7.1.0"
   }
 }

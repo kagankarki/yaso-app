@@ -12,7 +12,7 @@
     <!-- Live Love Counter -->
     <div class="love-counter-box">
       <div class="counter-title">
-        <ion-icon name="heart" style="color: #ff4b72; font-size: 1.8rem;"></ion-icon>
+        <ion-icon name="heart" style="color: var(--primary); font-size: 1.8rem;"></ion-icon>
         <span>Sonsuza Kadar Beraber...</span>
       </div>
       <div class="counter-grid">
@@ -41,44 +41,44 @@
     </div>
 
     <!-- 🧞‍♂️ DİLEK & KURAL MERKEZİ (40 Saniye Sayaç & Kağan'a Devret) -->
-    <div class="glass-panel" style="border-radius: 28px; padding: 30px; margin-bottom: 25px; background: rgba(255, 255, 255, 0.04);">
+    <div class="glass-panel" style="padding: 24px;">
       <div class="love-card-title" style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--text-color);">
-        <ion-icon name="sparkles" style="color: #ec4899; font-size: 1.8rem;"></ion-icon>
+        <ion-icon name="sparkles" style="color: var(--primary); font-size: 1.8rem;"></ion-icon>
         <span>Dilek Merkezi & Kağan Kuralları 🧞‍♂️</span>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
         
         <!-- Surprise Randomized Duration Wish Box -->
-        <div style="background: rgba(255, 75, 114, 0.08); border: 1.5px solid rgba(255, 75, 114, 0.25); border-radius: 20px; padding: 22px; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card-inset" style="padding: 22px; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span style="font-size: 0.8rem; font-weight: 800; color: #ff758c; text-transform: uppercase; letter-spacing: 1px;">Süreli Dilek Hakkı</span>
-            <h3 style="margin: 6px 0 12px 0; font-size: 1.25rem; color: var(--text-color);">Rastgele Süreli Dilek İste ⏳</h3>
-            
-            <div id="wish-timer-display" style="font-size: 2rem; font-weight: 900; color: #ff4b72; font-family: monospace; margin-bottom: 12px;">--:--</div>
+            <span class="now-showing">Süreli Dilek Hakkı</span>
+            <h3 style="margin: 8px 0 12px; font-size: 1.25rem;">Rastgele Süreli Dilek İste ⏳</h3>
+
+            <div id="wish-timer-display" style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; color: var(--primary); font-variant-numeric: tabular-nums; margin-bottom: 12px;">--:--</div>
 
             <div id="wish-form-box" style="display: none; margin-bottom: 12px;">
-              <input type="text" id="wish-input" class="glass-input" placeholder="Dileğini yaz aşkım..." style="width: 100%; padding: 10px; border-radius: 10px; margin-bottom: 8px;">
-              <button id="submit-wish-btn" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.9rem; border-radius: 10px; background: linear-gradient(135deg, #ff4b72, #ec4899);">Dileği Kağan'a Gönder 🚀</button>
+              <input type="text" id="wish-input" class="glass-input" placeholder="Dileğini yaz aşkım..." style="margin-bottom: 8px;">
+              <button id="submit-wish-btn" class="btn-primary" style="width: 100%;">Dileği Kağan'a Gönder 🚀</button>
             </div>
           </div>
 
-          <button id="start-wish-timer-btn" class="surprise-btn" style="width: 100%; padding: 10px; font-size: 0.95rem; border-radius: 14px; justify-content: center;">
+          <button id="start-wish-timer-btn" class="surprise-btn" style="width: 100%;">
             <span>Dilek Hakkını Başlat (Sürpriz Süre) ⏱️</span>
           </button>
         </div>
 
         <!-- Transfer Wish to Kağan Button Box -->
-        <div style="background: rgba(139, 92, 246, 0.08); border: 1.5px solid rgba(139, 92, 246, 0.25); border-radius: 20px; padding: 22px; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card-inset" style="padding: 22px; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span style="font-size: 0.8rem; font-weight: 800; color: #a78bfa; text-transform: uppercase; letter-spacing: 1px;">Özel Devir Butonu</span>
-            <h3 style="margin: 6px 0 8px 0; font-size: 1.25rem; color: var(--text-color);">Hakkı Kağan'a Devret 😘</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.4;">
+            <span class="now-showing">Özel Devir Butonu</span>
+            <h3 style="margin: 8px 0; font-size: 1.25rem;">Hakkı Kağan'a Devret 😘</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5;">
               Dilek hakkını Kağan'a devret, karşılığında sınırsız öpücük kuponu ve gizli aşk notunu kazan! 💋
             </p>
           </div>
 
-          <button id="transfer-wish-btn" style="width: 100%; padding: 12px; font-size: 0.95rem; border-radius: 14px; background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; border: none; font-weight: 700; cursor: pointer; box-shadow: 0 6px 16px rgba(139, 92, 246, 0.35); transition: transform 0.2s;">
+          <button id="transfer-wish-btn" class="btn-primary" style="width: 100%;">
             <span>Kağan'a Devret & Sınırsız Öpücük Al 💋</span>
           </button>
         </div>
@@ -89,10 +89,10 @@
       <div style="margin-top: 25px; padding-top: 20px; border-top: 1px dashed var(--glass-border);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
           <h4 style="margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; color: var(--text-color);">
-            <ion-icon name="planet" style="color: #8b5cf6;"></ion-icon>
+            <ion-icon name="planet" style="color: var(--accent);"></ion-icon>
             <span>Evrensel Uzaysal Küme (Troll & Aşk Görevleri) 🌌</span>
           </h4>
-          <span style="font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: rgba(139, 92, 246, 0.15); color: #a78bfa;">Sınırsız Mod Aktif ✨</span>
+          <span style="font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: rgba(139, 92, 246, 0.15); color: var(--accent);">Sınırsız Mod Aktif ✨</span>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;" id="troll-tasks-container">
@@ -151,11 +151,11 @@
   <div class="modal-overlay" id="transfer-kiss-modal">
     <div class="love-modal-content" style="max-width: 500px; text-align: center; padding: 35px 25px;">
       <div style="font-size: 3.5rem; margin-bottom: 10px;">💋✨</div>
-      <h2 style="margin: 0 0 10px 0; font-size: 1.6rem; color: #ff4b72;">Dilek Hakkını Kağan'a Devrettin!</h2>
+      <h2 style="margin: 0 0 10px 0; font-size: 1.6rem; color: var(--primary);">Dilek Hakkını Kağan'a Devrettin!</h2>
       <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
         "Sözünü tuttun birtanem! Hakkı bana devrettin, karşılığında seni sınırsız öpüyorum! 😘 Ve unutma: <strong>Biz sonsuza kadar beraberiz ❤️</strong>"
       </p>
-      <div style="background: rgba(255, 75, 114, 0.12); border: 1.5px dashed #ff4b72; padding: 12px; border-radius: 16px; margin-bottom: 20px; font-weight: 800; color: #ff4b72; font-size: 1.1rem;">
+      <div style="background: rgba(255, 75, 114, 0.12); border: 1.5px dashed var(--primary); padding: 12px; border-radius: 16px; margin-bottom: 20px; font-weight: 800; color: var(--primary); font-size: 1.1rem;">
         🎫 SINIRSIZ ÖPÜCÜK KUPONU KAZANILDI!
       </div>
       <button id="close-kiss-modal-btn" class="surprise-btn" style="width: 100%; justify-content: center; font-size: 1rem;">

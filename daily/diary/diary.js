@@ -205,22 +205,22 @@ export function initializeDiaryLogic(owner = 'Diary') {
       ]);
       
       if (passStatusMsg) {
-        passStatusMsg.style.color = '#10b981';
+        passStatusMsg.style.color = 'var(--ok)';
         passStatusMsg.textContent = 'Şifreniz başarıyla değiştirildi! ✓';
       }
       if (saveNewPasswordBtn) {
         saveNewPasswordBtn.textContent = 'Kaydedildi ✓';
-        saveNewPasswordBtn.style.background = '#10b981';
+        saveNewPasswordBtn.style.background = 'var(--ok)';
       }
     } catch (err) {
       console.error("Şifre kaydedilirken Firebase hatası oluştu, yerel kayıt yapıldı:", err);
       if (passStatusMsg) {
-        passStatusMsg.style.color = '#10b981';
+        passStatusMsg.style.color = 'var(--ok)';
         passStatusMsg.textContent = 'Şifre güncellendi (Yerel) ✓';
       }
       if (saveNewPasswordBtn) {
         saveNewPasswordBtn.textContent = 'Kaydedildi ✓';
-        saveNewPasswordBtn.style.background = '#10b981';
+        saveNewPasswordBtn.style.background = 'var(--ok)';
       }
     }
 
@@ -292,7 +292,7 @@ export function initializeDiaryLogic(owner = 'Diary') {
         titleInput.value = '';
         bodyInput.value = '';
         saveBtn.innerHTML = '<ion-icon name="checkmark-outline"></ion-icon> Kaydedildi ✓';
-        saveBtn.style.background = '#10b981';
+        saveBtn.style.background = 'var(--ok)';
         
         setTimeout(() => {
           saveBtn.innerHTML = '<ion-icon name="checkmark-outline"></ion-icon> Kaydet';
@@ -480,7 +480,7 @@ async function loadDiaryEntries(grid, owner) {
     console.error("Günlükler çekilemedi:", error);
     grid.innerHTML = `
       <div class="diary-empty-state" style="border-color: rgba(239,68,68,0.3);">
-        <div class="diary-empty-icon" style="color: #ef4444;">
+        <div class="diary-empty-icon" style="color: var(--danger);">
           <ion-icon name="warning-outline"></ion-icon>
         </div>
         <h3 class="diary-empty-title">Bir sorun oluştu</h3>

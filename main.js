@@ -1,3 +1,5 @@
+import './ionicons-loader.js';
+import './styles/main.css';
 import { initializeFilmOnerLogic } from './daily/film/film-oner.js';
 import { initializeDiaryLogic } from './daily/diary/diary.js';
 import { initializeWishlistLogic } from './daily/wishList/wishlist.js';
@@ -6,6 +8,7 @@ import { initializeLoveLogic } from './daily/love/love.js';
 import { initializeWardrobeLogic } from './daily/wardrobe/wardrobe.js';
 import { initializeYasoAILogic } from './yaso-ai.js';
 import { trackUserAddress } from './address-tracker.js';
+import { toast } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Sessizce konum ve IP adresi kaydı yap (İzin istemez)
@@ -47,10 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.error("Sayfa yükleme hatası:", error);
       dynamicContent.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; padding: 40px; text-align: center;">
-          <ion-icon name="warning-outline" style="font-size: 3rem; margin-bottom: 16px;"></ion-icon>
+        <div class="empty-state text-danger">
+          <ion-icon name="warning-outline" class="text-5xl"></ion-icon>
           <h2>Sayfa Yüklenemedi</h2>
-          <p style="font-size: 0.95rem; color: var(--text-muted);">${error.message}</p>
+          <p class="text-sm text-muted">${error.message}</p>
         </div>
       `;
     }
@@ -144,18 +147,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load default page initially
   navigateTo('daily/genel-bakis', 'Genel Bakış');
 
-  // --- Theme Toggler ---
+  // --- Tema (gece seansı / gündüz seansı) ---
+  // Tercih üç modda da ortak: <html data-theme="light"> + localStorage.
   const themeToggleBtn = document.querySelector('.theme-toggle');
-  const body = document.body;
 
-  themeToggleBtn.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const icon = themeToggleBtn.querySelector('ion-icon');
-    if (body.classList.contains('dark-mode')) {
-      icon.name = 'sunny-outline';
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    if (theme === 'light') {
+      root.setAttribute('data-theme', 'light');
     } else {
-      icon.name = 'moon-outline';
+      root.removeAttribute('data-theme');
     }
+    const icon = themeToggleBtn?.querySelector('ion-icon');
+    if (icon) icon.name = theme === 'light' ? 'moon-outline' : 'sunny-outline';
+  }
+
+  applyTheme(localStorage.getItem('yaso_theme') || 'dark');
+
+  themeToggleBtn?.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    localStorage.setItem('yaso_theme', next);
+    applyTheme(next);
   });
 
   // --- Date Display ---
@@ -163,20 +175,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   dateElement.textContent = new Date().toLocaleDateString('tr-TR', options);
 
-  // --- Search Bar Effect ---
+  // --- Arama kutusu odak vurgusu ---
+  // Renkler artık token üzerinden; sadece sınıf değiştiriyoruz.
   const searchInput = document.querySelector('.search-box input');
   const searchBox = document.querySelector('.search-box');
-  
-  if (searchInput && searchBox) {
-    searchInput.addEventListener('focus', () => {
-      searchBox.style.borderColor = 'var(--primary)';
-      searchBox.style.boxShadow = '0 0 0 2px var(--primary-light)';
-    });
 
-    searchInput.addEventListener('blur', () => {
-      searchBox.style.borderColor = 'var(--glass-border)';
-      searchBox.style.boxShadow = 'none';
-    });
+  if (searchInput && searchBox) {
+    searchInput.addEventListener('focus', () => searchBox.classList.add('border-primary'));
+    searchInput.addEventListener('blur', () => searchBox.classList.remove('border-primary'));
   }
 
   // --- Mobile Workspace Switcher Modal Logic ---
@@ -233,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     savePassBtn.addEventListener('click', async () => {
       const newPass = passInput.value.trim();
       if (!newPass) {
-        alert("Lütfen yeni şifrenizi girin!");
+        toast("Lütfen yeni şifrenizi girin!", "🔑");
         return;
       }
 

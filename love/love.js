@@ -168,7 +168,7 @@ function initDilekMerkezi() {
       startTimerBtn.style.display = 'none';
       if (wishFormBox) wishFormBox.style.display = 'block';
       timerDisplay.textContent = initialText;
-      timerDisplay.style.color = '#ff4b72';
+      timerDisplay.style.color = 'var(--primary)';
 
       showCustomToast(`Sürpriz dilek süren başladı: ${initialText} ⏳`, "⏱️");
 
@@ -179,7 +179,7 @@ function initDilekMerkezi() {
         timerDisplay.textContent = formatted;
 
         if (secondsLeft <= 10) {
-          timerDisplay.style.color = '#ef4444';
+          timerDisplay.style.color = 'var(--danger)';
         }
 
         if (secondsLeft <= 0) {
@@ -196,7 +196,7 @@ function initDilekMerkezi() {
           startTimerBtn.style.display = 'inline-flex';
           if (wishFormBox) wishFormBox.style.display = 'none';
           timerDisplay.textContent = '--:--';
-          timerDisplay.style.color = '#ff4b72';
+          timerDisplay.style.color = 'var(--primary)';
         }
       }, 1000);
     });
@@ -237,7 +237,7 @@ function initDilekMerkezi() {
       if (startTimerBtn) startTimerBtn.style.display = 'inline-flex';
       if (timerDisplay) {
         timerDisplay.textContent = '--:--';
-        timerDisplay.style.color = '#ff4b72';
+        timerDisplay.style.color = 'var(--primary)';
       }
     });
   }

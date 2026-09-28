@@ -101,7 +101,7 @@ export function initializeWardrobeLogic() {
     if (filtered.length === 0) {
       itemsGrid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 45px 20px; color: var(--text-muted); background: rgba(0,0,0,0.15); border: 1.5px dashed var(--glass-border); border-radius: 20px;">
-          <ion-icon name="shirt-outline" style="font-size: 3.5rem; opacity: 0.35; color: #ec4899; margin-bottom: 10px;"></ion-icon>
+          <ion-icon name="shirt-outline" style="font-size: 3.5rem; opacity: 0.35; color: var(--primary); margin-bottom: 10px;"></ion-icon>
           <h4 style="margin: 0 0 6px 0; font-size: 1.1rem; color: var(--text-color);">Gardıroban Henüz Boş Mimarım ✨</h4>
           <p style="font-size: 0.9rem; margin: 0; opacity: 0.85;">Sağ üstteki <strong>"Gardıroba Kıyafet Ekle"</strong> butonuna basarak kendi dolabındaki giysilerini ekle, Gemini sana hava durumuna özel kombinler önersin!</p>
         </div>
@@ -132,8 +132,8 @@ export function initializeWardrobeLogic() {
           ${item.photo ? `<img src="${item.photo}" style="width: 100%; height: 135px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--glass-border);">` : ''}
           <h4 style="margin: 0 0 4px 0; font-size: 0.95rem; color: var(--text-color); font-weight: 700;">${item.name}</h4>
           <div style="display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-bottom: 6px;">
-            <span style="font-size: 0.72rem; padding: 2px 7px; border-radius: 8px; background: rgba(236,72,153,0.15); color: #ec4899; font-weight: 700;">${getCatBadge(item.category)}</span>
-            <span style="font-size: 0.72rem; padding: 2px 7px; border-radius: 8px; background: rgba(139,92,246,0.15); color: #a78bfa; font-weight: 700;">${item.color || 'Renk Belirtilmedi'}</span>
+            <span style="font-size: 0.72rem; padding: 2px 7px; border-radius: 8px; background: rgba(236,72,153,0.15); color: var(--primary); font-weight: 700;">${getCatBadge(item.category)}</span>
+            <span style="font-size: 0.72rem; padding: 2px 7px; border-radius: 8px; background: rgba(139,92,246,0.15); color: var(--accent); font-weight: 700;">${item.color || 'Renk Belirtilmedi'}</span>
           </div>
           ${item.description ? `<p style="font-size: 0.78rem; color: var(--text-muted); margin: 4px 0 0 0; line-height: 1.3; font-style: italic;">"${item.description}"</p>` : ''}
         </div>
@@ -192,12 +192,12 @@ export function initializeWardrobeLogic() {
       const item = currentOutfit[cat];
       if (item) {
         slot.style.borderStyle = 'solid';
-        slot.style.borderColor = '#ec4899';
+        slot.style.borderColor = 'var(--primary)';
         slot.innerHTML = `
           <div style="display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;">
             ${item.photo ? `<img src="${item.photo}" style="width: 46px; height: 46px; object-fit: cover; border-radius: 8px;">` : ''}
             <div>
-              <span style="font-size: 0.75rem; color: #ec4899; font-weight: 800; text-transform: uppercase;">${cat.toUpperCase()}</span>
+              <span style="font-size: 0.75rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">${cat.toUpperCase()}</span>
               <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-color);">${item.name} (${item.color || ''})</div>
             </div>
           </div>

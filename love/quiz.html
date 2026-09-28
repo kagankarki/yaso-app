@@ -1,0 +1,85 @@
+<section id="quiz-page" class="page-section active">
+  <div class="love-page-container">
+
+    <!-- Hero -->
+    <div class="love-hero-banner">
+      <div class="bg-floating-heart heart-top-left">🧠</div>
+      <div class="bg-floating-heart heart-bottom-right">💘</div>
+      <h1 class="love-hero-title">Bizim Testlerimiz 🧠💘</h1>
+      <p class="love-hero-subtitle">Birbirimize sorular hazırlayalım, çözüp puan toplayalım!</p>
+    </div>
+
+    <!-- Segment: Çöz / Oluştur -->
+    <div class="flex justify-center">
+      <div class="quiz-segment" role="tablist">
+        <button class="quiz-tab-btn is-active" data-quiz-tab="solve" role="tab">
+          <ion-icon name="game-controller-outline"></ion-icon> Testleri Çöz
+        </button>
+        <button class="quiz-tab-btn" data-quiz-tab="create" role="tab">
+          <ion-icon name="add-circle-outline"></ion-icon> Yeni Test Oluştur
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════ ÇÖZ GÖRÜNÜMÜ ═══════ -->
+    <div id="quiz-solve-view">
+      <div class="wishlist-grid" id="quiz-list">
+        <div class="empty-state">
+          <div class="reel"></div>
+          <p class="text-sm">Testler yükleniyor...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ OLUŞTUR GÖRÜNÜMÜ ═══════ -->
+    <div id="quiz-create-view" style="display:none;">
+      <div class="glass-panel" style="padding:24px; display:flex; flex-direction:column; gap:16px;">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="field">
+            <label class="field-label" for="quiz-title-input">Test Başlığı</label>
+            <input id="quiz-title-input" class="input" placeholder="Örn: Beni Ne Kadar Tanıyorsun? 💘">
+          </div>
+          <div class="field">
+            <label class="field-label" for="quiz-author-input">Hazırlayan</label>
+            <input id="quiz-author-input" class="input" placeholder="Adın (Yasemin / Kağan)">
+          </div>
+        </div>
+
+        <div id="quiz-questions-builder" class="flex flex-col gap-4"></div>
+
+        <button id="quiz-add-question-btn" type="button" class="btn btn-ghost self-start">
+          <ion-icon name="add-outline"></ion-icon> Soru Ekle
+        </button>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+          <span id="quiz-create-status" class="text-sm text-muted"></span>
+          <button id="quiz-save-btn" type="button" class="btn btn-primary">
+            <ion-icon name="cloud-upload-outline"></ion-icon> Testi Kaydet
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════ ÇÖZME MODALI ═══════ -->
+  <div class="modal-overlay" id="quiz-play-modal">
+    <div class="modal max-w-[620px]">
+      <div class="modal-header">
+        <h3 class="modal-title flex items-center gap-2">
+          <ion-icon name="game-controller" class="text-primary"></ion-icon>
+          <span id="quiz-play-title">Test</span>
+        </h3>
+        <button id="quiz-play-close" class="btn btn-quiet btn-icon" aria-label="Kapat">
+          <ion-icon name="close-outline" class="text-xl"></ion-icon>
+        </button>
+      </div>
+      <div class="modal-body" id="quiz-play-body"></div>
+      <div class="modal-footer">
+        <span id="quiz-play-result" class="mr-auto text-base font-semibold"></span>
+        <button id="quiz-play-submit" type="button" class="btn btn-primary">Bitir &amp; Skoru Gör</button>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,4 +1,5 @@
 import { db, collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs, doc, getDoc, setDoc } from '../firebase-config.js';
+import { esc } from '../utils.js';
 
 export async function initializeGenelBakisLogic() {
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -47,39 +48,27 @@ export async function initializeGenelBakisLogic() {
         });
 
         if (moodStatus) {
-          moodStatus.innerHTML = `<span style="color: var(--text-muted);"><ion-icon name="information-circle-outline"></ion-icon> ${personName}'in son modu: <b>"${latestMoodData.moodText}"</b></span>`;
+          moodStatus.innerHTML = `<span class="text-muted"><ion-icon name="information-circle-outline"></ion-icon> ${personName}'in son modu: <b>"${esc(latestMoodData.moodText)}"</b></span>`;
         }
       } else {
         if (moodStatus) {
-          moodStatus.innerHTML = `<span style="color: var(--text-muted);">${personName} için henüz bir mod seçilmedi.</span>`;
+          moodStatus.innerHTML = `<span class="text-muted">${personName} için henüz bir mod seçilmedi.</span>`;
         }
       }
     } catch (error) {
       console.error(`${personName} modu yüklenirken hata:`, error);
       if (moodStatus) {
-        moodStatus.innerHTML = `<span style="color: #ef4444;"><ion-icon name="warning-outline"></ion-icon> Mod yüklenemedi.</span>`;
+        moodStatus.innerHTML = `<span class="text-danger"><ion-icon name="warning-outline"></ion-icon> Mod yüklenemedi.</span>`;
       }
     }
   }
 
   // Handle Tab Switch (Yasemin vs Kağan)
+  // Sekme görünümü artık .chip / .is-active üzerinden; satır içi stil yok.
   personTabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      personTabs.forEach(t => {
-        t.classList.remove('active');
-        t.style.border = '2px solid var(--glass-border)';
-        t.style.background = 'var(--glass-bg)';
-        t.style.color = 'var(--text-muted)';
-        t.style.fontWeight = '600';
-        t.style.boxShadow = 'none';
-      });
-
-      tab.classList.add('active');
-      tab.style.border = '2px solid var(--primary)';
-      tab.style.background = 'var(--primary-light)';
-      tab.style.color = 'var(--primary)';
-      tab.style.fontWeight = '700';
-      tab.style.boxShadow = '0 4px 15px var(--primary-light)';
+      personTabs.forEach(t => t.classList.remove('active', 'is-active'));
+      tab.classList.add('active', 'is-active');
 
       activePerson = tab.dataset.person;
       loadPersonMood(activePerson);
@@ -145,13 +134,13 @@ export async function initializeGenelBakisLogic() {
         });
         
         if (moodStatus) {
-          moodStatus.innerHTML = `<span style="color: #10b981;"><ion-icon name="checkmark-circle-outline"></ion-icon> Harika! ${personName}'in bugünkü modu <b>"${moodText}"</b> olarak kaydedildi.</span>`;
+          moodStatus.innerHTML = `<span class="text-ok"><ion-icon name="checkmark-circle-outline"></ion-icon> Harika! ${personName}'in bugünkü modu <b>"${esc(moodText)}"</b> olarak kaydedildi.</span>`;
         }
         
       } catch (error) {
         console.error('Mood kaydedilirken hata:', error);
         if (moodStatus) {
-          moodStatus.innerHTML = `<span style="color: #ef4444;"><ion-icon name="warning-outline"></ion-icon> Kaydedilemedi, tekrar dene!</span>`;
+          moodStatus.innerHTML = `<span class="text-danger"><ion-icon name="warning-outline"></ion-icon> Kaydedilemedi, tekrar dene!</span>`;
         }
       }
     });
