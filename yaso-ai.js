@@ -183,8 +183,11 @@ export async function callGeminiApi(userPrompt, imageBase64) {
     }
   };
 
-  // Gemini 3.6 birincil; eski sürümler yalnızca erişilemezse devreye giren yedek.
-  const models = ['gemini-3.6-flash', 'gemini-3.6-pro', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+  // Geçerli, güncel Gemini modelleri. "gemini-flash-latest" her zaman en güncel
+  // flash sürümüne işaret eder (günlük yorumları da bunu kullanıyor).
+  // NOT: Bunlar ancak .env içindeki VITE_GEMINI_API_KEY geçerli bir
+  // Google AI Studio anahtarıysa (AIzaSy... ile başlar) çalışır.
+  const models = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'];
 
   for (const model of models) {
     try {

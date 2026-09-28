@@ -149,8 +149,17 @@ export function initializeQuizLogic() {
         <div class="empty-state">
           <ion-icon name="game-controller-outline" class="text-4xl text-primary" style="opacity:.5"></ion-icon>
           <h3 class="text-lg font-semibold">Henüz test yok</h3>
-          <p class="text-sm">"Yeni Test Oluştur"a geçip ilk testinizi hazırlayın 💘</p>
+          <p class="text-sm">Önce bir test oluşturup kaydet, sonra buradan çöz 💘</p>
+          <button class="btn btn-primary" id="quiz-empty-create-btn">
+            <ion-icon name="add-circle-outline"></ion-icon> İlk Testi Oluştur
+          </button>
         </div>`;
+      const emptyBtn = document.getElementById('quiz-empty-create-btn');
+      if (emptyBtn) {
+        emptyBtn.addEventListener('click', () => {
+          page.querySelector('.quiz-tab-btn[data-quiz-tab="create"]').click();
+        });
+      }
       return;
     }
 

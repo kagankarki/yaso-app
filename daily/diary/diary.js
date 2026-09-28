@@ -117,7 +117,7 @@ export function initializeDiaryLogic(owner = 'Diary') {
         lockScreen.classList.add('unlocked');
         setTimeout(() => {
           lockScreen.style.display = 'none';
-          mainContent.style.display = 'block';
+          mainContent.style.display = 'flex';
           void mainContent.offsetWidth;
           mainContent.classList.add('visible');
           loadDiaryEntries(entriesGrid, owner);
