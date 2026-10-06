@@ -1,10 +1,8 @@
 import { db, collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc, getDoc, setDoc, updateDoc } from '../../firebase-config.js';
-
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+import { generateGeminiText } from '../../gemini.js';
 
 async function fetchGeminiDiaryComment(title, body, mood) {
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`;
     const prompt = `Sen sevecen, tatlı, içten ve motive edici bir günlük dostusun. Kullanıcı günlüğüne şunu yazdı:
 Başlık: "${title}"
 İçerik: "${body}"
@@ -12,24 +10,9 @@ Hisse/Mod: "${mood}"
 
 Lütfen bu yazılanlara karşılık çok kısa (en fazla 1 veya 2 cümle, 25 kelimeyi geçmeyecek şekilde), samimi, tatlı ve içten bir cevap yaz. Cevabına uygun şirin bir emoji de ekle.`;
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-goog-api-key': GEMINI_API_KEY
-      },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      })
+    return await generateGeminiText({
+      contents: [{ parts: [{ text: prompt }] }]
     });
-
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    if (data.candidates && data.candidates.length > 0) {
-      return data.candidates[0].content.parts[0].text.trim();
-    }
-    return null;
   } catch (err) {
     console.error("Gemini günlük yorum hatası:", err);
     return null;

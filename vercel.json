@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/burc/:period(daily|weekly|monthly)/:sign([a-z]+)",
+      "destination": "https://freehoroscopeapi.com/api/v1/get-horoscope/:period?sign=:sign"
+    }
+  ]
+}

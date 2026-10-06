@@ -1,6 +1,5 @@
 const TMDB_API_KEY = 'fe3936da79d2f983d2d8238bf61bb29b';
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
+import { generateGeminiText } from '../../gemini.js';
 import { db, collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc } from '../../firebase-config.js';
 
 export function initializeFilmOnerLogic() {
@@ -273,32 +272,11 @@ async function searchMovieWithAI(promptText, grid) {
 
   try {
     // 1. Ask Gemini
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`;
     const geminiPrompt = `Sen bir sinema uzmanısın. Kullanıcı sana bir hikaye veya filmden bir sahne anlatacak. Sen sadece bu tarife uyan 1 veya en fazla 3 filmin adını aralarında virgül olacak şekilde yazacaksın. Sadece film isimleri yaz, başka hiçbir açıklama yapma. Orijinal veya Türkçe isimlerini yazabilirsin. Kullanıcının tarifi: "${promptText}"`;
-    
-    const geminiResponse = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'X-goog-api-key': GEMINI_API_KEY
-      },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: geminiPrompt }] }]
-      })
+
+    const movieNamesText = await generateGeminiText({
+      contents: [{ parts: [{ text: geminiPrompt }] }]
     });
-
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
-      throw new Error("Gemini Hatası: " + errorText);
-    }
-
-    const geminiData = await geminiResponse.json();
-    
-    if (!geminiData.candidates || geminiData.candidates.length === 0) {
-      throw new Error("Gemini cevap veremedi veya filtreye takıldı.");
-    }
-
-    const movieNamesText = geminiData.candidates[0].content.parts[0].text.trim();
     console.log("Gemini'nin Bulduğu Filmler:", movieNamesText);
     const movieNames = movieNamesText.split(',').map(n => n.trim());
 

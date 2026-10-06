@@ -1,5 +1,5 @@
 // YasoAI - Personal AI Assistant for Yasemin
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
+import { generateGeminiText } from './gemini.js';
 
 let conversationHistory = [];
 
@@ -179,46 +179,20 @@ export async function callGeminiApi(userPrompt, imageBase64) {
     contents: contents,
     generationConfig: {
       temperature: 0.7,
-      maxOutputTokens: 600
+      // 3.x modellerinde "düşünme" token'ları da bu sınıra dahil; düşük
+      // bir sınır cevabı yarım ya da boş bırakabilir.
+      maxOutputTokens: 2048
     }
   };
 
-  // Geçerli, güncel Gemini modelleri. "gemini-flash-latest" her zaman en güncel
-  // flash sürümüne işaret eder (günlük yorumları da bunu kullanıyor).
-  // NOT: Bunlar ancak .env içindeki VITE_GEMINI_API_KEY geçerli bir
-  // Google AI Studio anahtarıysa (AIzaSy... ile başlar) çalışır.
-  const models = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'];
-
-  for (const model of models) {
-    try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (replyText) {
-          conversationHistory.push({ role: 'user', text: userPrompt || "[Görsel]" });
-          conversationHistory.push({ role: 'model', text: replyText });
-          return replyText;
-        }
-      } else {
-        const errJson = await response.json().catch(() => ({}));
-        if (response.status === 400 && errJson.error?.message?.includes("API key")) {
-          console.error("❌ YasoAI UYARI: keys.js içindeki GEMINI_API_KEY geçersiz! Lütfen aistudio.google.com adresinden AIzaSy... ile başlayan ücretsiz anahtarınızı koyun.");
-        } else {
-          console.warn(`Model ${model} hatası:`, response.status, errJson);
-        }
-      }
-    } catch (e) {
-      console.warn(`Model ${model} istek hatası:`, e);
-    }
+  // Model seçimi ve anahtar gemini.js'de (Gemini 3.6 Flash).
+  try {
+    const replyText = await generateGeminiText(requestBody);
+    conversationHistory.push({ role: 'user', text: userPrompt || "[Görsel]" });
+    conversationHistory.push({ role: 'model', text: replyText });
+    return replyText;
+  } catch (e) {
+    console.warn('YasoAI Gemini hatası:', e.message);
   }
 
   // Fallback to Smart Offline Kağan Persona

@@ -1,0 +1,112 @@
+<section id="burc-page" class="page-section active">
+  <div class="love-page-container">
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <div class="burc-hero">
+      <span class="burc-hero-glyph" aria-hidden="true">♌&#xFE0E;</span>
+      <span class="now-showing burc-hero-kicker" id="burc-hero-date">Bugün</span>
+      <h1 class="love-hero-title">Aslan Kadını ♌</h1>
+      <p class="love-hero-subtitle">Günlük burç yorumu ve Balık Erkeği ile bugünkü uyumunuz. Her gün kendiliğinden yenilenir.</p>
+      <div class="burc-hero-chips">
+        <span class="burc-hero-chip">23 Tem – 22 Ağu</span>
+        <span class="burc-hero-chip">🔥 Ateş</span>
+        <span class="burc-hero-chip">☀️ Güneş</span>
+        <span class="burc-hero-chip">Sabit Nitelik</span>
+      </div>
+    </div>
+
+    <!-- Segment: Aslan / İlişki -->
+    <div class="flex justify-center">
+      <div class="burc-segment" role="tablist">
+        <button class="burc-tab-btn is-active" data-burc-tab="leo" role="tab" aria-selected="true">
+          <span class="burc-zodiac leo" aria-hidden="true">♌&#xFE0E;</span> Aslan Kadını
+        </button>
+        <button class="burc-tab-btn" data-burc-tab="iliski" role="tab" aria-selected="false">
+          <span class="burc-zodiac pisces" aria-hidden="true">♓&#xFE0E;</span><ion-icon name="heart" class="burc-tab-heart"></ion-icon><span class="burc-zodiac leo" aria-hidden="true">♌&#xFE0E;</span> Balık &amp; Aslan
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════ ASLAN KADINI ═══════════ -->
+    <div id="burc-view-leo" class="flex flex-col gap-5">
+
+      <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Dönem">
+        <button class="chip is-active" data-burc-period="daily">Günlük</button>
+        <button class="chip" data-burc-period="weekly">Haftalık</button>
+        <button class="chip" data-burc-period="monthly">Aylık</button>
+      </div>
+
+      <div id="burc-leo-reading"></div>
+
+      <div>
+        <h2 class="burc-section-title">Günün Şansı</h2>
+        <div class="burc-lucky-grid" id="burc-lucky"></div>
+      </div>
+
+      <!-- İlişki sekmesine köprü -->
+      <button type="button" class="burc-bridge" data-burc-goto="iliski">
+        <span class="burc-bridge-glyphs" aria-hidden="true"><span class="pisces">♓&#xFE0E;</span><ion-icon name="heart"></ion-icon><span class="leo">♌&#xFE0E;</span></span>
+        <span class="min-w-0 flex-1 text-left">
+          <strong class="block">Balık Erkeği ile bugün nasılsınız?</strong>
+          <span class="text-sm text-muted">Günün ilişki yorumu, uyum skorları ve ipucu</span>
+        </span>
+        <ion-icon name="chevron-forward-outline" class="text-xl text-muted"></ion-icon>
+      </button>
+    </div>
+
+    <!-- ═══════════ BALIK ERKEĞİ & ASLAN KADINI ═══════════ -->
+    <div id="burc-view-iliski" class="flex flex-col gap-5" style="display:none;">
+
+      <div class="card burc-pair">
+        <div class="burc-pair-sign is-pisces">
+          <span class="burc-glyph">♓&#xFE0E;</span>
+          <strong>Balık Erkeği</strong>
+          <span class="label">19 Şub – 20 Mar · Su</span>
+        </div>
+        <div class="burc-ring" id="burc-ring" style="--p: 0">
+          <div class="burc-ring-inner">
+            <span class="burc-ring-num numeric" id="burc-ring-num">–</span>
+            <span class="label">Günün Skoru</span>
+          </div>
+        </div>
+        <div class="burc-pair-sign is-leo">
+          <span class="burc-glyph">♌&#xFE0E;</span>
+          <strong>Aslan Kadını</strong>
+          <span class="label">23 Tem – 22 Ağu · Ateş</span>
+        </div>
+      </div>
+
+      <div id="burc-relation"></div>
+
+      <div>
+        <h2 class="burc-section-title">Bugün İkiniz</h2>
+        <div class="grid gap-4 md:grid-cols-2" id="burc-duo"></div>
+      </div>
+
+      <div>
+        <h2 class="burc-section-title">Bu İkili Hakkında</h2>
+        <div class="grid gap-3 sm:grid-cols-3">
+          <div class="card-inset burc-fact">
+            <span class="burc-fact-icon">🔥💧</span>
+            <strong>Ateş + Su</strong>
+            <p>Aslan ısıtır, Balık yumuşatır. Doğru dozda buhar olur, göğe yükselir; fazlası cızırdar.</p>
+          </div>
+          <div class="card-inset burc-fact">
+            <span class="burc-fact-icon">💪</span>
+            <strong>Güçlü Yanlar</strong>
+            <p>İkisi de romantik ve cömert. Balık hayranlığını saklamaz, Aslan da sadakatiyle ona güven verir.</p>
+          </div>
+          <div class="card-inset burc-fact">
+            <span class="burc-fact-icon">⚠️</span>
+            <strong>Dikkat</strong>
+            <p>Aslan ilgi ve net söz ister, Balık bazen içine kapanır. Konuşmak ve sık sık takdir etmek dengeyi korur.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="burc-source label">
+      Burç metinleri: freehoroscopeapi.com · Türkçeye otomatik çevrildi
+    </p>
+  </div>
+</section>

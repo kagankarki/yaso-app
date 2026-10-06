@@ -84,6 +84,12 @@
     --warn: #FF9F0A;
     --danger: #FF453A;
 
+    /* ── Burç renkleri (Günlük Burç sayfası) — Aslan: güneş turuncusu, Balık: deniz mavisi ── */
+    --sign-leo: #FF9F0A;
+    --sign-leo-soft: rgba(255, 159, 10, 0.16);
+    --sign-pisces: #64D2FF;
+    --sign-pisces-soft: rgba(100, 210, 255, 0.16);
+
     /* ── Biçim — Apple geniş köşe yarıçapları ── */
     --r-lg: 20px;
     --r-md: 14px;
@@ -154,6 +160,11 @@
     --ok: #34C759;
     --warn: #FF9500;
     --danger: #FF3B30;
+
+    --sign-leo: #E07800;
+    --sign-leo-soft: rgba(255, 149, 0, 0.13);
+    --sign-pisces: #0A84C4;
+    --sign-pisces-soft: rgba(10, 132, 196, 0.12);
 
     --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.06);
@@ -1554,8 +1565,9 @@
    ═══════════════════════════════════════════════════════════════════════ */
 @layer components {
 
-  /* ── Segmented control (Çöz / Oluştur) ── */
-  .quiz-segment {
+  /* ── Segmented control (Çöz / Oluştur; Günlük Burç sekmeleri de bunu kullanır) ── */
+  .quiz-segment,
+  .burc-segment {
     display: inline-flex;
     gap: 4px;
     padding: 4px;
@@ -1563,7 +1575,8 @@
     border: 1px solid var(--border);
     border-radius: 980px;
   }
-  .quiz-tab-btn {
+  .quiz-tab-btn,
+  .burc-tab-btn {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 9px 18px;
     border: none; border-radius: 980px;
@@ -1573,8 +1586,10 @@
     transition: color 0.18s, background-color 0.18s, box-shadow 0.18s;
     -webkit-tap-highlight-color: transparent;
   }
-  .quiz-tab-btn:active { transform: scale(0.98); }
-  .quiz-tab-btn.is-active {
+  .quiz-tab-btn:active,
+  .burc-tab-btn:active { transform: scale(0.98); }
+  .quiz-tab-btn.is-active,
+  .burc-tab-btn.is-active {
     background: var(--elevated);
     color: var(--text);
     box-shadow: var(--shadow-sm);
