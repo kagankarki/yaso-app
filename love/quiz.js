@@ -5,12 +5,31 @@ import {
   query, orderBy, onSnapshot, serverTimestamp
 } from '../firebase-config.js';
 import { esc } from '../utils.js';
+import { initializeSorular36 } from './sorular36.js';
 
 const OPTION_COUNT = 4;
+const PLAYERS = [
+  { name: 'Yasemin', emoji: '🌸' },
+  { name: 'Kağan', emoji: '👑' }
+];
+
+// Sayfaya her girişte yeni dinleyici açılıyor; eskileri kapat ki birikmesin.
+let unsubscribers = [];
+
+// "Kağan'ın testi" → çözen büyük ihtimalle Yasemin; değilse son seçim.
+function defaultSolver(createdBy) {
+  const by = (createdBy || '').toLocaleLowerCase('tr');
+  if (by.includes('kağan') || by.includes('kagan')) return 'Yasemin';
+  if (by.includes('yasemin')) return 'Kağan';
+  return localStorage.getItem('yaso_quiz_solver') || 'Yasemin';
+}
 
 export function initializeQuizLogic() {
   const page = document.getElementById('quiz-page');
   if (!page) return;
+
+  unsubscribers.forEach(fn => fn());
+  unsubscribers = [];
 
   const solveView = document.getElementById('quiz-solve-view');
   const createView = document.getElementById('quiz-create-view');
@@ -32,6 +51,9 @@ export function initializeQuizLogic() {
       const which = tab.dataset.quizTab;
       solveView.style.display = which === 'solve' ? '' : 'none';
       createView.style.display = which === 'create' ? '' : 'none';
+      const qaView = document.getElementById('quiz-qa-view');
+      if (qaView) qaView.style.display = which === 'qa' ? '' : 'none';
+      if (which === 'qa') initializeSorular36();
     });
   });
 
@@ -142,8 +164,76 @@ export function initializeQuizLogic() {
   }
 
   // ─────────────── ÇÖZ: kayıtlı testleri dinle & listele ───────────────
+  // ─────────────── SKOR TABLOSU: Kim kimi daha iyi tanıyor? ───────────────
+  const verdictEl = document.getElementById('qs-verdict');
+  const playersEl = document.getElementById('qs-players');
+  const recentEl = document.getElementById('qs-recent');
+
+  unsubscribers.push(onSnapshot(collection(db, 'QuizScores'), (snap) => {
+    // Çözeni bilinmeyen eski skorlar tabloya katılmaz.
+    const scores = snap.docs.map(d => d.data()).filter(s => s.solver && s.total > 0);
+    renderScoreboard(scores);
+  }, (err) => {
+    console.warn('Skorlar yüklenemedi:', err);
+    if (verdictEl) verdictEl.textContent = 'Skorlar şu an yüklenemedi.';
+  }));
+
+  function renderScoreboard(scores) {
+    if (!playersEl) return;
+    const stats = PLAYERS.map(p => {
+      const mine = scores.filter(s => s.solver === p.name);
+      const correct = mine.reduce((a, s) => a + s.score, 0);
+      const total = mine.reduce((a, s) => a + s.total, 0);
+      return {
+        ...p,
+        tests: mine.length,
+        correct,
+        total,
+        pct: total ? Math.round((correct / total) * 100) : 0,
+        perfect: mine.filter(s => s.score === s.total).length
+      };
+    });
+
+    const [a, b] = stats;
+    const leader = a.tests + b.tests === 0 ? null
+      : a.pct === b.pct ? 'tie'
+      : (a.pct > b.pct ? a : b);
+
+    verdictEl.textContent = !leader ? 'Henüz kimse test çözmedi. İlk puanı kim alacak? 👀'
+      : leader === 'tie' ? 'Berabere! İkiniz de birbirinizi aynı derecede iyi tanıyorsunuz 💞'
+      : `${leader.emoji} ${leader.name} önde! Karşısındakini %${leader.pct} doğrulukla tanıyor.`;
+
+    playersEl.innerHTML = stats.map(p => `
+      <div class="qs-player ${leader && leader !== 'tie' && leader.name === p.name ? 'is-leader' : ''}">
+        <div class="qs-player-top">
+          <span class="qs-avatar">${p.emoji}</span>
+          <strong>${p.name}</strong>
+          ${leader && leader !== 'tie' && leader.name === p.name ? '<span class="qs-crown" title="Lider">👑</span>' : ''}
+          <span class="qs-pct numeric">%${p.pct}</span>
+        </div>
+        <div class="qs-track"><div class="qs-fill" style="width:${p.pct}%"></div></div>
+        <div class="qs-stats">
+          <span>${p.tests} test</span>
+          <span>${p.correct}/${p.total} doğru</span>
+          <span>${p.perfect} tam puan 🏆</span>
+        </div>
+      </div>
+    `).join('');
+
+    const recent = [...scores]
+      .sort((x, y) => (y.createdAt?.seconds || 0) - (x.createdAt?.seconds || 0))
+      .slice(0, 4);
+    recentEl.innerHTML = recent.length ? `
+      <span class="label">Son çözülenler</span>
+      ${recent.map(s => `
+        <div class="qs-recent-row">
+          <span>${s.solver === 'Kağan' ? '👑' : '🌸'} <strong>${esc(s.solver)}</strong> · ${esc(s.quizTitle || 'Test')}</span>
+          <span class="numeric">${s.score}/${s.total}</span>
+        </div>`).join('')}` : '';
+  }
+
   const qy = query(collection(db, 'LoveQuizzes'), orderBy('createdAt', 'desc'));
-  onSnapshot(qy, (snap) => {
+  unsubscribers.push(onSnapshot(qy, (snap) => {
     if (snap.empty) {
       listEl.innerHTML = `
         <div class="empty-state">
@@ -206,7 +296,7 @@ export function initializeQuizLogic() {
       <ion-icon name="cloud-offline-outline" class="text-4xl"></ion-icon>
       <p class="text-sm">Testler yüklenemedi. Bağlantını kontrol et.</p>
     </div>`;
-  });
+  }));
 
   // ─────────────── ÇÖZ: oynatma modalı ───────────────
   function openPlay(id, data) {
@@ -220,6 +310,25 @@ export function initializeQuizLogic() {
     const questions = data.questions || [];
     const answers = new Array(questions.length).fill(-1);
     let submitted = false;
+
+    // Kim çözüyor?
+    const solverBtns = modal.querySelectorAll('[data-solver]');
+    let solver = defaultSolver(data.createdBy);
+    const setSolver = (name) => {
+      solver = name;
+      solverBtns.forEach(b => {
+        b.classList.toggle('is-active', b.dataset.solver === name);
+        b.disabled = false;
+      });
+    };
+    setSolver(solver);
+    solverBtns.forEach(b => {
+      b.onclick = () => {
+        if (submitted) return;
+        setSolver(b.dataset.solver);
+        localStorage.setItem('yaso_quiz_solver', solver);
+      };
+    });
 
     titleEl.textContent = data.title;
     resultEl.textContent = '';
@@ -261,6 +370,7 @@ export function initializeQuizLogic() {
       }
 
       submitted = true;
+      solverBtns.forEach(b => { b.disabled = true; });
       let score = 0;
       questions.forEach((q, qi) => {
         const chosen = answers[qi];
@@ -282,7 +392,7 @@ export function initializeQuizLogic() {
       const total = questions.length;
       const pct = Math.round((score / total) * 100);
       const emoji = pct === 100 ? '🏆' : pct >= 60 ? '🎉' : pct >= 40 ? '🙂' : '🌱';
-      resultEl.innerHTML = `<span style="color:var(--primary)">${emoji} ${score}/${total} doğru · %${pct}</span>`;
+      resultEl.innerHTML = `<span style="color:var(--primary)">${emoji} ${esc(solver)}: ${score}/${total} doğru · %${pct}</span>`;
       resultEl.style.color = '';
       submitBtn.textContent = 'Kapat';
 
@@ -291,6 +401,7 @@ export function initializeQuizLogic() {
         await addDoc(collection(db, 'QuizScores'), {
           quizId: id,
           quizTitle: data.title,
+          solver,
           score,
           total,
           createdAt: serverTimestamp()

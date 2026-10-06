@@ -1,0 +1,62 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   ÖZEN TAKVİMİM (Daily) — yumuşak, sakin; yalnızca main.css token'ları
+   ═══════════════════════════════════════════════════════════════════════ */
+@layer components {
+  .oz-hero {
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 28px 30px;
+    border-radius: var(--r-lg);
+    background: linear-gradient(135deg, var(--primary-soft), var(--accent-soft)), var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+  .oz-hero.is-active { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border-color: transparent; }
+  .oz-hero-moon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 5rem; opacity: 0.85; }
+  .oz-hero-kicker { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--primary); }
+  .oz-hero.is-active .oz-hero-kicker { color: rgba(255, 255, 255, 0.85); }
+  .oz-hero-title { font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: -0.025em; max-width: calc(100% - 90px); }
+  .oz-hero-sub { color: var(--muted); max-width: calc(100% - 90px); }
+  .oz-hero.is-active .oz-hero-sub { color: rgba(255, 255, 255, 0.9); }
+  .oz-hero-bar { height: 6px; max-width: 360px; margin-top: 10px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+  .oz-hero.is-active .oz-hero-bar { background: rgba(255, 255, 255, 0.25); }
+  .oz-hero-fill { height: 100%; width: 0; border-radius: inherit; background: var(--primary); transition: width 0.8s cubic-bezier(0.32, 0.72, 0, 1); }
+  .oz-hero.is-active .oz-hero-fill { background: #fff; }
+
+  .oz-month { padding: 18px; }
+  .oz-month-title { margin-bottom: 12px; font-size: 1.05rem; text-transform: capitalize; }
+  .oz-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px 0; text-align: center; }
+  .oz-wd { font-size: 0.7rem; font-weight: 700; color: var(--faint); padding-bottom: 4px; }
+  .oz-day {
+    height: 36px; display: grid; place-items: center;
+    font-size: 0.88rem; font-variant-numeric: tabular-nums;
+  }
+  .oz-day.is-care { background: var(--primary-soft); color: var(--primary); font-weight: 700; }
+  .oz-day.is-first { border-radius: 999px 0 0 999px; }
+  .oz-day.is-last { border-radius: 0 999px 999px 0; }
+  .oz-day.is-first.is-last { border-radius: 999px; }
+  .oz-day.is-today { position: relative; }
+  .oz-day.is-today::after {
+    content: ''; position: absolute; inset: 3px; margin: auto; width: 30px; height: 30px;
+    border-radius: 999px; border: 2px solid var(--text);
+  }
+
+  .oz-card { display: flex; flex-direction: column; gap: 12px; padding: 20px 22px; }
+  .oz-card-title { font-size: 1.1rem; letter-spacing: -0.02em; }
+  .oz-tips { display: flex; flex-direction: column; gap: 10px; }
+  .oz-tips li { display: flex; align-items: center; gap: 10px; font-size: 0.93rem; }
+  .oz-tips li span {
+    flex: none; width: 34px; height: 34px; display: grid; place-items: center;
+    border-radius: var(--r-sm); background: var(--surface-2); font-size: 1.1rem;
+  }
+  .oz-ask { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .oz-privacy { display: flex; gap: 8px; align-items: flex-start; font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+  .oz-privacy ion-icon { flex: none; margin-top: 2px; }
+
+  @media (max-width: 520px) {
+    .oz-hero { padding: 22px 20px; }
+    .oz-hero-moon { font-size: 3.4rem; right: 14px; }
+    .oz-hero-title, .oz-hero-sub { max-width: calc(100% - 60px); }
+  }
+}

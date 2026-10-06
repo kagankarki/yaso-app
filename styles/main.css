@@ -1567,7 +1567,8 @@
 
   /* ── Segmented control (Çöz / Oluştur; Günlük Burç sekmeleri de bunu kullanır) ── */
   .quiz-segment,
-  .burc-segment {
+  .burc-segment,
+  .lx-segment {
     display: inline-flex;
     gap: 4px;
     padding: 4px;
@@ -1576,7 +1577,8 @@
     border-radius: 980px;
   }
   .quiz-tab-btn,
-  .burc-tab-btn {
+  .burc-tab-btn,
+  .lx-seg-btn {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 9px 18px;
     border: none; border-radius: 980px;
@@ -1587,9 +1589,11 @@
     -webkit-tap-highlight-color: transparent;
   }
   .quiz-tab-btn:active,
-  .burc-tab-btn:active { transform: scale(0.98); }
+  .burc-tab-btn:active,
+  .lx-seg-btn:active { transform: scale(0.98); }
   .quiz-tab-btn.is-active,
-  .burc-tab-btn.is-active {
+  .burc-tab-btn.is-active,
+  .lx-seg-btn.is-active {
     background: var(--elevated);
     color: var(--text);
     box-shadow: var(--shadow-sm);

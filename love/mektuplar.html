@@ -1,0 +1,71 @@
+<section id="mektuplar-page" class="page-section active">
+  <div class="love-page-container">
+
+    <div class="love-hero-banner">
+      <div class="bg-floating-heart heart-top-left">💌</div>
+      <div class="bg-floating-heart heart-bottom-right">🕰️</div>
+      <h1 class="love-hero-title">Zaman Kapsülü Mektuplar 💌</h1>
+      <p class="love-hero-subtitle">Bazı mektuplar sadece doğru anda açılır. Üzgünken, özleyince, doğum gününde…</p>
+    </div>
+
+    <div class="lx-section-head">
+      <div class="flex flex-wrap gap-2" id="lt-filters" role="group" aria-label="Filtre">
+        <button class="chip is-active" data-lt-filter="all">Hepsi</button>
+        <button class="chip" data-lt-filter="Yasemin">🌸 Yasemin'e</button>
+        <button class="chip" data-lt-filter="Kağan">👑 Kağan'a</button>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm" id="lt-write-btn">
+        <ion-icon name="create-outline"></ion-icon> Mektup Yaz
+      </button>
+    </div>
+
+    <div class="lt-grid" id="lt-grid">
+      <div class="empty-state"><div class="reel"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MEKTUP YAZ ═══════════ -->
+  <div class="modal-overlay" id="lt-write-modal">
+    <div class="modal max-w-[560px]">
+      <div class="modal-header">
+        <h3 class="modal-title flex items-center gap-2"><ion-icon name="create" class="text-primary"></ion-icon> Mektup Yaz</h3>
+        <button class="btn btn-quiet btn-icon" data-close aria-label="Kapat"><ion-icon name="close-outline" class="text-xl"></ion-icon></button>
+      </div>
+      <div class="modal-body">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="field-label">Kimden</span>
+          <div class="lx-segment" id="lt-from">
+            <button type="button" class="lx-seg-btn" data-person="Yasemin">🌸 Yasemin</button>
+            <button type="button" class="lx-seg-btn" data-person="Kağan">👑 Kağan</button>
+          </div>
+          <span class="text-sm text-muted" id="lt-to-label"></span>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="lt-title">Zarfın üstüne ne yazalım?</label>
+          <input id="lt-title" class="input" maxlength="60" placeholder="Örn: Bunu oku ve gülümse">
+        </div>
+
+        <div class="field">
+          <span class="field-label">Ne zaman açılsın?</span>
+          <div class="flex flex-wrap gap-2" id="lt-conditions"></div>
+          <input id="lt-date" type="date" class="input mt-2" hidden>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="lt-body">Mektubun</label>
+          <textarea id="lt-body" class="textarea lt-paper-input" placeholder="Sevgilim, bu mektubu açtıysan…"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span id="lt-status" class="mr-auto text-sm"></span>
+        <button class="btn btn-primary" id="lt-save"><ion-icon name="mail"></ion-icon> Mühürle & Gönder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MEKTUP OKU ═══════════ -->
+  <div class="modal-overlay" id="lt-read-modal">
+    <div class="lt-letter" id="lt-letter"></div>
+  </div>
+</section>

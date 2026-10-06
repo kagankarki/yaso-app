@@ -16,19 +16,49 @@
           <ion-icon name="game-controller-outline"></ion-icon> Testleri Çöz
         </button>
         <button class="quiz-tab-btn" data-quiz-tab="create" role="tab">
-          <ion-icon name="add-circle-outline"></ion-icon> Yeni Test Oluştur
+          <ion-icon name="add-circle-outline"></ion-icon> Test Oluştur
+        </button>
+        <button class="quiz-tab-btn" data-quiz-tab="qa" role="tab">
+          <ion-icon name="chatbubbles-outline"></ion-icon> 36 Soru
         </button>
       </div>
     </div>
 
     <!-- ═══════ ÇÖZ GÖRÜNÜMÜ ═══════ -->
-    <div id="quiz-solve-view">
+    <div id="quiz-solve-view" class="flex flex-col gap-5">
+      <!-- Kim kimi daha iyi tanıyor? -->
+      <div class="card qs-board" id="quiz-scoreboard">
+        <div class="qs-board-head">
+          <ion-icon name="trophy" class="qs-trophy"></ion-icon>
+          <div>
+            <h2 class="qs-board-title">Kim Kimi Daha İyi Tanıyor?</h2>
+            <p class="text-sm text-muted" id="qs-verdict">Skorlar yükleniyor...</p>
+          </div>
+        </div>
+        <div class="qs-players" id="qs-players"></div>
+        <div class="qs-recent" id="qs-recent"></div>
+      </div>
+
       <div class="wishlist-grid" id="quiz-list">
         <div class="empty-state">
           <div class="reel"></div>
           <p class="text-sm">Testler yükleniyor...</p>
         </div>
       </div>
+    </div>
+
+    <!-- ═══════ 36 SORU ═══════ -->
+    <div id="quiz-qa-view" class="qa-wrap" style="display:none;">
+      <p class="qa-intro">Birbirinize yaklaştıran 36 soru. Sırayla ikiniz de cevaplayın; acele yok, telefonlar kenara 💞</p>
+      <div class="flex flex-wrap justify-center gap-2" id="qa-sets"></div>
+      <div class="qa-card" id="qa-card" aria-live="polite"></div>
+      <div class="qa-progress"><div class="qa-fill" id="qa-fill"></div></div>
+      <div class="qa-nav">
+        <button type="button" class="btn btn-quiet" id="qa-prev"><ion-icon name="arrow-back-outline"></ion-icon> Önceki</button>
+        <span class="numeric text-muted" id="qa-count"></span>
+        <button type="button" class="btn btn-primary" id="qa-next">Sonraki</button>
+      </div>
+      <button type="button" class="qa-restart" id="qa-restart">Baştan başla</button>
     </div>
 
     <!-- ═══════ OLUŞTUR GÖRÜNÜMÜ ═══════ -->
@@ -73,6 +103,13 @@
         <button id="quiz-play-close" class="btn btn-quiet btn-icon" aria-label="Kapat">
           <ion-icon name="close-outline" class="text-xl"></ion-icon>
         </button>
+      </div>
+      <div class="qs-solver">
+        <span class="field-label">Kim çözüyor?</span>
+        <div class="lx-segment" role="group" aria-label="Çözen kişi">
+          <button type="button" class="lx-seg-btn is-active" data-solver="Yasemin">🌸 Yasemin</button>
+          <button type="button" class="lx-seg-btn" data-solver="Kağan">👑 Kağan</button>
+        </div>
       </div>
       <div class="modal-body" id="quiz-play-body"></div>
       <div class="modal-footer">

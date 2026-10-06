@@ -1,0 +1,76 @@
+<section id="ozel-gunler-page" class="page-section active">
+  <div class="love-page-container">
+
+    <!-- ═══════════ SIRADAKİ ÖZEL GÜN ═══════════ -->
+    <div class="sd-hero" id="sd-hero">
+      <div class="sd-hero-inner">
+        <div class="reel"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════ DOĞUM GÜNLERİ ═══════════ -->
+    <div>
+      <h2 class="lx-section-title">Doğum Günleri 🎂</h2>
+      <div class="grid gap-3 sm:grid-cols-2" id="sd-birthdays"></div>
+    </div>
+
+    <!-- ═══════════ YAKLAŞANLAR ═══════════ -->
+    <div>
+      <div class="lx-section-head">
+        <h2 class="lx-section-title">Yaklaşan Özel Günlerimiz</h2>
+        <button type="button" class="btn btn-ghost btn-sm" id="sd-add-btn">
+          <ion-icon name="add-outline"></ion-icon> Özel Gün Ekle
+        </button>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-3" role="group" aria-label="Filtre" id="sd-filters">
+        <button class="chip is-active" data-sd-filter="all">Hepsi</button>
+        <button class="chip" data-sd-filter="us">Bizim Günlerimiz</button>
+        <button class="chip" data-sd-filter="date">Buluşmalar</button>
+        <button class="chip" data-sd-filter="memory">Anılar</button>
+      </div>
+      <div class="lx-list" id="sd-list"></div>
+      <p class="lx-hint">
+        <ion-icon name="calendar-outline"></ion-icon>
+        Takvim simgesine dokununca etkinlik telefonunun takvimine hatırlatmasıyla eklenir.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════════ ÖZEL GÜN EKLE ═══════════ -->
+  <div class="modal-overlay" id="sd-modal">
+    <div class="modal max-w-[460px]">
+      <div class="modal-header">
+        <h3 class="modal-title flex items-center gap-2">
+          <ion-icon name="star" class="text-primary"></ion-icon> Özel Gün Ekle
+        </h3>
+        <button class="btn btn-quiet btn-icon" id="sd-modal-close" aria-label="Kapat">
+          <ion-icon name="close-outline" class="text-xl"></ion-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label class="field-label" for="sd-title">Ne kutluyoruz?</label>
+          <input id="sd-title" class="input" placeholder="Örn: İlk tatilimizin yıl dönümü">
+        </div>
+        <div class="grid gap-4 sm:grid-cols-[1fr_110px]">
+          <div class="field">
+            <label class="field-label" for="sd-date">Tarih</label>
+            <input id="sd-date" type="date" class="input">
+          </div>
+          <div class="field">
+            <label class="field-label" for="sd-emoji">Emoji</label>
+            <input id="sd-emoji" class="input text-center" maxlength="4" placeholder="⭐">
+          </div>
+        </div>
+        <label class="lx-check">
+          <input type="checkbox" id="sd-yearly" checked>
+          <span>Her yıl tekrar etsin</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <span id="sd-status" class="mr-auto text-sm"></span>
+        <button class="btn btn-primary" id="sd-save">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</section>

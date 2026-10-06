@@ -1,5 +1,7 @@
 import { db, collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs, doc, getDoc, setDoc } from '../firebase-config.js';
-import { esc } from '../utils.js';
+import { esc, toast } from '../utils.js';
+import { lettersForMood } from '../love/letters-data.js';
+import { genitive } from '../love/shared.js';
 
 export async function initializeGenelBakisLogic() {
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -136,6 +138,13 @@ export async function initializeGenelBakisLogic() {
         if (moodStatus) {
           moodStatus.innerHTML = `<span class="text-ok"><ion-icon name="checkmark-circle-outline"></ion-icon> Harika! ${personName}'in bugünkü modu <b>"${esc(moodText)}"</b> olarak kaydedildi.</span>`;
         }
+
+        // Bu ana mühürlenmiş bir mektup varsa haber ver (Love › Mektuplar).
+        lettersForMood(personName, selectedMood).then(letters => {
+          if (letters.length) {
+            toast(`${genitive(letters[0].from)} sana tam bu an için bir mektubu var: "${letters[0].title}". Love › Mektuplar'dan aç 💌`, '💌', 9000);
+          }
+        });
         
       } catch (error) {
         console.error('Mood kaydedilirken hata:', error);

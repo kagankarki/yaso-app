@@ -1,0 +1,67 @@
+<section id="ozen-page" class="page-section active">
+  <div class="flex flex-col gap-5">
+
+    <!-- Durum -->
+    <div class="oz-hero" id="oz-hero">
+      <span class="oz-hero-moon" aria-hidden="true">🌙</span>
+      <span class="oz-hero-kicker">Özen Takvimim</span>
+      <h1 class="oz-hero-title" id="oz-status-title">Yükleniyor…</h1>
+      <p class="oz-hero-sub" id="oz-status-sub"></p>
+      <div class="oz-hero-bar"><div class="oz-hero-fill" id="oz-fill"></div></div>
+    </div>
+
+    <!-- Takvim -->
+    <div class="grid gap-4 md:grid-cols-2" id="oz-months"></div>
+
+    <div class="grid gap-4 md:grid-cols-[1.2fr_1fr]">
+      <!-- Kendine iyi bak -->
+      <div class="card oz-card">
+        <h2 class="oz-card-title">Bu hafta kendine iyi bak 💗</h2>
+        <ul class="oz-tips">
+          <li><span>🫖</span> Sıcak bir bitki çayı ve sıcak su torbası</li>
+          <li><span>🍫</span> Canın ne çekiyorsa: bitter çikolata, muz, sevdiğin tatlı</li>
+          <li><span>🛁</span> Uzun, sıcak bir duş ya da banyo</li>
+          <li><span>🧘‍♀️</span> Hafif esneme ya da kısa bir yürüyüş</li>
+          <li><span>😴</span> Erken uyku; kendine yüklenmek yok</li>
+          <li><span>🎬</span> Sevdiğin bir dizi + battaniye</li>
+        </ul>
+        <div class="oz-ask">
+          <span class="field-label">Kağan'dan iste</span>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="chip" data-oz-ask="simartilma">🍫 Şımart beni</button>
+            <button type="button" class="chip" data-oz-ask="sarilma">🤗 Sarıl bana</button>
+            <button type="button" class="chip" data-oz-ask="bakim">💆‍♀️ Bana bak</button>
+            <button type="button" class="chip" data-oz-ask="alan">🛋️ Biraz alan</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ayarlar -->
+      <div class="card oz-card">
+        <h2 class="oz-card-title">Ayarlar</h2>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="field">
+            <label class="field-label" for="oz-start">Başlangıç (ayın kaçı)</label>
+            <input id="oz-start" type="number" class="input" min="1" max="28">
+          </div>
+          <div class="field">
+            <label class="field-label" for="oz-length">Kaç gün sürer</label>
+            <input id="oz-length" type="number" class="input" min="3" max="10">
+          </div>
+        </div>
+        <label class="lx-check mt-3">
+          <input type="checkbox" id="oz-share">
+          <span>Kağan özen haftasını Love'da görsün</span>
+        </label>
+        <p class="oz-privacy">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          Bu takvim sadece Daily'de. Kağan yalnızca "özen haftası" bandını görür; başka detay görmez.
+        </p>
+        <div class="flex items-center justify-between gap-3">
+          <span id="oz-status" class="text-sm"></span>
+          <button type="button" class="btn btn-primary btn-sm" id="oz-save">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

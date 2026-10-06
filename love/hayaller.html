@@ -1,0 +1,68 @@
+<section id="hayaller-page" class="page-section active">
+  <div class="love-page-container">
+
+    <div class="love-hero-banner">
+      <div class="bg-floating-heart heart-top-left">✨</div>
+      <div class="bg-floating-heart heart-bottom-right">🏡</div>
+      <h1 class="love-hero-title">Hayal Panomuz ✨</h1>
+      <p class="love-hero-subtitle" id="dr-hero-sub">Birlikte kuracağımız hayatın panosu. Gerçekleşen her hayal Zaman Tüneli'ne anı olarak düşer.</p>
+    </div>
+
+    <div class="lx-section-head">
+      <div class="flex flex-wrap gap-2" id="dr-filters" role="group" aria-label="Filtre">
+        <button class="chip is-active" data-dr-filter="all">Hepsi</button>
+        <button class="chip" data-dr-filter="open">Hayal ediyoruz</button>
+        <button class="chip" data-dr-filter="done">Gerçekleşti 🎉</button>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm" id="dr-new-btn">
+        <ion-icon name="add-outline"></ion-icon> Hayal Ekle
+      </button>
+    </div>
+
+    <div class="dr-progress card-flat" id="dr-progress" hidden></div>
+
+    <div class="dr-board" id="dr-board">
+      <div class="empty-state"><div class="reel"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ HAYAL EKLE ═══════════ -->
+  <div class="modal-overlay" id="dr-modal">
+    <div class="modal max-w-[520px]">
+      <div class="modal-header">
+        <h3 class="modal-title flex items-center gap-2"><ion-icon name="sparkles" class="text-primary"></ion-icon> Hayal Ekle</h3>
+        <button class="btn btn-quiet btn-icon" data-close aria-label="Kapat"><ion-icon name="close-outline" class="text-xl"></ion-icon></button>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <span class="field-label">Kategori</span>
+          <div class="flex flex-wrap gap-2" id="dr-cats"></div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="dr-title">Hayalimiz</label>
+          <input id="dr-title" class="input" maxlength="60" placeholder="Örn: Paris'te gün batımı">
+        </div>
+        <div class="field">
+          <label class="field-label" for="dr-desc">Biraz anlat <span class="text-faint">(isteğe bağlı)</span></label>
+          <textarea id="dr-desc" class="textarea" style="min-height:80px" placeholder="Eyfel'in önünde kruvasan, sonra Seine kıyısında yürüyüş…"></textarea>
+        </div>
+        <div class="field">
+          <span class="field-label">Görsel <span class="text-faint">(isteğe bağlı)</span></span>
+          <div class="flex flex-wrap items-center gap-3">
+            <button type="button" class="btn btn-ghost btn-sm" id="dr-photo-btn"><ion-icon name="image-outline"></ion-icon> Fotoğraf Seç</button>
+            <input type="file" id="dr-photo" accept="image/*" hidden>
+            <img id="dr-photo-preview" class="dr-photo-preview" alt="" hidden>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="dr-target">Hedef zaman <span class="text-faint">(isteğe bağlı)</span></label>
+          <input id="dr-target" class="input" maxlength="30" placeholder="Örn: 2027 yazı">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span id="dr-status" class="mr-auto text-sm"></span>
+        <button class="btn btn-primary" id="dr-save"><ion-icon name="sparkles"></ion-icon> Panoya As</button>
+      </div>
+    </div>
+  </div>
+</section>

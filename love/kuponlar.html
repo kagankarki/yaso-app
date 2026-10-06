@@ -1,0 +1,79 @@
+<section id="kuponlar-page" class="page-section active">
+  <div class="love-page-container">
+
+    <div class="love-hero-banner">
+      <div class="bg-floating-heart heart-top-left">🎟️</div>
+      <div class="bg-floating-heart heart-bottom-right">💋</div>
+      <h1 class="love-hero-title">Aşk Kupon Defteri 🎟️</h1>
+      <p class="love-hero-subtitle">Kesip sakla, istediğin an kullan. Kullanınca karşı tarafa anında haber gider!</p>
+    </div>
+
+    <div class="lx-section-head">
+      <div class="lx-segment" role="tablist">
+        <button class="lx-seg-btn is-active" data-cp-tab="active">Kullanılabilir</button>
+        <button class="lx-seg-btn" data-cp-tab="used">Kullanılanlar</button>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm" id="cp-new-btn">
+        <ion-icon name="add-outline"></ion-icon> Kupon Hazırla
+      </button>
+    </div>
+
+    <div class="flex flex-wrap gap-2" role="group" aria-label="Kimin kuponları">
+      <button class="chip is-active" data-cp-owner="all">Hepsi</button>
+      <button class="chip" data-cp-owner="Yasemin">🌸 Yasemin'in kuponları</button>
+      <button class="chip" data-cp-owner="Kağan">👑 Kağan'ın kuponları</button>
+    </div>
+
+    <div class="cp-grid" id="cp-grid">
+      <div class="empty-state"><div class="reel"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ KUPON HAZIRLA ═══════════ -->
+  <div class="modal-overlay" id="cp-modal">
+    <div class="modal max-w-[520px]">
+      <div class="modal-header">
+        <h3 class="modal-title flex items-center gap-2"><ion-icon name="ticket" class="text-primary"></ion-icon> Kupon Hazırla</h3>
+        <button class="btn btn-quiet btn-icon" data-close aria-label="Kapat"><ion-icon name="close-outline" class="text-xl"></ion-icon></button>
+      </div>
+      <div class="modal-body">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="field-label">Hazırlayan</span>
+          <div class="lx-segment" id="cp-from">
+            <button type="button" class="lx-seg-btn" data-person="Kağan">👑 Kağan</button>
+            <button type="button" class="lx-seg-btn" data-person="Yasemin">🌸 Yasemin</button>
+          </div>
+          <span class="text-sm text-muted" id="cp-to-label"></span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Hazır fikirler</span>
+          <div class="flex flex-wrap gap-2" id="cp-templates"></div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-[1fr_90px]">
+          <div class="field">
+            <label class="field-label" for="cp-title">Kupon</label>
+            <input id="cp-title" class="input" maxlength="50" placeholder="Örn: Yatakta kahvaltı">
+          </div>
+          <div class="field">
+            <label class="field-label" for="cp-emoji">Emoji</label>
+            <input id="cp-emoji" class="input text-center" maxlength="4" placeholder="🥐">
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="cp-desc">Açıklama <span class="text-faint">(isteğe bağlı)</span></label>
+          <input id="cp-desc" class="input" maxlength="120" placeholder="Örn: Pazar sabahı, kahve dahil ☕">
+        </div>
+        <div class="field">
+          <label class="field-label" for="cp-count">Kaç adet?</label>
+          <input id="cp-count" type="number" class="input" min="1" max="10" value="1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span id="cp-status" class="mr-auto text-sm"></span>
+        <button class="btn btn-primary" id="cp-save"><ion-icon name="gift"></ion-icon> Kuponu Ver</button>
+      </div>
+    </div>
+  </div>
+</section>

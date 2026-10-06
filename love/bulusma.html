@@ -1,0 +1,80 @@
+<section id="bulusma-page" class="page-section active">
+  <div class="love-page-container">
+
+    <!-- Hero -->
+    <div class="love-hero-banner">
+      <div class="bg-floating-heart heart-top-left">📍</div>
+      <div class="bg-floating-heart heart-bottom-right">💑</div>
+      <h1 class="love-hero-title">Buluşma Planla 💌</h1>
+      <p class="love-hero-subtitle" id="dt-hero-sub">Gününü, saatini, yerini seç; gerisini birlikte hayal edelim.</p>
+    </div>
+
+    <!-- ═══════════ PLAN FORMU ═══════════ -->
+    <div class="card dt-form">
+      <div class="field">
+        <span class="field-label">Ne yapıyoruz?</span>
+        <div class="flex flex-wrap gap-2" id="dt-categories" role="group" aria-label="Kategori"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="dt-title">Başlık</label>
+        <input id="dt-title" class="input" placeholder="Örn: Sushi akşamı 🍣">
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="field">
+          <label class="field-label" for="dt-date">Gün</label>
+          <input id="dt-date" type="date" class="input">
+        </div>
+        <div class="field">
+          <label class="field-label" for="dt-time">Saat</label>
+          <input id="dt-time" type="time" class="input" value="19:00">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="dt-place">Yer</label>
+        <div class="dt-place-wrap">
+          <ion-icon name="location-outline" class="dt-place-icon"></ion-icon>
+          <input id="dt-place" class="input" placeholder="Örn: Kuğulu Park, Ankara">
+        </div>
+        <a id="dt-map-preview" class="dt-map-link" target="_blank" rel="noopener" hidden>
+          <ion-icon name="map-outline"></ion-icon> Haritada kontrol et
+        </a>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="dt-note">Not <span class="text-faint">(isteğe bağlı)</span></label>
+        <textarea id="dt-note" class="textarea" style="min-height:84px" placeholder="Örn: Kırmızı elbiseni giy 😍"></textarea>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+        <div class="flex items-center gap-2">
+          <span class="field-label">Planlayan</span>
+          <div class="lx-segment" role="group" aria-label="Planlayan">
+            <button type="button" class="lx-seg-btn is-active" data-dt-by="Yasemin">🌸 Yasemin</button>
+            <button type="button" class="lx-seg-btn" data-dt-by="Kağan">👑 Kağan</button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" id="dt-save">
+          <ion-icon name="heart"></ion-icon> Buluşmayı Kaydet
+        </button>
+      </div>
+      <p id="dt-status" class="text-sm" role="status"></p>
+    </div>
+
+    <!-- ═══════════ YAKLAŞANLAR ═══════════ -->
+    <div>
+      <h2 class="lx-section-title">Yaklaşan Buluşmalarımız</h2>
+      <div class="flex flex-col gap-3" id="dt-upcoming">
+        <div class="empty-state"><div class="reel"></div></div>
+      </div>
+    </div>
+
+    <!-- ═══════════ GEÇMİŞ ═══════════ -->
+    <div id="dt-past-wrap" hidden>
+      <h2 class="lx-section-title">Anılarımız · Nasıldı? 💭</h2>
+      <div class="flex flex-col gap-3" id="dt-past"></div>
+    </div>
+  </div>
+</section>

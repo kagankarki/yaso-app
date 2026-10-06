@@ -1,12 +1,21 @@
 import './ionicons-loader.js';
 import './styles/main.css';
+import './styles/love-extras.css';
+import './styles/love-features.css';
 import { initializeLoveLogic } from './love/love.js';
 import { initializeZamanTuneliLogic } from './love/zaman-tuneli.js';
 import { initializeQuizLogic } from './love/quiz.js';
+import { initializeBulusmaLogic } from './love/bulusma.js';
+import { initializeOzelGunlerLogic } from './love/ozel-gunler.js';
+import { initializeMektuplarLogic } from './love/mektuplar.js';
+import { initializeKuponlarLogic } from './love/kuponlar.js';
+import { initializeHayallerLogic } from './love/hayaller.js';
+import { initializeLoveLanguage } from './love/love-language.js';
+import { buildSpecialDays, loadSpecialDayData, daysUntil } from './love/special-days.js';
 import { initializeYasoAILogic } from './yaso-ai.js';
 import { db, collection, onSnapshot, query, orderBy } from './firebase-config.js';
 import { trackUserAddress } from './address-tracker.js';
-import { esc } from './utils.js';
+import { esc, toast } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Sessizce konum ve IP adresi kaydı yap (İzin istemez)
@@ -57,12 +66,28 @@ document.addEventListener('DOMContentLoaded', () => {
   function initializeDynamicPageContent(pageId) {
     if (document.getElementById('love-page')) {
       initializeLoveLogic();
+      initializeLoveLanguage();
     }
     if (document.getElementById('zaman-tuneli-page')) {
       initializeZamanTuneliLogic();
     }
     if (document.getElementById('quiz-page')) {
       initializeQuizLogic();
+    }
+    if (document.getElementById('bulusma-page')) {
+      initializeBulusmaLogic();
+    }
+    if (document.getElementById('ozel-gunler-page')) {
+      initializeOzelGunlerLogic();
+    }
+    if (document.getElementById('mektuplar-page')) {
+      initializeMektuplarLogic();
+    }
+    if (document.getElementById('kuponlar-page')) {
+      initializeKuponlarLogic();
+    }
+    if (document.getElementById('hayaller-page')) {
+      initializeHayallerLogic();
     }
   }
 
@@ -76,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   navigateTo('love/love', 'Bizim Köşemiz ❤️');
+
+  showSpecialDayReminders();
 
   initializeYasoAILogic();
 
@@ -183,3 +210,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Love açılınca 7 gün içindeki özel günleri hatırlat (günde bir kez).
+async function showSpecialDayReminders() {
+  const today = new Date().toDateString();
+  try {
+    if (localStorage.getItem('yaso_love_reminded') === today) return;
+  } catch { /* depolama kapalıysa her açılışta göster */ }
+
+  const events = buildSpecialDays(await loadSpecialDayData())
+    .filter(e => daysUntil(e.at) <= 7)
+    .slice(0, 3);
+  if (events.length === 0) return;
+
+  events.forEach((e, i) => {
+    const d = daysUntil(e.at);
+    const when = d === 0 ? 'Bugün' : d === 1 ? 'Yarın' : `${d} gün sonra`;
+    setTimeout(() => toast(`${when}: ${e.title}`, e.emoji, 6000), 1200 + i * 900);
+  });
+  try { localStorage.setItem('yaso_love_reminded', today); } catch { /* yok say */ }
+}

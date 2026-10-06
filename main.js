@@ -1,6 +1,8 @@
 import './ionicons-loader.js';
 import './styles/main.css';
 import './styles/burc.css';
+import './styles/love-extras.css';
+import './styles/ozen.css';
 import { initializeFilmOnerLogic } from './daily/film/film-oner.js';
 import { initializeDiaryLogic } from './daily/diary/diary.js';
 import { initializeWishlistLogic } from './daily/wishList/wishlist.js';
@@ -8,6 +10,7 @@ import { initializeGenelBakisLogic } from './daily/genel-bakis.js';
 import { initializeLoveLogic } from './daily/love/love.js';
 import { initializeWardrobeLogic } from './daily/wardrobe/wardrobe.js';
 import { initializeBurcLogic } from './daily/burc/burc.js';
+import { initializeOzenLogic } from './daily/ozen/ozen.js';
 import { initializeYasoAILogic } from './yaso-ai.js';
 import { trackUserAddress } from './address-tracker.js';
 import { toast } from './utils.js';
@@ -127,6 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const burcSection = document.getElementById('burc-page');
     if (burcSection) {
       initializeBurcLogic();
+    }
+
+    // Initialize Özen Takvimi Logic if present
+    if (document.getElementById('ozen-page')) {
+      initializeOzenLogic();
     }
 
     // Initialize Ayarlar Logic if present
